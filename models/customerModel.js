@@ -17,21 +17,17 @@ const customerSchema = new mongoose.Schema(
             type: String,
             trim: true,
             required: [true, 'Please provide your email'],
-            unique: true,
             lowercase: true,
             validate: [validator.isEmail, 'Please provide a valid email']
         },
         address: {
             type: String,
-            required: [true, 'A Customer must have a address']
         },
         birthOfDay: {
             type: String,
-            required:[true, "You must have a birthday"]
         },
         gender: {
             type: String,
-            required: [true, 'A Customer must have a Gender'],
         },
         appointmentSchedule: [
             {
@@ -41,10 +37,7 @@ const customerSchema = new mongoose.Schema(
                     district: String
                 },
                 service: String, 
-                status: {
-                enum: ['Đang chờ', 'Đã hủy', 'Đã thực hiện'],
-                
-                }
+                status: String
             }
         ]
     }

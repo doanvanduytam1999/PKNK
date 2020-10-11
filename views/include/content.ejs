@@ -7,7 +7,7 @@
             <p>Quý khách vui lòng để lại thông tin</p>
         </div>
           <div class="card shadow from">
-            <form action="/datlich" method="POST" enctype="multipart/form-data">
+            <form action="/datlich" method="POST" enctype="application/x-www-form-urlencoded">
               <div class="from-data">
                 <input type="text" name="username" placeholder="Nhập tên..." required>
                 
@@ -25,26 +25,26 @@
               <div class="from-data">
                 <select id="id_name" name="service">
                   <option value="0">Chọn dịch vụ...</option>
-                  <option value="3">Bọc răng xứ</option>
-                  <option value="4">Niền răng</option>
-                  <option value="5">Tẩy trắng răng</option>
-                  <option value="6">Khác</option>
+                  <option value="Bọc răng xứ">Bọc răng xứ</option>
+                  <option value="Niền răng">Niền răng</option>
+                  <option value="Tẩy trắng răng">Tẩy trắng răng</option>
+                  <option value="Khác">Khác</option>
                   
                 </select>
                 <select id="id_name" name="city">
                   <option value="0">Chọn thành phố...</option>
-                  <option value="3">Hà Nội</option>
-                  <option value="4">Hồ Chí Minh</option>
-                  <option value="5">Đồng Tháp</option>
-                  <option value="6">Bạc Liêu</option>
+                  <option value="Hà Nội">Hà Nội</option>
+                  <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                  <option value="Đồng Tháp">Đồng Tháp</option>
+                  <option value="Bạc Liêu">Bạc Liêu</option>
                 </select>
                 <select id="id_name" name="district">
                   <option value="0">Chọn chi nhánh...</option>
-                  <option value="3">Quận 8</option>
-                  <option value="4">Quận 7</option>
-                  <option value="5">Quận 3</option>
-                  <option value="6">Quận 2</option>
-                  <option value="7">Quận 1</option>
+                  <option value="Quận 8">Quận 8</option>
+                  <option value="Quận 7">Quận 7</option>
+                  <option value="Quận 3">Quận 3</option>
+                  <option value="Quận 2">Quận 2</option>
+                  <option value="Quận 1">Quận 1</option>
                 </select>
               </div>
               <div class="from-data">
