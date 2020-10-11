@@ -13,7 +13,7 @@ exports.getHomePage = (req, res, next) => {
 exports.postDatLich = catchAsync(async(req, res, next) => {
     const cu = req.body;
     console.log(cu);
-    const result = await CustomerModel.find({phoneNumber: req.body.phoneNumber});
+    /* const result = await CustomerModel.find({phoneNumber: req.body.phoneNumber});
     if(!result)
     {
         const customer = await CustomerModel.create({
@@ -54,5 +54,6 @@ exports.postDatLich = catchAsync(async(req, res, next) => {
             runValidators: true
         })
     } 
-   res.redirect('/');
+   res.redirect('/'); */
+   res.send(cu);
 });
