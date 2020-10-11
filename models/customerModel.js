@@ -33,7 +33,20 @@ const customerSchema = new mongoose.Schema(
             type: String,
             required: [true, 'A Customer must have a Gender'],
         },
-        appointmentSchedule: [{time: Date, agency: String}]
+        appointmentSchedule: [
+            {
+                time: Date,
+                agency: {
+                    city: String,
+                    district: String
+                },
+                service: String, 
+                status: {
+                enum: ['Đang chờ', 'Đã hủy', 'Đã thực hiện'],
+                
+                }
+            }
+        ]
     }
 );
 

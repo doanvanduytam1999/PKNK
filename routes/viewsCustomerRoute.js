@@ -7,6 +7,6 @@ const { check, body } = require('express-validator');
 const router = express.Router();
 
 router.get('/', viewsCustomerController.getHomePage);
-//router.post('/datlich', viewsCustomerController.postDatLich);
+router.post('/datlich', viewsCustomerController.postDatLich);
 
 module.exports = router;
