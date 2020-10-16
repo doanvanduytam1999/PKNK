@@ -5,7 +5,7 @@ const CustomerModel = require('../models/customerModel');
 const { isEmptyObject } = require('jquery');
 
 exports.getHomePage = (req, res, next) => {
-    res.status(200).render('khachhang/index', {
+    res.status(200).render('admin/admin', {
         pageTitle: 'HomePage',
         patch: '/'
     })
