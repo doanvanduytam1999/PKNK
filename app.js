@@ -49,7 +49,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Routes
 app.use('/', viewsCustomerRoute);
-app.use('/admin', viewsAdminRoute );
+app.use('/admin', viewsAdminRoute);
 
 //Catch 404 Erros and forward them to error handler
 app.use((req, res, next) => {

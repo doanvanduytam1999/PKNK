@@ -5,11 +5,19 @@ const CustomerModel = require('../models/customerModel');
 
 
 exports.getHomePage = (req, res, next) => {
-    res.status(200).render('admin/admin', {
+    res.status(200).render('customer/index', {
         pageTitle: 'HomePage',
         patch: '/'
     })
 };
+
+exports.getThongTin = (req, res, next) => {
+    res.status(200).render('customer/thongtin', {
+        pageTitle: 'ThongTin',
+        patch: '/thongtin'
+    })
+};
+
 
 exports.postDatLich = catchAsync(async(req, res, next) => {
     

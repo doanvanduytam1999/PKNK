@@ -25,47 +25,22 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <% Service[0].serviceItems.forEach(function(element) { %>
                   <tr>
                     <th scope="row">
-                        <input type="text" class="input_data" name="">
+                      <input type="text" class="input_data" name="" value="<%= element.name %>">
                     </th>
                     <td>
-                      <input type="text" class="input_data" name="">
+                      <input type="text" class="input_data" name="" value="<%= element.unit %>">
                     </td>
                     <td>
-                      <input type="text" class="input_data" name="">
+                      <input type="text"  class="input_data" name="" value="<%= element.price %>">
                     </td>
                     <td>
-                      <input type="text" class="input_data" name="">
+                      <input type="text" class="input_data" name="" value="<%= element.guarantee %>">
                     </td>
                   </tr>
-                  <tr>
-                    <th scope="row">
-                      <input type="text" class="input_data" name="">
-                    </th>
-                    <td>
-                      <input type="text" class="input_data" name="">
-                    </td>
-                    <td><input type="text" class="input_data" name="">
-                    </td>
-                    <td>
-                      <input type="text" class="input_data" name="">
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <input type="text" class="input_data" name="">
-                    </th>
-                    <td>
-                      <input type="text" class="input_data" name="">
-                    </td>
-                    <td>
-                      <input type="text"  class="input_data" name="">
-                    </td>
-                    <td>
-                      <input type="text" class="input_data" name="">
-                    </td>
-                  </tr>
+                  <% }); %>
                 </tbody>
               </table>
             

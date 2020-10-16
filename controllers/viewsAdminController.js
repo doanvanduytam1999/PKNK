@@ -2,7 +2,7 @@ const catchAsync = require('../utils/catchAsync');
 const UserAdminModel = require('../models/userAdminModel');
 const ServiceModel = require('../models/serviceModel');
 
-exports.postSerice = catchAsync(async(req, res, next) => {
+exports.postService = catchAsync(async(req, res, next) => {
     const service = await ServiceModel.create({
         serviceName: "DỊCH VỤ GHÉP XƯƠNG",
         serviceItems: [
@@ -26,3 +26,19 @@ exports.postSerice = catchAsync(async(req, res, next) => {
 
     res.send("oke!");
 })
+
+exports.getLogin = (req, res, next) => {
+    res.status(200).render('admin/login',{
+        pageTitle: 'Login',
+        patch: '/login'
+    })
+};
+
+exports.getEditService = catchAsync(async(req, res, next) => {
+    const service = await ServiceModel.find();
+    res.status(200).render('admin/admin',{
+        Service : service,
+        pageTitle: 'Dashboah',
+        patch: '/dashboah'
+    })
+});
