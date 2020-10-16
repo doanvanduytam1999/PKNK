@@ -2,7 +2,7 @@ const catchAsync = require('../utils/catchAsync');
 const { validationResult } = require('express-validator');
 const { patch } = require('../app');
 const CustomerModel = require('../models/customerModel');
-const { isEmptyObject } = require('jquery');
+
 
 exports.getHomePage = (req, res, next) => {
     res.status(200).render('admin/admin', {
