@@ -2,7 +2,7 @@ const catchAsync = require('../utils/catchAsync');
 const { validationResult } = require('express-validator');
 const { patch } = require('../app');
 const CustomerModel = require('../models/customerModel');
-
+const ServiceModel = require('../models/serviceModel');
 
 exports.getHomePage = (req, res, next) => {
     res.status(200).render('customer/index', {
@@ -10,6 +10,15 @@ exports.getHomePage = (req, res, next) => {
         patch: '/'
     })
 };
+
+exports.getPriceList = catchAsync(async(req, res, next) => {
+    const service = await ServiceModel.find();
+    res.status(200).render('customer/price-list', {
+        Service : service,
+        pageTitle: 'Bang gia',
+        patch: '/price-list'
+    })
+});
 
 exports.getThongTin = (req, res, next) => {
     res.status(200).render('customer/thongtin', {

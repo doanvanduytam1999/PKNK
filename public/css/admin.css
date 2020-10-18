@@ -5,4 +5,9 @@
 }
 .btn{
   float: right;
+  margin-left: 20px;
+}
+.title{
+  font-size: 30px;
+  font-weight: bold;
 }

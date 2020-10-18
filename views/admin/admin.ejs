@@ -1,7 +1,5 @@
 <%- include('../include/header') %>
-<style>
 
-</style>
 </head>
 <body>
   <%- include('../include/menu') %>
@@ -10,7 +8,8 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header">
+          <div class="card-header text-center title">
+            
             Chỉnh sửa dịch vụ Răng sứ thẩm mĩ
           </div>
           <div class="card-body">
@@ -24,7 +23,7 @@
                     <th scope="col">Bảo hành</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody class="tbody">
                   <% Service[0].serviceItems.forEach(function(element) { %>
                   <tr>
                     <th scope="row">
@@ -41,10 +40,12 @@
                     </td>
                   </tr>
                   <% }); %>
+                  
                 </tbody>
               </table>
-            
               <button type="submit" class="btn btn-success">Cập nhật</button>
+              <button type="button" class="btn btn-primary" onclick="addService()" > Thêm dịch vụ</button>
+              <button type="button" class="btn btn-danger" onclick="deleteService()" > Xoá dịch vụ</button>
             </form>
           </div>
         </div>
