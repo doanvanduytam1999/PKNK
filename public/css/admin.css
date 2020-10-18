@@ -24,3 +24,13 @@
   border: 0px;
 
 }
+.btn-delete{
+  float: right;
+}
+.card{
+width: 100%;
+border: 0px;
+}
+.table{
+width: 1300px;
+}
