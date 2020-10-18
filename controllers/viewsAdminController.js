@@ -35,11 +35,12 @@ exports.getLogin = (req, res, next) => {
 };
 
 exports.getEditService = catchAsync(async(req, res, next) => {
-    const option = req.body;
-    console.log(option);
+    const option = req.params.index;
+    
     const service = await ServiceModel.find();
     res.status(200).render('admin/editService',{
-        Service : service,
+        ServiceItem : service[option],
+        Service: service,
         pageTitle: 'editService',
         patch: '/dichvu'
     })
