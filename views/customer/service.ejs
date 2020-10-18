@@ -38,21 +38,17 @@
                     </tr>
                   </thead>
                   <tbody class="tbody" >
-                    <% Service[0].serviceItems.forEach(function(element) { %>
-                    <tr>
-                      <th scope="row">
-                        <%= element.name %>
-                      </th>
-                      <td>
-                        <%= element.unit %>
-                      </td>
-                      <td>
-                        <%= element.price %>
-                      </td>
-                      <td>
-                        <%= element.guarantee %>
-                      </td>
-                    </tr>
+                    <% Service.forEach(function(element) { %>
+                      <th colspan="4" class="text-center"><%= element.serviceName %></th>
+                      <% element.serviceItems.forEach(function(temp) { %>
+                        <tr>
+                          <td><%= temp.name %></td>
+                          <td><%= temp.unit %></td>
+                          <td><%= temp.price %></td>
+                          <td><%= temp.guarantee %></td>
+                        </tr>
+                        
+                      <% }); %>
                     <% }); %>
                     
                   </tbody>

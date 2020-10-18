@@ -6,6 +6,7 @@
   <%- include('../include/navagation') %>
   <div class="main-container">
     <div class="row">
+      <form action="/admin/add-Service" method="POST" enctype="application/x-www-form-urlencoded">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header text-center title">
@@ -13,7 +14,7 @@
             Thêm dịch vụ mới
           </div>
           <div class="card-body">
-            <h3 >Tên dịch vụ mới <input type="text" class="input_ten text-center"></h3>
+            <h3 >Tên dịch vụ mới <input type="text" class="input_ten text-center" name="servicename"></h3>
             <form> 
               <table class="table table-bordered" >
                 <thead>
@@ -28,23 +29,23 @@
                   
                   <tr  class="collection-item" >
                     <th scope="row" onload="add()">
-                      <input type="text" class="input_data" name="dichvu" value="">
+                      <input type="text" class="input_data" name="dichvu" >
                     </th>
                     <td>
-                      <input type="text" class="input_data" name="donvi" value="">
+                      <input type="text" class="input_data" name="donvi" >
                     </td>
                     <td>
-                      <input type="text"  class="input_data" name="gia" value="">
+                      <input type="text"  class="input_data" name="gia" >
                     </td>
                     <td>
-                      <input type="text" class="input_data" name="baohanh" value="">
-                      
+                      <input type="text" class="input_data" name="baohanh" >
+                    </td>
+                    <td>
+                      <a class="delete-item secondary-content remove"><i class="fas fa-trash-alt"></i></a>
                     </td>
                    
                   </tr>
-                  
-                  
-                  
+  
                 </tbody>
                 
               </table>
@@ -55,6 +56,7 @@
           </div>
         </div>
       </div>
+    </form>
     </div>
   </div>
   <%- include('../include/script') %>

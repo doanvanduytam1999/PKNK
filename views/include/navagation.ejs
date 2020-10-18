@@ -5,7 +5,7 @@
           <p>KaCa</p>
       </center>
       <li class="item">
-          <a href="/admin/admin" class="menu-btn">
+          <a href="/admin/dashboard" class="menu-btn">
               <i class="fas fa-desktop"></i><span>Dashboard</span>
           </a>
       </li>
@@ -14,15 +14,15 @@
               <i class="fas fa-user-circle"></i><span>Dịch vụ<i class="fas fa-chevron-down drop-down"></i></span>
           </a>
           <div class="sub-menu">
-            <%= i = 0; %>
+          <div hidden><%= i = 0; %></div>
             <% Service.forEach(function(element) { %>
               <a href="/admin/edit-Service/<%= i %>" ><i class="fas fa-image"></i><span><%= element.serviceName %></span></a>
-              <%= i++; %>
+              <div hidden><%= i++; %></div>
             <% }); %>
           </div>
           <div class="sub-menu">
             
-              <a href="/admin/add-Service/<%= -1 %>" ><i class="fas fa-image"></i><span>Thêm dịch vụ</span></a>
+              <a href="/admin/add-Service" ><i class="fas fa-image"></i><span>Thêm dịch vụ</span></a>
             
           </div>
       </li>

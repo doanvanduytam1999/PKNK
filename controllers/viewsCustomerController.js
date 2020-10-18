@@ -11,12 +11,13 @@ exports.getHomePage = (req, res, next) => {
     })
 };
 
-exports.getPriceList = catchAsync(async(req, res, next) => {
+exports.getService = catchAsync(async(req, res, next) => {
     const service = await ServiceModel.find();
-    res.status(200).render('customer/price-list', {
+    console.log(service);
+    res.status(200).render('customer/service', {
         Service : service,
-        pageTitle: 'Bang gia',
-        patch: '/price-list'
+        pageTitle: 'Service',
+        patch: '/service'
     })
 });
 

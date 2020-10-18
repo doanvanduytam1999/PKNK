@@ -6,15 +6,21 @@
   <%- include('../include/navagation') %>
   <div class="main-container">
     <div class="row">
+      <form action="/admin/deleteService/<%= ServiceItem.id  %>" method="POST" enctype="application/x-www-form-urlencoded">
+        <button type="submit" class="btn btn-success">Xóa dịch vụ</button>
+      </form>
+
+      <form action="/admin/edit-Service/<%= index %>" method="POST" enctype="application/x-www-form-urlencoded">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header text-center title">
             
-            Chỉnh sửa dịch vụ <input type="text" value="<%=  %>"> 
+            Chỉnh sửa dịch vụ <input type="text" name="servicename" value="<%= ServiceItem.serviceName %>"> 
+            <input hidden type="text" value="<%= ServiceItem.id %>"  name="id">
+            
           </div>
           <div class="card-body">
-            <form> 
-              <button type="button" class="btn btn-danger"> Xoá dịch vụ</button>                                       
+
               <table class="table table-bordered" >
                 <thead>
                   <tr>
@@ -53,10 +59,11 @@
               <button type="submit" class="btn btn-success">Cập nhật</button>
               <button type="button" class="btn btn-primary" onclick="addService()" > Thêm</button>
              
-            </form>
+            
           </div>
         </div>
       </div>
+    </form>
     </div>
   </div>
   <%- include('../include/script') %>

@@ -10,8 +10,9 @@ const router = express.Router();
 router.get('/', viewsCustomerController.getHomePage);
 router.post('/datlich', viewsCustomerController.postDatLich);
 router.get('/thongtin', viewsCustomerController.getThongTin);
+router.get('/service', viewsCustomerController.getService);
 
 
-router.get('/price-list', viewsCustomerController.getPriceList);
+//router.get('/price-list', viewsCustomerController.getPriceList);
 
 module.exports = router;
