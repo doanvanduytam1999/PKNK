@@ -11,5 +11,7 @@ const router = express.Router();
 
 router.get('/', viewsAdminController.getLogin);
 router.get('/edit-Service', viewsAdminController.getEditService);
-
+router.get('/admin', viewsAdminController.getAdmin);
+router.get('/add-Service', viewsAdminController.getAddService);
+//router.post('edit-Service', viewsAdminController.postEditService);
 module.exports = router;

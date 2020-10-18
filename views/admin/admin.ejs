@@ -4,53 +4,6 @@
 <body>
   <%- include('../include/menu') %>
   <%- include('../include/navagation') %>
-  <div class="main-container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header text-center title">
-            
-            Chỉnh sửa dịch vụ Răng sứ thẩm mĩ
-          </div>
-          <div class="card-body">
-            <form action="" method="post" enctype="multipart/form-data">
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th scope="col">Dịch vụ</th>
-                    <th scope="col">Đơn vị</th>
-                    <th scope="col">Giá</th>
-                    <th scope="col">Bảo hành</th>
-                  </tr>
-                </thead>
-                <tbody class="tbody">
-                  <% Service[0].serviceItems.forEach(function(element) { %>
-                  <tr>
-                    <th scope="row">
-                      <input type="text" class="input_data" name="" value="<%= element.name %>">
-                    </th>
-                    <td>
-                      <input type="text" class="input_data" name="" value="<%= element.unit %>">
-                    </td>
-                    <td>
-                      <input type="text"  class="input_data" name="" value="<%= element.price %>">
-                    </td>
-                    <td>
-                      <input type="text" class="input_data" name="" value="<%= element.guarantee %>">
-                    </td>
-                  </tr>
-                  <% }); %>
-                  
-                </tbody>
-              </table>
-              <button type="submit" class="btn btn-success">Cập nhật</button>
-              <button type="button" class="btn btn-primary" onclick="addService()" > Thêm dịch vụ</button>
-              <button type="button" class="btn btn-danger" onclick="deleteService()" > Xoá dịch vụ</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+ 
   <%- include('../include/script') %>
   <%- include('../include/end') %>

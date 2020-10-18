@@ -1,0 +1,61 @@
+<%- include('../include/header') %>
+
+</head>
+<body >
+  <%- include('../include/menu') %>
+  <%- include('../include/navagation') %>
+  <div class="main-container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header text-center title">
+            
+            Thêm dịch vụ mới
+          </div>
+          <div class="card-body">
+            <h3 >Tên dịch vụ mới <input type="text" class="input_ten text-center"></h3>
+            <form> 
+              <table class="table table-bordered" >
+                <thead>
+                  <tr>
+                    <th scope="col">Dịch vụ</th>
+                    <th scope="col">Đơn vị</th>
+                    <th scope="col">Giá</th>
+                    <th scope="col">Bảo hành</th>
+                  </tr>
+                </thead>
+                <tbody class="tbody collection">
+                  
+                  <tr  class="collection-item" >
+                    <th scope="row" onload="add()">
+                      <input type="text" class="input_data" name="dichvu" value="">
+                    </th>
+                    <td>
+                      <input type="text" class="input_data" name="donvi" value="">
+                    </td>
+                    <td>
+                      <input type="text"  class="input_data" name="gia" value="">
+                    </td>
+                    <td>
+                      <input type="text" class="input_data" name="baohanh" value="">
+                      
+                    </td>
+                   
+                  </tr>
+                  
+                  
+                  
+                </tbody>
+                
+              </table>
+              <button type="submit" class="btn btn-success">Thêm dịch vụ</button>
+              <button type="button" class="btn btn-primary" onclick="addService()" > Thêm</button>
+             
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%- include('../include/script') %>
+  <%- include('../include/end') %>

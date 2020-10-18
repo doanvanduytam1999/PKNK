@@ -3,11 +3,24 @@
   height: 40px;
   font-size: 24px;
 }
+.input_ten{
+  width: 500px;
+  height: 40px;
+  font-size: 24px;
+}
 .btn{
   float: right;
   margin-left: 20px;
+  margin-bottom: 20px;
 }
 .title{
   font-size: 30px;
   font-weight: bold;
+}
+
+.remove{
+  font-size: 25px;
+  color: black;
+  border: 0px;
+
 }

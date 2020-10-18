@@ -35,10 +35,29 @@ exports.getLogin = (req, res, next) => {
 };
 
 exports.getEditService = catchAsync(async(req, res, next) => {
+    const option = req.body;
+    console.log(option);
+    const service = await ServiceModel.find();
+    res.status(200).render('admin/editService',{
+        Service : service,
+        pageTitle: 'editService',
+        patch: '/dichvu'
+    })
+});
+exports.getAdmin = catchAsync(async(req, res, next) => {
     const service = await ServiceModel.find();
     res.status(200).render('admin/admin',{
         Service : service,
-        pageTitle: 'Dashboah',
-        patch: '/dashboah'
+        pageTitle: 'Admin',
+        patch: '/admin'
+    })
+});
+
+exports.getAddService = catchAsync(async(req, res, next) => {
+    const service = await ServiceModel.find();
+    res.status(200).render('admin/addService',{
+        Service : service,
+        pageTitle: 'AddService',
+        patch: '/addService'
     })
 });
