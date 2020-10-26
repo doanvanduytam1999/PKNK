@@ -38,7 +38,7 @@ exports.getLogin = (req, res, next) => {
 
 exports.getEditService = catchAsync(async(req, res, next) => {
     const option = req.params.index;
-    
+
     const service = await ServiceModel.find();
     res.status(200).render('admin/editService',{
         index: option,

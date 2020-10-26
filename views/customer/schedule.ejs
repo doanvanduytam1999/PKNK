@@ -1,0 +1,79 @@
+
+<%- include('../include/header_customer') %>
+<link rel="stylesheet" href="/css/content.css">
+
+</head>
+<body>
+  <%- include('../include/menu_customer') %> 
+  <div class="container-fluid">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="text-content">
+              <h2>Đặt Lịch Hẹn</h2>
+              <p>Quý khách vui lòng để lại thông tin</p>
+          </div>
+            <div class="card shadow from">
+              <form action="/datlich" method="POST" enctype="application/x-www-form-urlencoded">
+                <div class="from-data">
+                  <input type="text" name="username" placeholder="Nhập tên..." required>
+                  
+                </div>
+                <div class="from-data">
+                  <input type="text" name="phoneNumber" placeholder="Nhập số điện thoại..." required>
+                </div>
+                <div class="from-data">
+                  <input type="text" name="email"  placeholder="Nhập gmail..." required>
+                </div>
+                <div class="from-data" >
+                  <input type="text" name="time"  id="start" placeholder="Chọn lịch hẹn...">
+                    
+                </div>
+                <div class="from-data">
+                  <select id="id_name" name="service">
+                    <option value="0">Chọn dịch vụ...</option>
+                    <option value="Bọc răng xứ">Bọc răng xứ</option>
+                    <option value="Niền răng">Niền răng</option>
+                    <option value="Tẩy trắng răng">Tẩy trắng răng</option>
+                    <option value="Khác">Khác</option>
+                    
+                  </select>
+                  <select id="id_name" name="city">
+                    <option value="0">Chọn thành phố...</option>
+                    <option value="Hà Nội">Hà Nội</option>
+                    <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                    <option value="Đồng Tháp">Đồng Tháp</option>
+                    <option value="Bạc Liêu">Bạc Liêu</option>
+                  </select>
+                  <select id="id_name" name="district">
+                    <option value="0">Chọn chi nhánh...</option>
+                    <option value="Quận 8">Quận 8</option>
+                    <option value="Quận 7">Quận 7</option>
+                    <option value="Quận 3">Quận 3</option>
+                    <option value="Quận 2">Quận 2</option>
+                    <option value="Quận 1">Quận 1</option>
+                  </select>
+                </div>
+                <div class="from-data">
+                  <input type="text" placeholder="Ghi chú... ">
+                </div>
+                <button class="btn-danger" type="submit">Đặt Lịch</button>
+               </div>
+              </form>
+            </div>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+     
+  <%- include('../include/footer') %>
+  <%- include('../include/script') %>
+  <%- include('../include/end') %>
+
+
+
+
+  
+
