@@ -10,7 +10,8 @@ const router = express.Router();
 router.get('/', viewsCustomerController.getServiceHome);
 router.get('/get-schedule', viewsCustomerController.getSchedule);
 router.get('/get-schedule', viewsCustomerController.getServiceHome);
-
+router.get('/login', viewsCustomerController.getLogin);
+router.get('/sign-in', viewsCustomerController.getSignin);
 router.post('/datlich', viewsCustomerController.postDatLich);
 router.get('/thongtin', viewsCustomerController.getThongTin);
 router.get('/service', viewsCustomerController.getService);

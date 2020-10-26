@@ -57,7 +57,22 @@ exports.getThongTin = (req, res, next) => {
         patch: '/thongtin'
     })
 };
-
+exports.getSignin = catchAsync(async(req, res, next) => {
+    const service = await ServiceModel.find();
+    res.status(200).render('customer/sign-in_customer', {
+        Service : service,
+        pageTitle: 'Đăng kí',
+        patch: '/sign-in'
+    })
+});
+exports.getLogin = catchAsync(async(req, res, next) => {
+    const service = await ServiceModel.find();
+    res.status(200).render('customer/login_customer', {
+        Service : service,
+        pageTitle: 'Đăng Nhập',
+        patch: '/login'
+    })
+});
 
 exports.postDatLich = catchAsync(async(req, res, next) => {
     
