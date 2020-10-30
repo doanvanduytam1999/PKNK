@@ -34,3 +34,49 @@ border: 0px;
 .table{
 width: 1300px;
 }
+
+.card-body a{
+  text-decoration: none;
+}
+.card-body a p{
+  font-size: 30px;
+  color: #000;
+  background: #f3f3f3;
+  height: 60px;
+  border-radius: 10px;
+  line-height: 60px;
+  padding-left: 20px;
+}
+.card-body a p:hover{
+  background: darkgray;
+  transition: 0.7s;
+}
+.card a {
+ text-decoration: none; 
+ font-size: 20px;
+ 
+ color: #000;
+ width: 200px;
+ height: 50px;  
+}
+
+.btn{
+  
+  color: black;
+  width: 200px;
+  border-radius: 10px;
+  height: 50px;   
+  line-height: 40px;
+  background:  #21dd72;
+  font-weight: bolder;
+  display: flex;
+  flex-direction: row-reverse;
+  padding-right: 30px;
+}
+
+.btn:hover{
+  background:#1ab65e;
+  color: #fff;
+  transition: 1s;
+}
+

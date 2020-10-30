@@ -13,6 +13,7 @@ router.get('/', viewsAdminController.getLogin);
 router.get('/edit-Service/:index', viewsAdminController.getEditService);
 router.get('/dashboard', viewsAdminController.getDashboard);
 router.get('/add-Service', viewsAdminController.getAddService);
+router.get('/service', viewsAdminController.getService);
 router.post('/edit-Service/:index', viewsAdminController.postEditService);
 router.post('/deleteService/:id', viewsAdminController.postDeleteService);
 router.post('/add-Service', viewsAdminController.postAddService);

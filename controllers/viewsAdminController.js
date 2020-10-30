@@ -48,6 +48,14 @@ exports.getEditService = catchAsync(async(req, res, next) => {
         patch: '/edit-Service'
     })
 });
+exports.getService= catchAsync(async(req, res, next) => {
+    const service = await ServiceModel.find();
+    res.status(200).render('admin/service',{
+        Service : service,
+        pageTitle: 'Service',
+        patch: '/service'
+    })
+}); 
 exports.getDashboard = catchAsync(async(req, res, next) => {
     const service = await ServiceModel.find();
     res.status(200).render('admin/dashboard',{
