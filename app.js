@@ -12,6 +12,11 @@ const xss = require('xss-clean');
 
 const viewsCustomerRoute = require('./routes/viewsCustomerRoute');
 const viewsAdminRoute = require('./routes/viewsAdminRoute');
+const AppError = require('././utils/appError');
+const customerRouter = require('./routes/customerRouter');
+const userAdminRouter = require('./routes/userAdminRouter');
+const axios = require('axios');
+
 
 
 
@@ -27,7 +32,7 @@ if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
   }
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(mongoSanitize());
 
 app.use(
@@ -50,6 +55,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Routes
 app.use('/', viewsCustomerRoute);
 app.use('/admin', viewsAdminRoute);
+app.use('/api/v1/Customers', customerRouter);
+//app.use('/api/v1/userAdmins', userAdminRouter);
 
 //Catch 404 Erros and forward them to error handler
 app.use((req, res, next) => {

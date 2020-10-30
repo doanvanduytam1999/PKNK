@@ -1,7 +1,7 @@
 const catchAsync = require('../utils/catchAsync');
 const { validationResult } = require('express-validator');
 const { patch } = require('../app');
-const CustomerModel = require('../models/customerModel');
+const CustomerModel = require('../models/userCustomerModel');
 const ServiceModel = require('../models/serviceModel');
 
 
@@ -31,7 +31,6 @@ exports.getService = catchAsync(async(req, res, next) => {
 });
 exports.getServiceHome = catchAsync(async(req, res, next) => {
     const service = await ServiceModel.find();
-    console.log(service);
     res.status(200).render('customer/index', {
         Service : service,
         pageTitle: 'Service',
@@ -100,7 +99,7 @@ exports.postDatLich = catchAsync(async(req, res, next) => {
         })
     }
     else
-    {   console.log(req.body);
+    {   
         const temp = {
             time: req.body.time,
             agency: {
@@ -119,3 +118,14 @@ exports.postDatLich = catchAsync(async(req, res, next) => {
     }  
    res.redirect('/');
 });
+
+exports.postAddCustomer = catchAsync(async(req, res, next) => {
+    const customer = await CustomerModel.create({
+        username: "tom123456",
+        email:"tamxu17@gmail.com",
+        password:"tam123456",
+        passwordConfirm:"tam123456",
+        phone:"0333833407"
+    })
+    res.send("oke!");
+})

@@ -1,6 +1,6 @@
 const express = require('express');
 const viewsCustomerController = require('../controllers/viewsCustomerController');
-const customer = require('../models/customerModel');
+const customer = require('../models/userCustomerModel');
 const { check, body } = require('express-validator');
 const { route } = require('./viewsAdminRoute');
 
@@ -17,5 +17,4 @@ router.get('/thongtin', viewsCustomerController.getThongTin);
 router.get('/service', viewsCustomerController.getService);
 router.get('/get-services/:index', viewsCustomerController.getServiceCustomer);
 //router.get('/price-list', viewsCustomerController.getPriceList);
-
 module.exports = router;
