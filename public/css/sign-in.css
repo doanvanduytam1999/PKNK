@@ -48,9 +48,46 @@ input[type=submit]{
   color: #fff;
   transition: 1s;
 }
-input[type=submit]:hover{
+button[type=submit]{
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 0;
+  margin-top: 30px;
+  outline: none;
+  border: none;
+  background: #60adde;
+  border-radius: 20px;
+  font-size: 20px;
+  color: #fff;
+  transition: 1s;
+}
+button[type=submit]:hover{
   background:#335f7a;
 
 }
+
+.alert {
+  position: fixed;
+  bottom: 0;
+  left: 83%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 400;
+  text-align: center;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  
+  -webkit-box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.25);
+}
+.alert--success {
+  background-color: #20bf6b;
+}
+.alert--error {
+  background-color: #eb4d4b;
+}
+
 
 

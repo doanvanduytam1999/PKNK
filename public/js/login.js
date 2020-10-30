@@ -14,14 +14,14 @@ export const login =  (username, password) => {
         })
         .then(res => {
             if (res.data.status === "success") {
-                showAlert('success', 'Logged in successfully');
+                showAlert('success', 'Đăng nhập thành công !!!');
                 window.setTimeout(() => {
                     location.assign('/')
                 }, 1500);
             }
         })
         .catch(err => {
-            showAlert('error', err.response.data.message);
+            showAlert('error','Đăng nhập thất bại !!!');
         })
 }
 

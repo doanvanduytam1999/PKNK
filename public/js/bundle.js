@@ -8436,13 +8436,13 @@ var login = function login(username, password) {
     }
   }).then(function (res) {
     if (res.data.status === "success") {
-      (0, _alert.showAlert)('success', 'Logged in successfully');
+      (0, _alert.showAlert)('success', 'Đăng nhập thành công !!!');
       window.setTimeout(function () {
         location.assign('/');
       }, 1500);
     }
   }).catch(function (err) {
-    (0, _alert.showAlert)('error', err.response.data.message);
+    (0, _alert.showAlert)('error', 'Đăng nhập thất bại !!!');
   });
 };
 /* export const logout = async() => {
@@ -8920,7 +8920,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62378" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57277" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
