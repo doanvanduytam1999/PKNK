@@ -32,6 +32,7 @@ if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
   }
 
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(mongoSanitize());
 

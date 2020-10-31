@@ -14,6 +14,7 @@ exports.getHomePage = (req, res, next) => {
 };
 exports.getSchedule =catchAsync(async(req, res, next) => {
     const service = await ServiceModel.find();
+    
     res.status(200).render('customer/schedule', {
         Service : service,
         pageTitle: 'Đặt lịch',

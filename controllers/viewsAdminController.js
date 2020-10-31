@@ -11,6 +11,7 @@ exports.postService = catchAsync(async(req, res, next) => {
             {name: "Nâng Xoang Hở",
             unit: "",
             price: "7,000,000 VNĐ",
+            
             guarantee: "3 năm"
             },
             {name: "Nâng Xoang Kín",
