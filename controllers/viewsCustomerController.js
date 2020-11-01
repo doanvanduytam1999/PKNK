@@ -15,9 +15,10 @@ exports.getHomePage = (req, res, next) => {
 };
 exports.getSchedule = catchAsync(async (req, res, next) => {
     const service = await ServiceModel.find();
-
+    const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     res.status(200).render('customer/schedule', {
         Service: service,
+        KiemTralogin : kiemTralogin,
         pageTitle: 'Đặt lịch',
         patch: '/schedule'
     })
@@ -63,16 +64,20 @@ exports.getThongTin = (req, res, next) => {
 };
 exports.getSignin = catchAsync(async (req, res, next) => {
     const service = await ServiceModel.find();
+    const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     res.status(200).render('customer/sign-in_customer', {
         Service: service,
+        KiemTralogin : kiemTralogin,
         pageTitle: 'Đăng kí',
         patch: '/sign-in'
     })
 });
 exports.getLogin = catchAsync(async (req, res, next) => {
     const service = await ServiceModel.find();
+    const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     res.status(200).render('customer/login_customer', {
         Service: service,
+        KiemTralogin : kiemTralogin,
         pageTitle: 'Đăng Nhập',
         patch: '/login'
     })

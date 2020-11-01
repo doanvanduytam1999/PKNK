@@ -100,4 +100,15 @@ nav ul li a i{
   background: #F00;
   border-radius: 5px;
 }
+.dropdown-item{
+  text-transform: none;
+}
+.btn_logout{
+  text-transform: none;
 
+}
+.btn_logout:hover{
+  text-decoration: none;
+  background: #f3f3f3;
+  color: #000;
+}

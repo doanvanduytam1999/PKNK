@@ -31,8 +31,26 @@
       <a class="item-menu schedule" href="/get-schedule">Đặt lịch hẹn</a>
     </li>
     <li>
+      <% if( KiemTralogin == 'No'){ %>
+        <a class="item-menu" href="/login">Đăng nhập/Đăng kí</a>
+        <% }else{%>
+          <div class="dropdown">
+            <a class="btn_logout dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Xin chào <%= KiemTralogin %>
+            </a>
+          
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="#">Thông tin tài khoản</a>
+              <div class="dropdown-divider"></div>
+
+              <a class="dropdown-item" href="#">Log out</a>
+            </div>
+          </div>
+
+        <% } %>
+
+
       
-      <a class="item-menu" href="/login">Đăng nhập/Đăng kí</a>
     </li>
   </ul>
 

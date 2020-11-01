@@ -1,5 +1,6 @@
 import '@babel/polyfill';
 import { login } from './login';
+import {book} from './book';
 
 //import { updateSettings } from './updateSettings';
 //import { addAdmin } from './addAdmin';
