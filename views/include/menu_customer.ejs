@@ -36,14 +36,14 @@
         <% }else{%>
           <div class="dropdown">
             <a class="btn_logout dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Xin chào <%= KiemTralogin %>
+              Xin chào <%= KiemTralogin.username %>
             </a>
           
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
               <a class="dropdown-item" href="#">Thông tin tài khoản</a>
               <div class="dropdown-divider"></div>
 
-              <a class="dropdown-item" href="#">Log out</a>
+              <button type="button" class="logout dropdown-item" >Log out</button>
             </div>
           </div>
 
