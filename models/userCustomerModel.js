@@ -4,6 +4,7 @@ const validator = require('validator');
 const bcrypt = require('bcryptjs');
 
 const userCustomerSchema = new mongoose.Schema({
+    hovaten: String,
     username: {
         type: String,
         required: [true, 'Please tell us your name']
@@ -19,7 +20,7 @@ const userCustomerSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please provide a password'],
         minlength: 8,
-        select: true
+        select: false
       },
       phone: String,
       passwordConfirm: {
@@ -33,6 +34,15 @@ const userCustomerSchema = new mongoose.Schema({
           message: 'Passwords are not the same!'
         }
       },
+      appointment:[{
+        service: String,
+        city: String,
+        district: String,
+        agency: String,
+        time: Date,
+        note: String,
+        status: String
+      }],
       passwordChangedAt: Date,
       passwordResetToken: String,
       passwordResetExpires: Date,

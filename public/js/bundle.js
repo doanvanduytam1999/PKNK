@@ -8417,13 +8417,17 @@ exports.showAlert = showAlert;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.login = void 0;
+exports.logout = exports.login = void 0;
 
 var _axios = _interopRequireDefault(require("axios"));
 
 var _alert = require("./alert");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 var login = function login(username, password) {
   var url = 'http://localhost:4000/api/v1/Customers/login';
@@ -8445,22 +8449,52 @@ var login = function login(username, password) {
     (0, _alert.showAlert)('error', 'Đăng nhập thất bại !!!');
   });
 };
-/* export const logout = async() => {
-    try {
-        const res = await axios({
-            method: 'GET',
-            url: 'http://127.0.0.1:3000/api/v1/userAdmins/logout',
-        });
-        if(res.data.status === 'success') {
-            location.assign('/admin');
-        }
-    }catch(err) {
-        showAlert('error', 'Error loggin out! try again')
-    }
-} */
-
 
 exports.login = login;
+
+var logout = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    var res;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            _context.next = 3;
+            return (0, _axios.default)({
+              method: 'GET',
+              url: 'http://localhost:4000/api/v1/Customers/logout'
+            });
+
+          case 3:
+            res = _context.sent;
+
+            if (res.data.status === 'success') {
+              location.assign('/');
+            }
+
+            _context.next = 10;
+            break;
+
+          case 7:
+            _context.prev = 7;
+            _context.t0 = _context["catch"](0);
+            (0, _alert.showAlert)('error', 'Error loggin out! try again');
+
+          case 10:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[0, 7]]);
+  }));
+
+  return function logout() {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+exports.logout = logout;
 },{"axios":"../../node_modules/axios/index.js","./alert":"alert.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
@@ -8734,8 +8768,8 @@ var _login = require("./login");
  } from './student'; */
 //DOM ELEMENT
 var loginForm = document.querySelector('.form-login');
-/* const logOutBtn = document.querySelector('.logout');
-const adminDataForm = document.querySelector('.form-admin-data');
+var logOutBtn = document.querySelector('.logout');
+/*const adminDataForm = document.querySelector('.form-admin-data');
 const adminPasswordForm = document.querySelector('.form-admin-password');
 const addAdminForm = document.querySelector('.form-add-admin');
 const editPhotoStudentForm = document.querySelector('.form-edit-photo-student');
@@ -8756,11 +8790,13 @@ if (loginForm) {
 }
 
 ;
-/* if(logOutBtn) {
-    logOutBtn.addEventListener('click', logout);
-};
 
+if (logOutBtn) {
+  logOutBtn.addEventListener('click', _login.logout);
+}
 
+;
+/*
 if (adminDataForm) {
     adminDataForm.addEventListener('submit', e => {
         e.preventDefault();
@@ -8920,7 +8956,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50147" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58133" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

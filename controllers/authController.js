@@ -33,7 +33,7 @@ exports.isLoggedIn2 = async(cookieA) => {
       }
 
       // THERE IS A LOGGED IN USER
-      return  currentUser.username;
+      return  currentUser;
       
     } catch (err) {
       //return next();
@@ -89,7 +89,7 @@ exports.login = catchAsync(async (req, res, next) => {
     return next(new AppError('Vui lòng cung cấp username and password!', 400));
   }
   //2) check if user exist and passowrd is correct
-  const userAdmin = await UserCustomer.findOne({ 'username': username });
+  const userAdmin = await UserCustomer.findOne({ 'username': username }).select('+password');
   console.log(userAdmin);
   if (!userAdmin || !(await userAdmin.correctPassword(password, userAdmin.password))) {
     return next(new AppError('Không đúng username hoặc password, vui lòng kiểm tra lại thông tin', 401));
@@ -130,7 +130,7 @@ exports.isLoggedIn = async (req, res, next) => {
     }
   }
   //res.redirect('/admin');
-  next();
+  res.redirect('/login');
 };
 
 // viết hàm isLoggedIn trả về 1 giá trị yes or no ( dựa vào cookie ) sau khi trả res về thì viết even load cho page ẩn hiện tên đăng nhập/ đăng ký

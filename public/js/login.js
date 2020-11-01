@@ -25,16 +25,16 @@ export const login =  (username, password) => {
         })
 }
 
-/* export const logout = async() => {
+export const logout = async() => {
     try {
         const res = await axios({
             method: 'GET',
-            url: 'http://127.0.0.1:3000/api/v1/userAdmins/logout',
+            url: 'http://localhost:4000/api/v1/Customers/logout',
         });
         if(res.data.status === 'success') {
-            location.assign('/admin');
+            location.assign('/');
         }
     }catch(err) {
         showAlert('error', 'Error loggin out! try again')
     }
-} */
+}
