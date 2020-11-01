@@ -13,7 +13,7 @@ html,body{
   margin: 20px 25px;
 }
 .from-data input{
-  width: 620px;
+  width: 650px;
   height: 50px;
   padding: 0 10px;
 }
@@ -22,7 +22,7 @@ html,body{
   line-height: 3;
 }
 .from-data select{
-  width: 205px;
+  width: 160px;
   height: 50px;
   padding: 0 10px;
 }
@@ -32,7 +32,7 @@ html,body{
 }
 .from{
   margin-left: 200px;
-  width: 700px;
+  width: 710px;
   height: 300px;
   color: antiquewhite;
 }
