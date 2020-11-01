@@ -25,9 +25,10 @@ exports.getSchedule = catchAsync(async (req, res, next) => {
 });
 exports.getService = catchAsync(async (req, res, next) => {
     const service = await ServiceModel.find();
-
+    const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     res.status(200).render('customer/service', {
         Service: service,
+        KiemTralogin : kiemTralogin,
         pageTitle: 'Service',
         patch: '/service'
     })
@@ -35,7 +36,7 @@ exports.getService = catchAsync(async (req, res, next) => {
 exports.getServiceHome = catchAsync(async (req, res, next) => {
     const service = await ServiceModel.find();
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
-    console.log(kiemTralogin);
+    
     res.status(200).render('customer/index', {
         Service: service,
         KiemTralogin : kiemTralogin,
@@ -45,10 +46,11 @@ exports.getServiceHome = catchAsync(async (req, res, next) => {
 });
 exports.getServiceCustomer = catchAsync(async (req, res, next) => {
     const option = req.params.index;
-
+    const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     const service = await ServiceModel.find();
     res.status(200).render('customer/services', {
         index: option,
+        KiemTralogin: kiemTralogin,
         ServiceItem: service[option],
         Service: service,
         pageTitle: 'Service'
@@ -57,6 +59,7 @@ exports.getServiceCustomer = catchAsync(async (req, res, next) => {
 });
 
 exports.getThongTin = (req, res, next) => {
+
     res.status(200).render('customer/thongtin', {
         pageTitle: 'ThongTin',
         patch: '/thongtin'
@@ -84,56 +87,39 @@ exports.getLogin = catchAsync(async (req, res, next) => {
 });
 
 exports.postDatLich = catchAsync(async (req, res, next) => {
+    const id = req.body.id;
+    const userCustomer = await CustomerModel.findById(id);
+    const temp = userCustomer.appointment;
+    temp.push({
+        service: req.body.service,
+        city: req.body.city,
+        district: req.body.district,
+        agency: req.body.agency,
+        time: req.body.time,
+        note: req.body.note,
+        status: "Đang chờ"
+    })
 
-    const result = await CustomerModel.find({ phoneNumber: req.body.phoneNumber });
-
-    if (result.length == 0) {
-        const customer = await CustomerModel.create({
-            username: req.body.username,
-            phoneNumber: req.body.phoneNumber,
-            email: req.body.email,
-            address: "",
-            birthOfDay: "",
-            gender: "",
-            appointmentSchedule: [{
-                time: req.body.time,
-                agency: {
-                    city: req.body.city,
-                    district: req.body.district
-                },
-                service: req.body.service,
-                status: "Đang chờ"
-            }]
-
-        })
+    const customer = await CustomerModel.findByIdAndUpdate(id,{
+        appointment: temp
     }
-    else {
-        const temp = {
-            time: req.body.time,
-            agency: {
-                city: req.body.city,
-                district: req.body.district
-            },
-            service: req.body.service,
-            status: "Đang chờ"
-        }
-
-        const customer = await CustomerModel.findByIdAndUpdate(
-            { _id: result[0].id },
-            { $push: { appointmentSchedule: temp } }
-
-        );
-    }
-    res.redirect('/');
+    ,{
+        new: true,
+        runValidators: true
+    });
+    res.redirect('/get-schedule');
 });
 
 exports.postAddCustomer = catchAsync(async (req, res, next) => {
     const customer = await CustomerModel.create({
-        username: "tom123456",
-        email: "tamxu17@gmail.com",
-        password: "tam123456",
-        passwordConfirm: "tam123456",
-        phone: "0333833407"
+        hovaten: req.body.hovaten,
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password,
+        passwordConfirm: req.body.passwordConfirm,
+        phone: req.body.phone,
+        appointment:[],
+
     })
-    res.send("oke!");
+    res.status(200).redirect('/login');
 })

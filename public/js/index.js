@@ -1,6 +1,9 @@
 import '@babel/polyfill';
+
 import { login } from './login';
-import {book} from './book';
+
+
+import { login, logout } from './login';
 
 //import { updateSettings } from './updateSettings';
 //import { addAdmin } from './addAdmin';
@@ -15,8 +18,8 @@ import {book} from './book';
  
 //DOM ELEMENT
 const loginForm = document.querySelector('.form-login');
-/* const logOutBtn = document.querySelector('.logout');
-const adminDataForm = document.querySelector('.form-admin-data');
+const logOutBtn = document.querySelector('.logout');
+/*const adminDataForm = document.querySelector('.form-admin-data');
 const adminPasswordForm = document.querySelector('.form-admin-password');
 const addAdminForm = document.querySelector('.form-add-admin');
 const editPhotoStudentForm = document.querySelector('.form-edit-photo-student');
@@ -37,11 +40,11 @@ if (loginForm) {
 };
 
 
-/* if(logOutBtn) {
+if(logOutBtn) {
     logOutBtn.addEventListener('click', logout);
 };
 
-
+/*
 if (adminDataForm) {
     adminDataForm.addEventListener('submit', e => {
         e.preventDefault();
