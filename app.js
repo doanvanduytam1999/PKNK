@@ -15,7 +15,7 @@ const viewsAdminRoute = require('./routes/viewsAdminRoute');
 const AppError = require('././utils/appError');
 const customerRouter = require('./routes/customerRouter');
 const userAdminRouter = require('./routes/userAdminRouter');
-const axios = require('axios');
+const cookieParser = require('cookie-parser');
 
 
 
@@ -36,6 +36,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(mongoSanitize());
 
+app.use(cookieParser());
 app.use(
     session({
       secret: 'my secret',

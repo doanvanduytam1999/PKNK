@@ -1,5 +1,6 @@
 import '@babel/polyfill';
 import { login } from './login';
+
 //import { updateSettings } from './updateSettings';
 //import { addAdmin } from './addAdmin';
 /* import { 
@@ -33,6 +34,7 @@ if (loginForm) {
         login(username, password);
     });
 };
+
 
 /* if(logOutBtn) {
     logOutBtn.addEventListener('click', logout);

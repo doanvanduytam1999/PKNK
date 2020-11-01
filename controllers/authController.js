@@ -4,13 +4,44 @@ const UserCustomer = require('../models/userCustomerModel');
 const factory = require('./handlerFactory');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const { cookie } = require('express-validator');
 
 const signToken = id => {
-    return jwt.sign( { id }, process.env.JWT_SECRET, {
-        expiresIn: process.env.JWT_EXPIRES_IN
-    });
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN
+  });
 };
 
+exports.isLoggedIn2 = async(cookieA) => {
+  if (cookieA) {
+    try {
+      // 1) verify token
+      const decoded = await promisify(jwt.verify)(
+        cookieA,
+        process.env.JWT_SECRET
+      );
+
+      // 2) Check if user still exists
+      const currentUser = await UserCustomer.findById(decoded.id);
+      if (!currentUser) {
+        return next();
+      }
+
+      // 3) Check if user changed password after the token was issued
+      if (currentUser.changedPasswordAfter(decoded.iat)) {
+        return next();
+      }
+
+      // THERE IS A LOGGED IN USER
+      return  currentUser.username;
+      
+    } catch (err) {
+      //return next();
+      return "No";
+    }
+  }
+  return "No";  
+}
 //Create and send token
 
 const createSendToken = (user, statusCode, res) => {
@@ -33,7 +64,7 @@ const createSendToken = (user, statusCode, res) => {
     status: 'success',
     token,
     data: {
-      user : user
+      user: user
     }
   });
 };
@@ -49,23 +80,23 @@ exports.logout = (req, res) => {
 };
 
 //Login
-exports.login = catchAsync(async(req, res, next) => {
-    const username = req.body.username;
-    const password = req.body.password;
-    console.log(username, password);
-    //check if username & password exists
-    if (!username || !password) {
-        return next(new AppError('Vui lòng cung cấp username and password!', 400));
-    }
-    //2) check if user exist and passowrd is correct
-    const userAdmin = await UserCustomer.findOne({ 'username': username });
-    console.log(userAdmin);
-    if(!userAdmin || !(await userAdmin.correctPassword(password, userAdmin.password))) {
-        return next(new AppError('Không đúng username hoặc password, vui lòng kiểm tra lại thông tin', 401));
-    }
-    //3) If everything Ok
+exports.login = catchAsync(async (req, res, next) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  console.log(username, password);
+  //check if username & password exists
+  if (!username || !password) {
+    return next(new AppError('Vui lòng cung cấp username and password!', 400));
+  }
+  //2) check if user exist and passowrd is correct
+  const userAdmin = await UserCustomer.findOne({ 'username': username });
+  console.log(userAdmin);
+  if (!userAdmin || !(await userAdmin.correctPassword(password, userAdmin.password))) {
+    return next(new AppError('Không đúng username hoặc password, vui lòng kiểm tra lại thông tin', 401));
+  }
+  //3) If everything Ok
 
-    createSendToken(userAdmin, 200, res);
+  createSendToken(userAdmin, 200, res);
 });
 
 //Protect if user not login do not permiss access
@@ -91,7 +122,7 @@ exports.isLoggedIn = async (req, res, next) => {
       }
 
       // THERE IS A LOGGED IN USER
-     res.locals.user = currentUser;
+      res.locals.user = currentUser;
       return next();
     } catch (err) {
       //return next();
@@ -102,6 +133,8 @@ exports.isLoggedIn = async (req, res, next) => {
   next();
 };
 
+// viết hàm isLoggedIn trả về 1 giá trị yes or no ( dựa vào cookie ) sau khi trả res về thì viết even load cho page ẩn hiện tên đăng nhập/ đăng ký
+
 exports.protectUserCustomer = factory.protect(UserCustomer);
 
 //Allow user for access route
@@ -109,7 +142,7 @@ exports.restrictTo = (...roles) => {
   return (req, res, next) => {
     const role = req.user.role;
     console.log(role);
-    if(!roles.includes(req.user.role)) {
+    if (!roles.includes(req.user.role)) {
       return next(
         new AppError('Bạn không có quyền thực hiện hành động này', 403)
       );
