@@ -18,7 +18,7 @@
                 
                <input hidden value="<%= KiemTralogin.id %>" name="id">
                 <div class="from-data">
-                  <select id="id_name" name="service">
+                  <select class="service" id="id_name" name="service">
                     <option value="0">Chọn dịch vụ...</option>
                     <option value="Bọc răng xứ">Bọc răng xứ</option>
                     <option value="Niền răng">Niền răng</option>
@@ -26,14 +26,24 @@
                     <option value="Khác">Khác</option>
                     
                   </select>
-                  <select id="id_name" name="city">
+                  <select class="service" id="id_name" name="service">
+                    <option value="0">Chọn loại dịch vụ...</option>
+                    <option value="Bọc răng xứ">a</option>
+                    <option value="Niền răng">b</option>
+                    <option value="Tẩy trắng răng">c</option>
+                    <option value="Khác">d</option>
+                    
+                  </select>
+                  <input class="service" type="text" placeholder="Giá" readonly>
+          
+                  <select class="district" id="id_name" name="city">
                     <option value="0">Chọn thành phố</option>
                     <option value="Hà Nội">Hà Nội</option>
                     <option value="Hồ Chí Minh">Hồ Chí Minh</option>
                     <option value="Đồng Tháp">Đồng Tháp</option>
                     <option value="Bạc Liêu">Bạc Liêu</option>
                   </select>
-                  <select id="id_name" name="district">
+                  <select class="district" id="id_name" name="district">
                     <option value="0">Chọn chi nhánh</option>
                     <option value="Quận 8">Quận 8</option>
                     <option value="Quận 7">Quận 7</option>
@@ -41,13 +51,13 @@
                     <option value="Quận 2">Quận 2</option>
                     <option value="Quận 1">Quận 1</option>
                   </select>
-                  <select id="id_name" name="agency">
+                  <select class="district" id="id_name" name="agency">
                     <option value="0">Chọn địa chỉ</option>
-                    <option value="Quận 8">Quận 8</option>
-                    <option value="Quận 7">Quận 7</option>
-                    <option value="Quận 3">Quận 3</option>
-                    <option value="Quận 2">Quận 2</option>
-                    <option value="Quận 1">Quận 1</option>
+                    <option value="">34 phường 16, quận 8</option>
+                    <option value="">a</option>
+                    <option value="">b</option>
+                    <option value="">c</option>
+                    <option value="">c</option>
                   </select>
                 </div>
                 <div class="from-data" >
