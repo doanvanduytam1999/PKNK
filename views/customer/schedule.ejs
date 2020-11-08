@@ -18,23 +18,19 @@
                 
                <input hidden value="<%= KiemTralogin.id %>" name="id">
                 <div class="from-data">
-                  <select class="service" id="id_name" name="service">
-                    <option value="0">Chọn dịch vụ...</option>
-                    <option value="Bọc răng xứ">Bọc răng xứ</option>
-                    <option value="Niền răng">Niền răng</option>
-                    <option value="Tẩy trắng răng">Tẩy trắng răng</option>
-                    <option value="Khác">Khác</option>
+                 
+                  <select class="loaiservice" id="id_name" name="loaiservice">
+                    <option  value="0">Chọn loại dịch vụ...</option>
+                    <% Service.forEach(function(element){ %>
+                      <% element.serviceItems.forEach(function(a){ %>
+                      <option class="loaiDV" value="<%= a.name  %>"><%= a.name  %></option>
+                    <% }); %>
+                    <% }); %> 
+                   
                     
                   </select>
-                  <select class="service" id="id_name" name="service">
-                    <option value="0">Chọn loại dịch vụ...</option>
-                    <option value="Bọc răng xứ">a</option>
-                    <option value="Niền răng">b</option>
-                    <option value="Tẩy trắng răng">c</option>
-                    <option value="Khác">d</option>
-                    
-                  </select>
-                  <input class="service" type="text" placeholder="Giá" readonly>
+                 
+                 <br>
           
                   <select class="district" id="id_name" name="city">
                     <option value="0">Chọn thành phố</option>

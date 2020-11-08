@@ -24,6 +24,7 @@ const serviceSchema = new mongoose.Schema(
                 type: String,
                 
             }
+            //này là service của data
         }]
     }
 );
