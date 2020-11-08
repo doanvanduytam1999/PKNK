@@ -8,5 +8,5 @@ nonce="uG2bsk6JIH923nsvp01n24KE"
     format:'m/d/Y H:i',
     formatDate:'d/m/Y',
     lang: 'vi',
-
+  
   });
