@@ -21,10 +21,18 @@ html,body{
   font-size: 20px;
   line-height: 3;
 }
-.from-data select{
-  width: 160px;
+
+.from-data .service{
+  width: 215px;
   height: 50px;
   padding: 0 10px;
+  margin-top: 20px;
+}
+.from-data .district{
+  width: 215px;
+  height: 50px;
+  padding: 0 10px;
+  margin-top: 20px;
 }
 .text-content{
   text-align: center;
@@ -33,7 +41,7 @@ html,body{
 .from{
   margin-left: 200px;
   width: 710px;
-  height: 300px;
+  height: 400px;
   color: antiquewhite;
 }
 .btn-danger{

@@ -80,4 +80,10 @@ app.use(() => {
     })
 }) 
 
+//CSP
+app.use(function(req, res, next) {
+    res.setHeader("Content-Security-Policy", "script-src 'none' https://apis.google.com");
+    return next();
+});
+
 module.exports = app;

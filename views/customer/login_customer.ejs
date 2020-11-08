@@ -15,7 +15,11 @@
                 
                 <input type="password" placeholder="Nhập mật khẩu..." id="password">
                 <a href="/sign-in">Chưa có tài khoản? Đăng kí ngay ?</a>
-                <button  type="submit" >Login</button>
+                <button  type="submit" onclick="loader()" >Login
+                  <span id="overlay">
+                  <span class="spinner"></span> 
+                </span>
+                </button>
                 <a href="#">Quên mật khẩu ?</a>
               </form>
           </div> 

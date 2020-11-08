@@ -1,3 +1,4 @@
+nonce="uG2bsk6JIH923nsvp01n24KE";
 var counter =2; 
   setInterval(
     function(){
@@ -12,4 +13,11 @@ var counter =2;
 
 
 
+
+  function loader() {
+    var overlay = document.querySelector('.spinner');
+    //overlay.setAttribute("display","block");
+    console.log(overlay);
+    
+  }
   
