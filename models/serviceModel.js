@@ -1,17 +1,32 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
 
-const serviceSchema = new  mongoose.Schema(
+
+const serviceSchema = new mongoose.Schema(
     {
-        serviceName: String,
+        serviceName: {
+            type: String,
+            required: [true, 'Please provide type service']
+        },
         serviceItems: [{
-            name: String,
-            unit: String,
-            price: String,
-            guarantee: String
+            name: {
+                type: String,
+                required: [true, 'Please provide service name']
+            },
+            unit: {
+                type: String,
+                
+            },
+            price: {
+                type: String,
+                required: [true, 'Please provide price']
+            },
+            guarantee: {
+                type: String,
+                
+            }
         }]
     }
 );
 
-const ServiceSchema = mongoose.model('ServiceSchema', serviceSchema);
-module.exports = ServiceSchema;
+const Service = mongoose.model('Service', serviceSchema);
+module.exports = Service;
