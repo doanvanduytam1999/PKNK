@@ -10,11 +10,9 @@
         <div class="card-header title text-center"> 
           Chỉnh sửa dịch vụ 
         </div>
-        <div hidden><%= i = 0; %></div>
         <div class="card-body">
         <% Service.forEach(function(element) { %>
-        <a href="/admin/edit-Service/<%= i %>"><p><%= element.serviceName %></p></a>
-        <div hidden><%= i++; %></div>
+        <a href="/admin/edit-Service/<%= element.id %>"><p><%= element.serviceName %></p></a>
         <% }); %>
         </div>
         <div class="add">

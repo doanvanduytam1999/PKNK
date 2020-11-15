@@ -1,33 +1,17 @@
 const mongoose = require('mongoose');
 
 
-const serviceSchema = new mongoose.Schema(
+const ServiceSchema = new mongoose.Schema(
     {
         serviceName: {
             type: String,
             required: [true, 'Please provide type service']
         },
-        serviceItems: [{
-            name: {
-                type: String,
-                required: [true, 'Please provide service name']
-            },
-            unit: {
-                type: String,
-                
-            },
-            price: {
-                type: String,
-                required: [true, 'Please provide price']
-            },
-            guarantee: {
-                type: String,
-                
-            }
-            //này là service của data
+        typeServices: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'TypeService'
         }]
     }
 );
-
-const Service = mongoose.model('Service', serviceSchema);
+const Service = mongoose.model('Service', ServiceSchema);
 module.exports = Service;

@@ -2,7 +2,7 @@ const catchAsync = require('../utils/catchAsync');
 const { validationResult } = require('express-validator');
 const { patch } = require('../app');
 const CustomerModel = require('../models/userCustomerModel');
-const ServiceModel = require('../models/serviceModel');
+const ServiceModel = require('../models/typeServiceModel');
 const authController = require('./authController');
 
 
