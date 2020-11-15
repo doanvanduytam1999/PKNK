@@ -8,19 +8,19 @@
 
     <div class="row">
       <div class="card">
-        <form action="/admin/deleteService/<%= ServiceItem.id  %>" method="POST" enctype="application/x-www-form-urlencoded">
+        <form action="/admin/deleteService/<%= FoundService.id  %>" method="POST" enctype="application/x-www-form-urlencoded">
           <button type="submit" class="btn btn-delete btn-danger">Xóa dịch vụ</button>
         </form>
       </div>
       
 
-      <form action="/admin/edit-Service/<%= index %>" method="POST" enctype="application/x-www-form-urlencoded">
+      <form action="/admin/edit-Service/<%= FoundService.id %>" method="POST" enctype="application/x-www-form-urlencoded">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header text-center title">
             
-            Chỉnh sửa dịch vụ <input type="text" name="servicename" value="<%= ServiceItem.serviceName %>"> 
-            <input hidden type="text" value="<%= ServiceItem.id %>"  name="id">
+            Chỉnh sửa dịch vụ <input type="text" name="servicename" value="<%= FoundService.serviceName %>"> 
+            
             
           </div>
           <div class="card-body">
@@ -34,8 +34,11 @@
                     <th scope="col">Bảo hành</th>
                   </tr>
                 </thead>
+                <% i = 0; %>
+               
                 <tbody class="tbody collection">
-                  <% ServiceItem.serviceItems.forEach(function(element) {%>
+                  <% FoundService.typeServices.forEach(function(element) { %>
+                    <input type="text" class="id" name="id" id="<%= i %>" value="<%= element.id %>" hidden >
                   <tr  class="collection-item" >
                     <th scope="row" >
                       <input type="text" class="input_data" name="dichvu" value="<%= element.name %>">
@@ -50,14 +53,13 @@
                       <input type="text" class="input_data" name="baohanh" value="<%= element.guarantee %>">
                     </td>
                     <td>
-                    <a class="delete-item secondary-content remove"><i class="fas fa-trash-alt"></i></a>
+                    <a class="delete-item secondary-content remove"><i class="fas fa-trash-alt" id="<%= i %>"></i></a>
                     </td>
                     
-                  </tr>
-                  
-                  <% }); %>
-                  
+                  </tr>    
+                  <% i++; }); %>
                 </tbody>
+              
                 
               </table>
               <button type="submit" class="btn btn-success">Cập nhật</button>

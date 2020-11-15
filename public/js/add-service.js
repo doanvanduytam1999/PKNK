@@ -16,16 +16,16 @@ function addService() {
   const link = document.createElement('a');
 
   th.setAttribute("scope","row")
-  input.className='input_data';
-  input1.className='input_data';
-  input2.className='input_data';
-  input3.className='input_data';
+  input.className='input_data1';
+  input1.className='input_data2';
+  input2.className='input_data3';
+  input3.className='input_data4';
  
-  input.name='dichvu';
-  input1.name='donvi';
-  input2.name='gia';
-  input3.name='baohanh';
-  link.className='delete-item secondary-content remove';
+  input.name='themdichvu';
+  input1.name='themdonvi';
+  input2.name='themgia';
+  input3.name='thembaohanh';
+  link.className='delete-item2 secondary-content remove';
   link.innerHTML = '<i class="fas fa-trash-alt"></i>';
   tr.className='collection-item';
   th.appendChild(input)
@@ -39,7 +39,9 @@ function addService() {
   tr.appendChild(td2);
   tr.appendChild(td3);
   tbl.appendChild(tr);
+  
 }
+
 function deleteService(){
   const listTr = document.querySelectorAll("tr");
   if(listTr.length > 2){
@@ -58,17 +60,26 @@ loadEventListeners();
 
 
 function loadEventListeners() {
-  taskList.addEventListener('click', removeTask);
+  taskList.addEventListener('click', removeTask );
+  taskList.addEventListener('click', removeTaskThem );
 } 
- function add(){
-  const addA= document.querySelector('.collection-item');
-  const a = document.createElement('a');
-  a.className='delete-item secondary-content'
-  a.innerHTML = '<i class="fas fa-trash-alt"></i>';
-  addA.appendChild(a);
-} 
+
+
 function removeTask(e) {
   if(e.target.parentElement.classList.contains('delete-item')) {
+    if(confirm('Are You Sure?')) {
+      e.target.parentElement.parentElement.parentElement.remove();
+      const index = e.target.id;
+      console.log(index);
+      const input = document.getElementById(index);
+      
+      input.setAttribute('name','xoaid');
+    }
+  }
+}
+
+function removeTaskThem(e) {
+  if(e.target.parentElement.classList.contains('delete-item2')) {
     if(confirm('Are You Sure?')) {
       e.target.parentElement.parentElement.parentElement.remove();
     }
