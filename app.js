@@ -86,4 +86,7 @@ app.use(function(req, res, next) {
     return next();
 });
 
+app.use(cors());
+app.options('*', cors());
+
 module.exports = app;

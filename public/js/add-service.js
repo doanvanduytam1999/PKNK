@@ -39,6 +39,10 @@ function addService() {
   tr.appendChild(td2);
   tr.appendChild(td3);
   tbl.appendChild(tr);
+
+  /* const add =document.querySelector(".collection-item").lastChild;
+  const cln =add.cloneNode(true);
+  document.querySelector(".collection-item").appendChild(cln); */
 }
 function deleteService(){
   const listTr = document.querySelectorAll("tr");
@@ -68,9 +72,18 @@ function loadEventListeners() {
   addA.appendChild(a);
 } 
 function removeTask(e) {
+  const listTr = document.querySelectorAll("tr");
+
   if(e.target.parentElement.classList.contains('delete-item')) {
     if(confirm('Are You Sure?')) {
-      e.target.parentElement.parentElement.parentElement.remove();
+      const del =e.target.parentElement.parentElement.parentElement.parentElement;
+      del.hidden = true;
+      //console.log(del);
+      const d= document.querySelectorAll('[name="dichvu"]');
+      del.setAttribute('name','xoa');
+      console.log(d);
+      d.setAttribute('name','xoa_dichvu');
     }
   }
+  
 }
