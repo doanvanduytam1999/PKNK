@@ -16,10 +16,10 @@ function addService() {
   const link = document.createElement('a');
 
   th.setAttribute("scope","row")
-  input.className='input_data1';
-  input1.className='input_data2';
-  input2.className='input_data3';
-  input3.className='input_data4';
+  input.className='input_data';
+  input1.className='input_data';
+  input2.className='input_data';
+  input3.className='input_data';
  
   input.name='themdichvu';
   input1.name='themdonvi';
@@ -72,7 +72,7 @@ function removeTask(e) {
   const listTr = document.querySelectorAll("tr");
 
   if(e.target.parentElement.classList.contains('delete-item')) {
-    if(confirm('Are You Sure?')) {
+    if(confirm('Bạn thật sự muốn xoá ?')) {
       const del =e.target.parentElement.parentElement.parentElement.parentElement;
       del.hidden = true;
       //console.log(del);
@@ -92,7 +92,7 @@ function removeTask(e) {
 
 function removeTaskThem(e) {
   if(e.target.parentElement.classList.contains('delete-item2')) {
-    if(confirm('Are You Sure?')) {
+    if(confirm('Bạn thật sự muốn xoá ?')) {
       e.target.parentElement.parentElement.parentElement.remove();
     }
   }
