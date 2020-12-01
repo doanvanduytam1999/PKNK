@@ -1,6 +1,7 @@
 import '@babel/polyfill';
+import catchAsync from '../../utils/catchAsync';
 
-//import { login } from './login';
+import { getService } from './getService';
 
 
 import { login, logout } from './login';
@@ -19,6 +20,7 @@ import { login, logout } from './login';
 //DOM ELEMENT
 const loginForm = document.querySelector('.form-login');
 const logOutBtn = document.querySelector('.logout');
+const getTypeService = document.querySelector('.loaiservice');
 /*const adminDataForm = document.querySelector('.form-admin-data');
 const adminPasswordForm = document.querySelector('.form-admin-password');
 const addAdminForm = document.querySelector('.form-add-admin');
@@ -43,7 +45,14 @@ if (loginForm) {
 if(logOutBtn) {
     logOutBtn.addEventListener('click', logout);
 };
-
+if (getTypeService) {
+    getTypeService.addEventListener('change', async function(e){
+        e.preventDefault();
+        const id = getTypeService.value;
+        let services =  await getService(id);
+        console.log(services);
+    });
+};
 /*
 if (adminDataForm) {
     adminDataForm.addEventListener('submit', e => {

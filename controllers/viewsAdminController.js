@@ -1,9 +1,12 @@
 const catchAsync = require('../utils/catchAsync');
 const UserAdminModel = require('../models/userAdminModel');
-const TypeService = require('../models/typeServiceModel');
 const Service = require('../models/serviceModel');
+const TypeService = require('../models/typeServiceModel');
 const { param } = require('../routes/viewsAdminRoute');
 const { findOne } = require('../models/userAdminModel');
+const CityModel = require('../models/cityModel');
+const DistrictModel = require('../models/districtModel');
+const AgencyModel = require('../models/agencyModel');
 
 exports.postService = catchAsync(async (req, res, next) => {
     const service = await ServiceModel.create({
@@ -34,6 +37,8 @@ exports.postService = catchAsync(async (req, res, next) => {
     res.send("oke!");
 })
 
+
+
 exports.getLogin = (req, res, next) => {
     res.status(200).render('admin/login', {
         pageTitle: 'Login',
@@ -43,24 +48,18 @@ exports.getLogin = (req, res, next) => {
 
 exports.getEditService = catchAsync(async (req, res, next) => {
     const id = req.params.id;
-
-    const foundService = await Service.findById(id).populate('typeServices');
-    console.log(foundService);
-    const kq = await TypeService.findOne().populate('serviceID');
-    console.log(kq);
-
-
+    const foundTypeService = await TypeService.findById(id).populate('services');
     res.status(200).render('admin/editService', {
         id: id,
-        FoundService: foundService,
+        FoundService: foundTypeService,
         pageTitle: 'Edit Service',
         patch: '/edit-Service'
     })
 });
 exports.getService = catchAsync(async (req, res, next) => {
-    const service = await Service.find();
+    const typeService = await TypeService.find();
     res.status(200).render('admin/service', {
-        Service: service,
+        Service: typeService,
         pageTitle: 'Service',
         patch: '/service'
     })
@@ -82,60 +81,46 @@ exports.getAddService = catchAsync(async (req, res, next) => {
 });
 
 exports.postEditService = catchAsync(async (req, res, next) => {
-
-
     console.log(req.body);
-    console.log(typeof req.body.dichvu != 'undefined');
     const id = req.params.id;
-    const temp = [];
     if (typeof req.body.themdichvu != 'undefined') {
         if (Array.isArray(req.body.themdichvu)) {
             for (i = 0; i < req.body.themdichvu.length; i++) {
-                const themloai = await TypeService.create({
+                const themDV = await Service.create({
                     name: req.body.themdichvu[i],
                     unit: req.body.themdonvi[i],
                     price: req.body.themgia[i],
-                    guarantee: req.body.thembaohanh[i]
+                    guarantee: req.body.thembaohanh[i],
+                    typeServiceID: id
                 })
-                temp.push(themloai.id);
             }
         }
         else {
-            const themloai = await TypeService.create({
+            const themDV = await Service.create({
                 name: req.body.themdichvu,
                 unit: req.body.themdonvi,
                 price: req.body.themgia,
-                guarantee: req.body.thembaohanh
+                guarantee: req.body.thembaohanh,
+                typeServiceID: id
             })
-            temp.push(themloai.id);
         }
     }
 
     if (typeof req.body.xoaid != 'undefined') {
         if (Array.isArray(req.body.xoaid)) {
             for (i = 0; i < req.body.xoaid.length; i++) {
-                const xoaloai = await TypeService.findByIdAndUpdate(req.body.xoaid[i], {
-                    serviceID: '999999999999999999999999'
-                }, {
-                    new: true,
-                    runValidators: true
-                })
+                const xoaDV = await Service.findByIdAndDelete(req.body.xoaid[i]);
             }
         }
         else {
-            const xoaloai = await TypeService.findByIdAndUpdate(req.body.xoaid, {
-                serviceID: '999999999999999999999999'
-            }, {
-                new: true,
-                runValidators: true
-            })
+            const xoaDV = await Service.findByIdAndDelete(req.body.xoaid);
         }
     }
 
     if (typeof req.body.dichvu != 'undefined') {
         if (Array.isArray(req.body.id)) {
             for (i = 0; i < req.body.id.length; i++) {
-                const sualoai = await TypeService.findByIdAndUpdate(req.body.id[i], {
+                const suaDV = await Service.findByIdAndUpdate(req.body.id[i], {
                     name: req.body.dichvu[i],
                     unit: req.body.donvi[i],
                     price: req.body.gia[i],
@@ -144,11 +129,10 @@ exports.postEditService = catchAsync(async (req, res, next) => {
                     new: true,
                     runValidators: true
                 })
-                temp.push(sualoai.id);
             }
         }
         else {
-            const sualoai = await TypeService.findByIdAndUpdate(req.body.id, {
+            const suaDV = await Service.findByIdAndUpdate(req.body.id, {
                 name: req.body.dichvu,
                 unit: req.body.donvi,
                 price: req.body.gia,
@@ -157,67 +141,47 @@ exports.postEditService = catchAsync(async (req, res, next) => {
                 new: true,
                 runValidators: true
             })
-            temp.push(sualoai.id);
         }
     }
-
-
-    const editService = await Service.findByIdAndUpdate(id, {
-        serviceName: req.body.servicename,
-        typeServices: temp,
-    },
-        {
-            new: true,
-            runValidators: true
-        }
-    );
-    //req.flash('success', {msg: 'Edit Success'});
     res.redirect(`/admin/edit-Service/${id}`);
 });
 
-exports.postDeleteService = catchAsync(async (req, res, next) => {
+exports.postDeleteTypeService = catchAsync(async (req, res, next) => {
     const id = req.params.id;
-    const service = await ServiceModel.findByIdAndDelete(id);
-    if (!service) {
+    const typeService = await TypeService.findByIdAndDelete(id);
+    if (!typeService) {
         console.log("khong tim thay service!");
     }
     res.redirect('/admin/dashboard');
 });
 
 exports.postAddService = catchAsync(async (req, res, next) => {
-    const service = await Service.create({
-        serviceName: req.body.servicename
-    })
-    const temp = [];
+    const typeService = await TypeService.create({
+        typeServiceName: req.body.servicename
+    });
+
     if (typeof req.body.dichvu != 'undefined') {
         if (Array.isArray(req.body.dichvu)) {
             for (i = 0; i < req.body.dichvu.length; i++) {
-                const typeService = await TypeService.create({
+                const service = await Service.create({
                     name: req.body.dichvu[i],
                     unit: req.body.donvi[i],
                     price: req.body.gia[i],
                     guarantee: req.body.baohanh[i],
-                    serviceID: service.id
-
+                    typeServiceID: typeService.id
                 })
-                temp.push(typeService.id);
             }
         }
         else {
-            const typeService = await TypeService.create({
+            const service = await Service.create({
                 name: req.body.dichvu,
                 unit: req.body.donvi,
                 price: req.body.gia,
                 guarantee: req.body.baohanh,
-                serviceID: service.id
+                typeServiceID: typeService.id
 
             })
-            temp.push(typeService.id);
         }
     }
-
-    const updateService = await Service.findByIdAndUpdate(service.id, {
-        typeServices: temp
-    })
     res.redirect('/admin/dashboard');
 });

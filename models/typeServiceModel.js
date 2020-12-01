@@ -1,32 +1,20 @@
 const mongoose = require('mongoose');
-const { collection } = require('./userAdminModel');
 
 
-const typeServiceSchema = new mongoose.Schema(
+const TypeServiceSchema = new mongoose.Schema(
     {
-        name: {
+        typeServiceName: {
             type: String,
-            required: [true, 'Please provide service name']
+            required: [true, 'Please provide type service']
         },
-        unit: {
-            type: String,
-        },
-        price: {
-            type: String,
-            required: [true, 'Please provide price']
-        },
-        guarantee: {
-            type: String,
-        },
-        serviceID: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Service"
-        }
-    }, 
-    
+        
+    }
 );
+TypeServiceSchema.virtual('services', {
+    ref: 'Service',
+    localField: '_id', 
+    foreignField: 'typeServiceID',
+})
 
-
-const TypeService = mongoose.model('TypeService', typeServiceSchema);
-
+const TypeService = mongoose.model('TypeService', TypeServiceSchema);
 module.exports = TypeService;

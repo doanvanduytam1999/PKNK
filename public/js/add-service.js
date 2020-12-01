@@ -73,18 +73,9 @@ function removeTask(e) {
 
   if(e.target.parentElement.classList.contains('delete-item')) {
     if(confirm('Bạn thật sự muốn xoá ?')) {
-      const del =e.target.parentElement.parentElement.parentElement.parentElement;
-      del.hidden = true;
-      //console.log(del);
-      const d= document.querySelectorAll('[name="dichvu"]');
-      del.setAttribute('name','xoa');
-      console.log(d);
-      d.setAttribute('name','xoa_dichvu');
       e.target.parentElement.parentElement.parentElement.remove();
       const index = e.target.id;
-      console.log(index);
       const input = document.getElementById(index);
-      
       input.setAttribute('name','xoaid');
     }
   }
@@ -98,3 +89,4 @@ function removeTaskThem(e) {
   }
   
 }
+

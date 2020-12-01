@@ -8,7 +8,7 @@
 
     <div class="row">
       <div class="card">
-        <form action="/admin/deleteService/<%= FoundService.id  %>" method="POST" enctype="application/x-www-form-urlencoded">
+        <form action="/admin/deleteTypeService/<%= FoundService.id  %>" method="POST" enctype="application/x-www-form-urlencoded">
           <button type="submit" class="btn btn-delete btn-danger">Xóa dịch vụ</button>
         </form>
       </div>
@@ -19,7 +19,7 @@
         <div class="card">
           <div class="card-header text-center title">
             
-            Chỉnh sửa dịch vụ <input type="text" name="servicename" value="<%= FoundService.serviceName %>"> 
+            Chỉnh sửa dịch vụ <input type="text" name="servicename" value="<%= FoundService.typeServiceName %>"> 
             
             
           </div>
@@ -37,7 +37,7 @@
                 <% i = 0; %>
                
                 <tbody class="tbody collection">
-                  <% FoundService.typeServices.forEach(function(element) { %>
+                  <% FoundService.services.forEach(function(element) { %>
                     <input type="text" class="id" name="id" id="<%= i %>" value="<%= element.id %>" hidden >
                   <tr  class="collection-item" >
                     <th scope="row" >

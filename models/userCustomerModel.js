@@ -38,55 +38,15 @@ const userCustomerSchema = new mongoose.Schema({
       message: 'Passwords are not the same!'
     }
   },
-  appointment: [{
-    serviceName: {
-      type: String,
-      required: [true, 'Please provide service name']
-      /* name: {
-        type: String,
-        required: [true, 'Please provide service name']
-    },
-    unit: {
-        type: String,
-        
-    },
-    price: {
-        type: String,
-        required: [true, 'Please provide price']
-    },
-    guarantee: {
-        type: String,
-        
-        //khi submit thì req có service lưu trong data mình map thuộc tính nó zo mấy cai thuộc tính này rán từng cái á
-        name = req.bodey.name tương tự dầyuk
-        
-    } */
-    },
-    price: {
-      type: String,
-      required: [true, 'Please provide price ']
-    },
-    city: {
-      type: String,
-      required: [true, 'Please provide city']
-    },
-    district: {
-      type: String,
-      required: [true, 'Please provide district']
-    },
-    agency: {
-      type: String,
-      required: [true, 'Please provide agency']
-    },
-    time: {
-      type: Date,
-      required: [true, 'Please provide your time'],
-    },
-    note: String
-  }],
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
+});
+
+userCustomerSchema.virtual('lichdats', {
+  ref: 'LichDat',
+  localField: '_id', 
+  foreignField: 'cunstomerID',
 });
 
 

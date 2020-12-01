@@ -2,10 +2,13 @@ const catchAsync = require('../utils/catchAsync');
 const { validationResult } = require('express-validator');
 const { patch } = require('../app');
 const CustomerModel = require('../models/userCustomerModel');
-const ServiceModel = require('../models/typeServiceModel');
+const ServiceModel = require('../models/serviceModel');
 const authController = require('./authController');
-
-
+const TypeService = require('../models/typeServiceModel');
+const District = require('../models/districtModel');
+const CityModel = require('../models/cityModel');
+const DistrictModel = require('../models/districtModel');
+const AgencyModel = require('../models/agencyModel');
 
 exports.getHomePage = (req, res, next) => {
     res.status(200).render('customer/index', {
@@ -15,15 +18,17 @@ exports.getHomePage = (req, res, next) => {
 };
 exports.getSchedule = catchAsync(async (req, res, next) => {
     const service = await ServiceModel.find();
+    const typeservice = await TypeService.find();
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     res.status(200).render('customer/schedule', {
         Service: service,
-        KiemTralogin : kiemTralogin,
+        LoaiService: typeservice,
+        KiemTralogin: kiemTralogin,
         pageTitle: 'Đặt lịch',
         patch: '/schedule'
     })
 });
-exports.getService = catchAsync(async (req, res, next) => {
+/* exports.getService = catchAsync(async (req, res, next) => {
     const service = await ServiceModel.find();
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     res.status(200).render('customer/service', {
@@ -32,14 +37,14 @@ exports.getService = catchAsync(async (req, res, next) => {
         pageTitle: 'Service',
         patch: '/service'
     })
-});
+}); */
 exports.getServiceHome = catchAsync(async (req, res, next) => {
     const service = await ServiceModel.find();
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
-    
+
     res.status(200).render('customer/index', {
         Service: service,
-        KiemTralogin : kiemTralogin,
+        KiemTralogin: kiemTralogin,
         pageTitle: 'Service',
         patch: '/'
     })
@@ -70,7 +75,7 @@ exports.getSignin = catchAsync(async (req, res, next) => {
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     res.status(200).render('customer/sign-in_customer', {
         Service: service,
-        KiemTralogin : kiemTralogin,
+        KiemTralogin: kiemTralogin,
         pageTitle: 'Đăng kí',
         patch: '/sign-in'
     })
@@ -80,7 +85,7 @@ exports.getLogin = catchAsync(async (req, res, next) => {
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     res.status(200).render('customer/login_customer', {
         Service: service,
-        KiemTralogin : kiemTralogin,
+        KiemTralogin: kiemTralogin,
         pageTitle: 'Đăng Nhập',
         patch: '/login'
     })
@@ -100,13 +105,13 @@ exports.postDatLich = catchAsync(async (req, res, next) => {
         status: "Đang chờ"
     })
 
-    const customer = await CustomerModel.findByIdAndUpdate(id,{
+    const customer = await CustomerModel.findByIdAndUpdate(id, {
         appointment: temp
     }
-    ,{
-        new: true,
-        runValidators: true
-    });
+        , {
+            new: true,
+            runValidators: true
+        });
     res.redirect('/get-schedule');
 });
 
@@ -118,8 +123,35 @@ exports.postAddCustomer = catchAsync(async (req, res, next) => {
         password: req.body.password,
         passwordConfirm: req.body.passwordConfirm,
         phone: req.body.phone,
-        appointment:[],
+
 
     })
     res.status(200).redirect('/login');
+});
+
+exports.getService = catchAsync(async (req, res, next) => {
+    const id = req.body.id;
+    const typeService = await TypeService.findById(id).populate('services');
+    res.status(200).json({
+        status: 'success',
+        Services: typeService
+    });
+})
+
+exports.getDistrict = catchAsync(async (req, res, next) => {
+    const id = req.body.id;
+    const district = await CityModel.findById(id).populate('districts');
+    res.status(200).json({
+        status: 'success',
+        Districts: district
+    });
+})
+
+exports.getAgency = catchAsync(async (req, res, next) => {
+    const id = req.body.id;
+    const agencys = await CityModel.findById(id).populate('agencys');
+    res.status(200).json({
+        status: 'success',
+        Agencys: agencys
+    });
 })
