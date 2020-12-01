@@ -130,7 +130,7 @@ exports.postAddCustomer = catchAsync(async (req, res, next) => {
 });
 
 exports.getService = catchAsync(async (req, res, next) => {
-    const id = req.body.id;
+    const id = req.params.id;
     const typeService = await TypeService.findById(id).populate('services');
     res.status(200).json({
         status: 'success',
@@ -139,7 +139,7 @@ exports.getService = catchAsync(async (req, res, next) => {
 })
 
 exports.getDistrict = catchAsync(async (req, res, next) => {
-    const id = req.body.id;
+    const id = req.params.id;
     const district = await CityModel.findById(id).populate('districts');
     res.status(200).json({
         status: 'success',
@@ -148,7 +148,7 @@ exports.getDistrict = catchAsync(async (req, res, next) => {
 })
 
 exports.getAgency = catchAsync(async (req, res, next) => {
-    const id = req.body.id;
+    const id = req.params.id;
     const agencys = await CityModel.findById(id).populate('agencys');
     res.status(200).json({
         status: 'success',

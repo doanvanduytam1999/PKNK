@@ -7,9 +7,9 @@ const router = express.Router();
 
 router.post('/login', authController.login);
 router.get('/logout', authController.logout);
-router.get('/getService', authController.isLoggedIn, CustomerController.getService);
-router.get('/getDistrict', authController.isLoggedIn, CustomerController.getDistrict);
-router.get('getAgency', authController.isLoggedIn, CustomerController.getAgency);
+router.get('/getService/:id', authController.isLoggedIn, CustomerController.getService);
+router.get('/getDistrict/:id', authController.isLoggedIn, CustomerController.getDistrict);
+router.get('getAgency/:id', authController.isLoggedIn, CustomerController.getAgency);
 
 // router.param('id', tourController.checkID);
 
