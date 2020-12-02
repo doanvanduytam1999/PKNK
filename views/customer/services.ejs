@@ -35,7 +35,7 @@
                 <span class="content">Bảng giá dịch vụ tại </span><span class="title">Nha<span>Khoa</span></span>
               </div>
               <div class="card-body table-responsive">
-                <div  class="text-center serviceName ">Dịch vụ <%= ServiceItem.serviceName %></div>
+                <div  class="text-center serviceName ">Dịch vụ <%= MotLoaiSV.typeServiceName %></div>
                 <table class="table table-bordered" >
                   <thead>
                     <tr>
@@ -48,7 +48,7 @@
                  
                   <tbody class="tbody collection">
                    
-                    <% ServiceItem.serviceItems.forEach(function(element) {%>
+                    <% ServiceItem.forEach(function(element) {%>
                     <tr  class="collection-item" >
                       <th scope="row" >
                         <%= element.name %>

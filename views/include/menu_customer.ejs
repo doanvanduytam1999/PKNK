@@ -12,12 +12,12 @@
     <li class="dropdown">
       <a class="item-menu" href="/service">Dịch vụ <i class="fas fa-chevron-down"></i></a>
       <ul class="item">
-        <div hidden><%= i = 0; %></div>
-        <% Service.forEach(function(element) { %>
+        
+        <% TypeService.forEach(function(element) { %>
         <li>
-          <a href="/get-services/<%= i %>"><%= element.serviceName %></a>
+          <a href="/get-services/<%= element.id %>"><%= element.typeServiceName %></a>
         </li>
-        <div hidden><%= i++; %></div>
+       
         <% }); %>
 
       </ul>

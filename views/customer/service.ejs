@@ -38,9 +38,9 @@
                     </tr>
                   </thead>
                   <tbody class="tbody" >
-                    <% Service.forEach(function(element) { %>
-                      <th colspan="4" class="text-center"><%= element.serviceName %></th>
-                      <% element.serviceItems.forEach(function(temp) { %>
+                    <% TypeService.forEach(function(element) { %>
+                      <th colspan="4" class="text-center"><%= element.typeServiceName %></th>
+                      <% element.services.forEach(function(temp) { %>
                         <tr>
                           <td><%= temp.name %></td>
                           <td><%= temp.unit %></td>

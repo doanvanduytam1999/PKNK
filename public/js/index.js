@@ -1,4 +1,7 @@
 import '@babel/polyfill';
+import { EWOULDBLOCK } from 'constants';
+import ajax from 'jquery';
+import Service from '../../models/serviceModel';
 import catchAsync from '../../utils/catchAsync';
 
 import { getService } from './getService';
@@ -45,14 +48,77 @@ if (loginForm) {
 if(logOutBtn) {
     logOutBtn.addEventListener('click', logout);
 };
-if (getTypeService) {
+/* if (getTypeService) {
     getTypeService.addEventListener('change', async function(e){
         e.preventDefault();
         const id = getTypeService.value;
         let services =  await getService(id);
         console.log(services);
     });
-};
+}; */
+
+$(document).ready(function(){
+    $('#loaiservice').change(function(){
+        var id_loaiservice = $(this).val();
+        const url = 'http://localhost:4000/api/v1/Customers/getService/'+id_loaiservice;
+        $.ajax({
+            type: 'GET',
+            url: "http://localhost:4000/api/v1/Customers/getService/"+id_loaiservice,
+            success: function(data){
+                data.Services.forEach(function(element){
+                    //$('#id_service').html(element.name);
+                    $('#id_service').append("<option>"+element.name+"</option>");
+                })
+                
+                
+            },
+            error: function(e){
+                console.log(e.message);
+            }
+
+        })
+    });
+});
+
+$(document).ready(function(){
+    $('#id_city').change(function(){
+        var id_city = $(this).val();       
+    
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:4000/api/v1/Customers/getDistrict/'+id_city,
+            success: function(data){
+                $('#id_district').find('option').remove().end();
+                data.Districts.forEach(function(element){
+                    $('#id_district').append(`<option value="${element._id}"  >  ${element.districtName}  </option>`);
+                })               
+            },
+            error: function(e){
+                console.log(e.message);
+            }
+
+        })
+    });
+});
+
+$(document).ready(function(){
+    $('#id_district').change(function(){
+        var id_district = $(this).val();
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:4000/api/v1/Customers/getAgency/'+id_district,   
+            success: function(data){
+                data.Agencys.forEach(function(element){
+                    $('#id_agency').append("<option value=" + element._id + ">" + element.address + "</option>");
+                })
+            },
+            error: function(e){
+                console.log(e.message);
+            }
+
+        })
+    });
+});
 /*
 if (adminDataForm) {
     adminDataForm.addEventListener('submit', e => {

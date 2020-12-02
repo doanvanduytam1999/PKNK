@@ -37,7 +37,25 @@ exports.postService = catchAsync(async (req, res, next) => {
     res.send("oke!");
 })
 
-
+exports.postAddCity = catchAsync(async(req, res, next)=> {
+    const district = await DistrictModel.create({
+        districtName: "Quận 1" ,
+        cityID: "5fc67e97c1dae73e50f12f70"
+    });
+    const diachi = await AgencyModel.create({
+        address: "108 Lê Văn Lương, phường C, quận 1, TP.HCM",
+        districtID: district.id
+    });
+    const diachi2 = await AgencyModel.create({
+        address: "99 Lâm Văn Bền, phường B, quận 1, TP.HCM",
+        districtID: district.id
+    });
+    const diachi3 = await AgencyModel.create({
+        address: "99 Nguyễn Trãi, phường A, quận 1, TP.HCM",
+        districtID: district.id
+    })
+    res.send("oke!");
+})
 
 exports.getLogin = (req, res, next) => {
     res.status(200).render('admin/login', {

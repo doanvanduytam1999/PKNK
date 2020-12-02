@@ -17,7 +17,7 @@ const districtSchema = new mongoose.Schema(
 districtSchema.virtual('agencys', {
     ref: 'Agency',
     localField: '_id', 
-    foreignField: 'Agency',
+    foreignField: 'districtID',
 })
 
 

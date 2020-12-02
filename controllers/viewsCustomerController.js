@@ -20,30 +20,33 @@ exports.getSchedule = catchAsync(async (req, res, next) => {
     const service = await ServiceModel.find();
     const typeservice = await TypeService.find();
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
+    const city = await CityModel.find();
+    console.log(city);
     res.status(200).render('customer/schedule', {
         Service: service,
         LoaiService: typeservice,
         KiemTralogin: kiemTralogin,
+        City: city,
         pageTitle: 'Đặt lịch',
         patch: '/schedule'
     })
 });
-/* exports.getService = catchAsync(async (req, res, next) => {
-    const service = await ServiceModel.find();
+exports.getTypeService = catchAsync(async (req, res, next) => {
+    const typeService = await TypeService.find().populate('services');
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     res.status(200).render('customer/service', {
-        Service: service,
+        TypeService: typeService,
         KiemTralogin : kiemTralogin,
         pageTitle: 'Service',
         patch: '/service'
     })
-}); */
+});
 exports.getServiceHome = catchAsync(async (req, res, next) => {
-    const service = await ServiceModel.find();
+    const typeService = await TypeService.find();
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
 
     res.status(200).render('customer/index', {
-        Service: service,
+        TypeService: typeService,
         KiemTralogin: kiemTralogin,
         pageTitle: 'Service',
         patch: '/'
@@ -52,12 +55,14 @@ exports.getServiceHome = catchAsync(async (req, res, next) => {
 exports.getServiceCustomer = catchAsync(async (req, res, next) => {
     const option = req.params.index;
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
-    const service = await ServiceModel.find();
+    const typeservice = await TypeService.find();
+    const motLoaiDv = await TypeService.findById(option).populate('services');
     res.status(200).render('customer/services', {
         index: option,
         KiemTralogin: kiemTralogin,
-        ServiceItem: service[option],
-        Service: service,
+        ServiceItem: motLoaiDv.services,
+        MotLoaiSV: motLoaiDv,
+        TypeService: typeservice,
         pageTitle: 'Service'
 
     })
@@ -134,24 +139,25 @@ exports.getService = catchAsync(async (req, res, next) => {
     const typeService = await TypeService.findById(id).populate('services');
     res.status(200).json({
         status: 'success',
-        Services: typeService
+        Services: typeService.services
     });
 })
 
 exports.getDistrict = catchAsync(async (req, res, next) => {
     const id = req.params.id;
-    const district = await CityModel.findById(id).populate('districts');
+    const city = await CityModel.findById(id).populate('districts');
     res.status(200).json({
         status: 'success',
-        Districts: district
+        Districts: city.districts
+        
     });
 })
 
 exports.getAgency = catchAsync(async (req, res, next) => {
     const id = req.params.id;
-    const agencys = await CityModel.findById(id).populate('agencys');
+        const district = await DistrictModel.findById(id).populate('agencys');
     res.status(200).json({
         status: 'success',
-        Agencys: agencys
+        Agencys: district.agencys
     });
 })
