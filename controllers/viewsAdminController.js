@@ -99,7 +99,6 @@ exports.getAddService = catchAsync(async (req, res, next) => {
 });
 
 exports.postEditService = catchAsync(async (req, res, next) => {
-    console.log(req.body);
     const id = req.params.id;
     if (typeof req.body.themdichvu != 'undefined') {
         if (Array.isArray(req.body.themdichvu)) {
@@ -160,6 +159,10 @@ exports.postEditService = catchAsync(async (req, res, next) => {
                 runValidators: true
             })
         }
+
+        const suaLoaiDV = await TypeService.findByIdAndUpdate(id, {
+            typeServiceName: req.body.typeServicename
+        })
     }
     res.redirect(`/admin/edit-Service/${id}`);
 });

@@ -24,7 +24,7 @@ exports.getSchedule = catchAsync(async (req, res, next) => {
     console.log(city);
     res.status(200).render('customer/schedule', {
         Service: service,
-        LoaiService: typeservice,
+        TypeService: typeservice,
         KiemTralogin: kiemTralogin,
         City: city,
         pageTitle: 'Đặt lịch',
@@ -86,10 +86,10 @@ exports.getSignin = catchAsync(async (req, res, next) => {
     })
 });
 exports.getLogin = catchAsync(async (req, res, next) => {
-    const service = await ServiceModel.find();
+    const typeService = await TypeService.find();
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     res.status(200).render('customer/login_customer', {
-        Service: service,
+        TypeService: typeService,
         KiemTralogin: kiemTralogin,
         pageTitle: 'Đăng Nhập',
         patch: '/login'

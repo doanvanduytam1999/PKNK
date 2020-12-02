@@ -21,7 +21,7 @@
                   <!--Lua chon dich vu -->
                   <select class="loaiservice"  name="loaiservice" id="loaiservice">
                     <option  value="0">Chọn dịch vụ...</option>
-                    <% LoaiService.forEach(function(element){ %>
+                    <% TypeService.forEach(function(element){ %>
                       <option class="loaiDV" value="<%= element.id  %>"><%= element.typeServiceName  %></option>
                     <% }); %>
                   </select>
