@@ -5,11 +5,10 @@ const CustomerModel = require('../models/userCustomerModel');
 const ServiceModel = require('../models/serviceModel');
 const authController = require('./authController');
 const TypeService = require('../models/typeServiceModel');
-const District = require('../models/districtModel');
 const CityModel = require('../models/cityModel');
 const DistrictModel = require('../models/districtModel');
 const AgencyModel = require('../models/agencyModel');
-
+const LichDat = require('../models/lichdatmodel');
 exports.getHomePage = (req, res, next) => {
     res.status(200).render('customer/index', {
         pageTitle: 'HomePage',
@@ -97,26 +96,16 @@ exports.getLogin = catchAsync(async (req, res, next) => {
 });
 
 exports.postDatLich = catchAsync(async (req, res, next) => {
-    const id = req.body.id;
-    const userCustomer = await CustomerModel.findById(id);
-    const temp = userCustomer.appointment;
-    temp.push({
-        service: req.body.service,
-        city: req.body.city,
-        district: req.body.district,
-        agency: req.body.agency,
+    const lichdat = await LichDat.create({
         time: req.body.time,
+        serviceID: req.body.id_service,
+        cityID: req.body.id_city,
+        districtID: req.body.id_district,
+        agencyID: req.body.id_agency,
+        cunstomerID: req.body.id,
         note: req.body.note,
         status: "Đang chờ"
     })
-
-    const customer = await CustomerModel.findByIdAndUpdate(id, {
-        appointment: temp
-    }
-        , {
-            new: true,
-            runValidators: true
-        });
     res.redirect('/get-schedule');
 });
 
