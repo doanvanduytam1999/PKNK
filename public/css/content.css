@@ -33,6 +33,7 @@ html,body{
   height: 50px;
   padding: 0 10px;
   margin-top: 20px;
+  transition: 1s;
 }
 .from-data .giaservice{
   width: 215px;
@@ -63,4 +64,8 @@ html,body{
   font-weight: bold;
   font-size: 30px;
   border: 0px;
+}
+.district, .service,.loaiservice{
+  cursor: pointer;
+  border-radius: 4px;
 }

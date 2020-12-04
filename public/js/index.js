@@ -83,13 +83,15 @@ $(document).ready(function(){
 $(document).ready(function(){
     $('#id_city').change(function(){
         var id_city = $(this).val();       
-    
+        var chinhanh= "---Chọn chi nhánh---"
         $.ajax({
             type: 'GET',
             url: 'http://localhost:4000/api/v1/Customers/getDistrict/'+id_city,
             success: function(data){
                 $('#id_district').find('option').remove().end();
+                $('#id_district').append("<option>"+chinhanh+"</option>");
                 data.Districts.forEach(function(element){
+                    
                     $('#id_district').append(`<option value="${element._id}"  >  ${element.districtName}  </option>`);
                 })               
             },
@@ -104,12 +106,17 @@ $(document).ready(function(){
 $(document).ready(function(){
     $('#id_district').change(function(){
         var id_district = $(this).val();
+        var diachi ="---Chọn địa chỉ---"
         $.ajax({
             type: 'GET',
             url: 'http://localhost:4000/api/v1/Customers/getAgency/'+id_district,   
             success: function(data){
+                $('#id_agency').find('option').remove().end();
+                $('#id_agency').append("<option>"+diachi+"</option>");
+                
                 data.Agencys.forEach(function(element){
                     $('#id_agency').append("<option value=" + element._id + ">" + element.address + "</option>");
+                    //$('#id_agency').append(`<option value="${element._id}"  >  ${element.address}  </option>`);
                 })
             },
             error: function(e){
