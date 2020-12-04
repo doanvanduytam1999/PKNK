@@ -60,17 +60,15 @@ if(logOutBtn) {
 $(document).ready(function(){
     $('#loaiservice').change(function(){
         var id_loaiservice = $(this).val();
-        const url = 'http://localhost:4000/api/v1/Customers/getService/'+id_loaiservice;
         $.ajax({
             type: 'GET',
             url: "http://localhost:4000/api/v1/Customers/getService/"+id_loaiservice,
             success: function(data){
+                $('#id_service').find('option').remove().end();
+                $('#id_service').append(`<option value="0">Chọn dịch vụ...</option>`);
                 data.Services.forEach(function(element){
-                    //$('#id_service').html(element.name);
-                    $('#id_service').append("<option>"+element.name+"</option>");
+                    $('#id_service').append(`<option value="${element._id}"> ${element.name}</option>`);
                 })
-                
-                
             },
             error: function(e){
                 console.log(e.message);
@@ -89,7 +87,11 @@ $(document).ready(function(){
             url: 'http://localhost:4000/api/v1/Customers/getDistrict/'+id_city,
             success: function(data){
                 $('#id_district').find('option').remove().end();
+<<<<<<< HEAD
                 $('#id_district').append("<option>"+chinhanh+"</option>");
+=======
+                $('#id_district').append(`<option value="0"  >  Chọn quận  </option>`);
+>>>>>>> 889c7884e80b0aa6e183f210b62830b7ea840a10
                 data.Districts.forEach(function(element){
                     
                     $('#id_district').append(`<option value="${element._id}"  >  ${element.districtName}  </option>`);
@@ -112,11 +114,17 @@ $(document).ready(function(){
             url: 'http://localhost:4000/api/v1/Customers/getAgency/'+id_district,   
             success: function(data){
                 $('#id_agency').find('option').remove().end();
+<<<<<<< HEAD
                 $('#id_agency').append("<option>"+diachi+"</option>");
                 
                 data.Agencys.forEach(function(element){
                     $('#id_agency').append("<option value=" + element._id + ">" + element.address + "</option>");
                     //$('#id_agency').append(`<option value="${element._id}"  >  ${element.address}  </option>`);
+=======
+                $('#id_agency').append(`<option value="0">  Chọn chi nhánh </option>`);
+                data.Agencys.forEach(function(element){
+                    $('#id_agency').append(`<option value="${element._id}">  ${element.address}  </option>`);
+>>>>>>> 889c7884e80b0aa6e183f210b62830b7ea840a10
                 })
             },
             error: function(e){
