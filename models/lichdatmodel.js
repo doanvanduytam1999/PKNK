@@ -27,7 +27,8 @@ const lichDatSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "UserCustomerSchema"
         },
-        note: String
+        note: String,
+        status: String
     },
 
 );

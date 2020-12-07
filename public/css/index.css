@@ -45,10 +45,10 @@ body{
   margin-left: 0;
 }
 #radio2:checked ~ .first{
-  margin-left: -120%;
+  margin-left: -150%;
 }
 #radio3:checked ~ .first{
-  margin-left: -230%;
+  margin-left: -270%;
 }
 .navigation-auto{
   position: absolute;
@@ -98,4 +98,13 @@ body{
 }
 .alert--error {
   background-color: #eb4d4b;
+}
+.col ul{
+  text-transform: uppercase;
+  font-weight: 600;
+}
+footer{
+  background-color: #000;
+  color: #fff;
+  
 }
