@@ -101265,14 +101265,14 @@ if (logOutBtn) {
 $(document).ready(function () {
   $('#loaiservice').change(function () {
     var id_loaiservice = $(this).val();
-    var url = 'http://localhost:4000/api/v1/Customers/getService/' + id_loaiservice;
     $.ajax({
       type: 'GET',
       url: "http://localhost:4000/api/v1/Customers/getService/" + id_loaiservice,
       success: function success(data) {
+        $('#id_service').find('option').remove().end();
+        $('#id_service').append("<option value=\"0\">Ch\u1ECDn d\u1ECBch v\u1EE5...</option>");
         data.Services.forEach(function (element) {
-          //$('#id_service').html(element.name);
-          $('#id_service').append("<option>" + element.name + "</option>");
+          $('#id_service').append("<option value=\"".concat(element._id, "\"> ").concat(element.name, "</option>"));
         });
       },
       error: function error(e) {
@@ -101290,7 +101290,7 @@ $(document).ready(function () {
       url: 'http://localhost:4000/api/v1/Customers/getDistrict/' + id_city,
       success: function success(data) {
         $('#id_district').find('option').remove().end();
-        $('#id_district').append("<option>" + chinhanh + "</option>");
+        $('#id_district').append("<option value=\"0\"  >  Ch\u1ECDn qu\u1EADn  </option>");
         data.Districts.forEach(function (element) {
           $('#id_district').append("<option value=\"".concat(element._id, "\"  >  ").concat(element.districtName, "  </option>"));
         });
@@ -101310,9 +101310,9 @@ $(document).ready(function () {
       url: 'http://localhost:4000/api/v1/Customers/getAgency/' + id_district,
       success: function success(data) {
         $('#id_agency').find('option').remove().end();
-        $('#id_agency').append("<option>" + diachi + "</option>");
+        $('#id_agency').append("<option value=\"0\">  Ch\u1ECDn chi nh\xE1nh </option>");
         data.Agencys.forEach(function (element) {
-          $('#id_agency').append("<option value=" + element._id + ">" + element.address + "</option>"); //$('#id_agency').append(`<option value="${element._id}"  >  ${element.address}  </option>`);
+          $('#id_agency').append("<option value=\"".concat(element._id, "\">  ").concat(element.address, "  </option>"));
         });
       },
       error: function error(e) {
@@ -101481,7 +101481,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51502" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64627" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

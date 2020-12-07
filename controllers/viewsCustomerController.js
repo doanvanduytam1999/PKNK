@@ -9,9 +9,12 @@ const District = require('../models/districtModel');
 const CityModel = require('../models/cityModel');
 const DistrictModel = require('../models/districtModel');
 const AgencyModel = require('../models/agencyModel');
+const LichDat = require('../models/lichdatmodel');
 
 exports.getHomePage = (req, res, next) => {
+   
     res.status(200).render('customer/index', {
+        
         pageTitle: 'HomePage',
         patch: '/'
     })
@@ -32,6 +35,7 @@ exports.getSchedule = catchAsync(async (req, res, next) => {
     })
 });
 exports.getTypeService = catchAsync(async (req, res, next) => {
+    console.log(req.session.view);
     const typeService = await TypeService.find().populate('services');
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     res.status(200).render('customer/service', {
@@ -44,9 +48,15 @@ exports.getTypeService = catchAsync(async (req, res, next) => {
 exports.getServiceHome = catchAsync(async (req, res, next) => {
     const typeService = await TypeService.find();
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
-
+    if(!req.session.view){
+        req.session.view = ["abc"];
+    }
+    else{
+        req.session.view.push("a");
+    }
     res.status(200).render('customer/index', {
         TypeService: typeService,
+        view: req.session.view,
         KiemTralogin: kiemTralogin,
         pageTitle: 'Service',
         patch: '/'
@@ -69,17 +79,17 @@ exports.getServiceCustomer = catchAsync(async (req, res, next) => {
 });
 
 exports.getThongTin = (req, res, next) => {
-
+    
     res.status(200).render('customer/thongtin', {
         pageTitle: 'ThongTin',
         patch: '/thongtin'
     })
 };
 exports.getSignin = catchAsync(async (req, res, next) => {
-    const service = await ServiceModel.find();
+    const typeService = await TypeService.find();
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     res.status(200).render('customer/sign-in_customer', {
-        Service: service,
+        TypeService: typeService,
         KiemTralogin: kiemTralogin,
         pageTitle: 'Đăng kí',
         patch: '/sign-in'
@@ -98,25 +108,18 @@ exports.getLogin = catchAsync(async (req, res, next) => {
 
 exports.postDatLich = catchAsync(async (req, res, next) => {
     const id = req.body.id;
-    const userCustomer = await CustomerModel.findById(id);
-    const temp = userCustomer.appointment;
-    temp.push({
-        service: req.body.service,
-        city: req.body.city,
-        district: req.body.district,
-        agency: req.body.agency,
+
+    LichDat.create()
+    const lichdat = await LichDat.create({
         time: req.body.time,
+        serviceID: req.body.id_service,
+        cityID: req.body.id_city,
+        districtID: req.body.id_district,
+        agencyID: req.body.id_agency,
+        cunstomerID: id,
         note: req.body.note,
         status: "Đang chờ"
     })
-
-    const customer = await CustomerModel.findByIdAndUpdate(id, {
-        appointment: temp
-    }
-        , {
-            new: true,
-            runValidators: true
-        });
     res.redirect('/get-schedule');
 });
 

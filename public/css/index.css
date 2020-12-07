@@ -45,10 +45,10 @@ body{
   margin-left: 0;
 }
 #radio2:checked ~ .first{
-  margin-left: -120%;
+  margin-left: -130%;
 }
 #radio3:checked ~ .first{
-  margin-left: -230%;
+  margin-left: -260%;
 }
 .navigation-auto{
   position: absolute;
