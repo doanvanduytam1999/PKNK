@@ -15,6 +15,7 @@ router.get('/sign-in', viewsCustomerController.getSignin);
 router.get('/thongtin', viewsCustomerController.getThongTin);
 router.get('/service', viewsCustomerController.getTypeService);
 router.get('/get-services/:index', viewsCustomerController.getServiceCustomer);
+router.get('/profile', authController.isLoggedIn,viewsCustomerController.getProfile)
 
 
 router.post('/datlich', authController.isLoggedIn, viewsCustomerController.postDatLich);

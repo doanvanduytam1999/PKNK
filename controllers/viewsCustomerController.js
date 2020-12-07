@@ -159,3 +159,18 @@ exports.getAgency = catchAsync(async (req, res, next) => {
         Agencys: district.agencys
     });
 })
+exports.getProfile = catchAsync(async (req, res, next) => {
+    //const service = await ServiceModel.find();
+    const typeservice = await TypeService.find();
+    const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
+    ///const city = await CityModel.find();
+    //console.log(city);
+    res.status(200).render('customer/profile', {
+        //Service: service,
+        TypeService: typeservice,
+        KiemTralogin: kiemTralogin,
+        //City: city,
+        pageTitle: 'Thông tin cá nhân',
+        patch: '/profile'
+    })
+});
