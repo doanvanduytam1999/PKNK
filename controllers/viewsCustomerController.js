@@ -10,7 +10,9 @@ const DistrictModel = require('../models/districtModel');
 const AgencyModel = require('../models/agencyModel');
 const LichDat = require('../models/lichdatmodel');
 exports.getHomePage = (req, res, next) => {
+   
     res.status(200).render('customer/index', {
+        
         pageTitle: 'HomePage',
         patch: '/'
     })
@@ -31,6 +33,7 @@ exports.getSchedule = catchAsync(async (req, res, next) => {
     })
 });
 exports.getTypeService = catchAsync(async (req, res, next) => {
+    console.log(req.session.view);
     const typeService = await TypeService.find().populate('services');
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     res.status(200).render('customer/service', {
@@ -43,9 +46,15 @@ exports.getTypeService = catchAsync(async (req, res, next) => {
 exports.getServiceHome = catchAsync(async (req, res, next) => {
     const typeService = await TypeService.find();
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
-
+    if(!req.session.view){
+        req.session.view = ["abc"];
+    }
+    else{
+        req.session.view.push("a");
+    }
     res.status(200).render('customer/index', {
         TypeService: typeService,
+        view: req.session.view,
         KiemTralogin: kiemTralogin,
         pageTitle: 'Service',
         patch: '/'
@@ -68,7 +77,7 @@ exports.getServiceCustomer = catchAsync(async (req, res, next) => {
 });
 
 exports.getThongTin = (req, res, next) => {
-
+    
     res.status(200).render('customer/thongtin', {
         pageTitle: 'ThongTin',
         patch: '/thongtin'
