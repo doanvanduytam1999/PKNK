@@ -1,64 +1,62 @@
-
 <%- include('../include/header_customer') %>
 <link rel="stylesheet" href="/css/index.css">
 <link rel="stylesheet" href="/css/profile.css">
 
 
 </head>
+
 <body>
-  <%- include('../include/menu_customer') %> 
-  <hr>
-  <div class="container text-center">
-      <div class="profile">
+    <%- include('../include/menu_customer') %>
+    <hr>
+    <div class="container text-center">
+        <div class="profile">
             <p class="title">Thông tin tài khoản</p>
             <img src="/images/avatar.jpg" alt="" srcset="">
             <div class="user"><%= KiemTralogin.username %></div>
 
-            <form action="" method="POST">
+            <form action="/editUser" method="POST" enctype="application/x-www-form-urlencoded">
                 <table class="tbl_profie">
-                    <tr >
-                        <th>Họ tên:</td>
-                        <td><input type="text"></td>
+                    <tr>
+                        <th>Họ tên:</th>
+                        <td><input type="text" name="hovaten" value="<%= KiemTralogin.hovaten %>"></td>
                     </tr>
-                    <tr >
-                        <th>Tên tài khoản:</td>
-                        <td><input type="text" value="<%= KiemTralogin.username %>" readonly></td>
+                    <tr>
+                        <th>Tên tài khoản:</th>
+                        <td><input type="text" name="username" value="<%= KiemTralogin.username %>" readonly></td>
                     </tr>
-                    <tr >
-                        <th>Mật khẩu:</td>
-                        <td><input type="password"></td>
+                    <tr>
+                        <th>Mật khẩu cũ:</th>
+                        <td><input type="password" name="matkhaucu"></td>
                     </tr>
-                    <tr >
-                        <th>Xác nhận mật khẩu:</td>
-                        <td><input type="password"></td>
+                    <tr>
+                        <th>Mật khẩu mới:</th>
+                        <td><input type="password" name="matkhaumoi"></td>
                     </tr>
-                    <tr >
-                        <th>Email:</td>
-                        <td><input type="text"></td>
+                    <tr>
+                        <th>Xác nhận mật khẩu mới:</th>
+                        <td><input type="password" name="xacnhanmatkhau"></td>
                     </tr>
-                    <tr >
-                        <th>Số điện thoại:</td>
-                        <td><input type="text"></td>
+                    <tr>
+                        <th>Email:</th>
+                        <td><input type="text" value="<%= KiemTralogin.email %>" name="email"></td>
                     </tr>
-                   
-                        
-                  
+                    <tr>
+                        <th>Số điện thoại:</th>
+                        <td><input type="text" name="phone" value="<%= KiemTralogin.phone %>"></td>
+                    </tr>
+
+
+
                 </table>
-                <button  class="btn btn-success">Chỉnh sửa</button>
+                <button type="submit" class="btn btn-success">Chỉnh sửa</button>
             </form>
-      </div>
-      <br>
-      <br>
-  </div>
-  
-
-
-  
-<%- include('../include/footer') %>
-<%- include('../include/end') %>
+        </div>
+        <br>
+        <br>
+    </div>
 
 
 
 
-  
-
+    <%- include('../include/footer') %>
+    <%- include('../include/end') %>

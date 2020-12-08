@@ -9,7 +9,6 @@ const router = express.Router();
 
 router.get('/', viewsCustomerController.getServiceHome);
 router.get('/get-schedule', authController.isLoggedIn,  viewsCustomerController.getSchedule);
-//router.get('/get-schedule', viewsCustomerController.getServiceHome);
 router.get('/login', viewsCustomerController.getLogin);
 router.get('/sign-in', viewsCustomerController.getSignin);
 router.get('/thongtin', viewsCustomerController.getThongTin);
@@ -20,5 +19,6 @@ router.get('/profile', authController.isLoggedIn,viewsCustomerController.getProf
 
 router.post('/datlich', authController.isLoggedIn, viewsCustomerController.postDatLich);
 router.post('/sign-up', viewsCustomerController.postAddCustomer);
+router.post('/editUser', authController.isLoggedIn, viewsCustomerController.postEditUser);
 //router.get('/price-list', viewsCustomerController.getPriceList);
 module.exports = router;
