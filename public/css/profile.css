@@ -41,7 +41,11 @@ body{
 .tbl_profie tr td input:focus{
     outline: none;
 }
-.btn{
-    margin-top: 60px;
-    margin-right: 70px;
+.chinhsua{
+    display: inline-table;
+    margin-top: 200px;
+   float: right;
+    
+
 }
+

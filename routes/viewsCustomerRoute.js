@@ -3,6 +3,7 @@ const viewsCustomerController = require('../controllers/viewsCustomerController'
 const authController = require('../controllers/authController');
 const customer = require('../models/userCustomerModel');
 const { check, body } = require('express-validator');
+const { route } = require('./viewsAdminRoute');
 
 
 const router = express.Router();
@@ -15,10 +16,12 @@ router.get('/thongtin', viewsCustomerController.getThongTin);
 router.get('/service', viewsCustomerController.getTypeService);
 router.get('/get-services/:index', viewsCustomerController.getServiceCustomer);
 router.get('/profile', authController.isLoggedIn,viewsCustomerController.getProfile)
+router.get('/DSLichDat', viewsCustomerController.getLichDatTheoQuan);
 
 
 router.post('/datlich', authController.isLoggedIn, viewsCustomerController.postDatLich);
 router.post('/sign-up', viewsCustomerController.postAddCustomer);
 router.post('/editUser', authController.isLoggedIn, viewsCustomerController.postEditUser);
+router.post('/updatePassword', authController.isLoggedIn, viewsCustomerController.postUpdatePassword);
 //router.get('/price-list', viewsCustomerController.getPriceList);
 module.exports = router;
