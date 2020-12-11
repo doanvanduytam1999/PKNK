@@ -74,7 +74,7 @@ exports.getEditService = catchAsync(async (req, res, next) => {
         patch: '/edit-Service'
     })
 });
-exports.getService = catchAsync(async (req, res, next) => {
+exports.getService = catchAsync(async(req, res, next) => {
     const typeService = await TypeService.find();
     res.status(200).render('admin/service', {
         Service: typeService,
@@ -82,6 +82,9 @@ exports.getService = catchAsync(async (req, res, next) => {
         patch: '/service'
     })
 });
+
+
+
 exports.getDashboard = catchAsync(async (req, res, next) => {
     const service = await Service.find();
     res.status(200).render('admin/dashboard', {
@@ -206,3 +209,22 @@ exports.postAddService = catchAsync(async (req, res, next) => {
     }
     res.redirect('/admin/dashboard');
 });
+//List admin
+exports.getListadmin = (req, res, next) => {
+    res.status(200).render('admin/listadmin', {
+        pageTitle: 'List Admin',
+        patch: '/listadmin'
+    });
+};
+exports.getEditAdmin = (req, res, next) => {
+    res.status(200).render('admin/editadmin', {
+        pageTitle: 'Edit Admin',
+        patch: '/editadmin'
+    });
+};
+exports.getUpdatePassword = (req, res, next) => {
+    res.status(200).render('admin/updatepasswordadmin', {
+        pageTitle: 'Edit Password Admin',
+        patch: '/updatepasswordadmin'
+    });
+};
