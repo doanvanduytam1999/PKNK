@@ -18,7 +18,7 @@ router.post('/edit-Service/:id', viewsAdminController.postEditService);
 router.post('/deleteTypeService/:id', viewsAdminController.postDeleteTypeService);
 router.post('/add-Service', viewsAdminController.postAddService);
 //List admin
-router.get('/list-admin', viewsAdminController.getListadmin);
-router.get('/edit-admin', viewsAdminController.getEditAdmin);
+router.get('/list-admin/', viewsAdminController.getListadmin);
+router.get('/edit-admin/:id', viewsAdminController.getEditAdmin);
 router.get('/update-password', viewsAdminController.getUpdatePassword);
 module.exports = router;

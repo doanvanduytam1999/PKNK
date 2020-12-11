@@ -3,7 +3,7 @@ const UserAdminModel = require('../models/userAdminModel');
 const Service = require('../models/serviceModel');
 const TypeService = require('../models/typeServiceModel');
 const { param } = require('../routes/viewsAdminRoute');
-const { findOne } = require('../models/userAdminModel');
+const { findOne, getMaxListeners } = require('../models/userAdminModel');
 const CityModel = require('../models/cityModel');
 const DistrictModel = require('../models/districtModel');
 const AgencyModel = require('../models/agencyModel');
@@ -37,9 +37,9 @@ exports.postService = catchAsync(async (req, res, next) => {
     res.send("oke!");
 })
 
-exports.postAddCity = catchAsync(async(req, res, next)=> {
+exports.postAddCity = catchAsync(async (req, res, next) => {
     const district = await DistrictModel.create({
-        districtName: "Quận 1" ,
+        districtName: "Quận 1",
         cityID: "5fc67e97c1dae73e50f12f70"
     });
     const diachi = await AgencyModel.create({
@@ -74,7 +74,7 @@ exports.getEditService = catchAsync(async (req, res, next) => {
         patch: '/edit-Service'
     })
 });
-exports.getService = catchAsync(async(req, res, next) => {
+exports.getService = catchAsync(async (req, res, next) => {
     const typeService = await TypeService.find();
     res.status(200).render('admin/service', {
         Service: typeService,
@@ -210,21 +210,39 @@ exports.postAddService = catchAsync(async (req, res, next) => {
     res.redirect('/admin/dashboard');
 });
 //List admin
-exports.getListadmin = (req, res, next) => {
+exports.getListadmin = catchAsync(async(req, res, next) => {
+    const userAdmins = await UserAdminModel.find();
     res.status(200).render('admin/listadmin', {
+        UserAdmins: userAdmins,
         pageTitle: 'List Admin',
         patch: '/listadmin'
     });
-};
-exports.getEditAdmin = (req, res, next) => {
+});
+exports.getEditAdmin = catchAsync(async(req, res, next) => {
+    console.log(req.params.id);
+    const user = await UserAdminModel.findById(req.params.id);
+    console.log(user);
     res.status(200).render('admin/editadmin', {
+        User : user,
         pageTitle: 'Edit Admin',
         patch: '/editadmin'
     });
-};
+});
 exports.getUpdatePassword = (req, res, next) => {
     res.status(200).render('admin/updatepasswordadmin', {
         pageTitle: 'Edit Password Admin',
         patch: '/updatepasswordadmin'
     });
 };
+
+exports.postAddUserAdmin = catchAsync(async (req, res, next) => {
+    const userAdmin = await UserAdminModel.create({
+        username: "duytam",
+        email: "tam@gmail.com",
+        role: "admin",
+        password: "tam123456",
+        passwordConfirm: "tam123456",
+    })
+    res.send(userAdmin);
+});
+
