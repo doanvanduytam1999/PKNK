@@ -6,6 +6,7 @@ const userCustomerSchema = new mongoose.Schema({
   hovaten: String,
   username: {
     type: String,
+    unique: true,
     required: [true, 'Please tell us your name']
   },
   email: {
@@ -23,6 +24,7 @@ const userCustomerSchema = new mongoose.Schema({
   },
   phone: {
     type: String,
+    unique: true,
     required: [true, 'Please provide your phone number'],
     minlength: 10,
     maxlength: 11,

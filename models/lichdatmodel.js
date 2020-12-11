@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const lichDatSchema = new mongoose.Schema(
     {
         time: {
-            type: Date,
+            type: String,
             required: [true, 'Please provide service time']
         },
         serviceID: {

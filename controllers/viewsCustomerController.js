@@ -9,10 +9,11 @@ const CityModel = require('../models/cityModel');
 const DistrictModel = require('../models/districtModel');
 const AgencyModel = require('../models/agencyModel');
 const LichDat = require('../models/lichdatmodel');
+const { now } = require('jquery');
 exports.getHomePage = (req, res, next) => {
-   
+
     res.status(200).render('customer/index', {
-        
+
         pageTitle: 'HomePage',
         patch: '/'
     })
@@ -38,7 +39,7 @@ exports.getTypeService = catchAsync(async (req, res, next) => {
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     res.status(200).render('customer/service', {
         TypeService: typeService,
-        KiemTralogin : kiemTralogin,
+        KiemTralogin: kiemTralogin,
         pageTitle: 'Service',
         patch: '/service'
     })
@@ -46,12 +47,6 @@ exports.getTypeService = catchAsync(async (req, res, next) => {
 exports.getServiceHome = catchAsync(async (req, res, next) => {
     const typeService = await TypeService.find();
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
-    if(!req.session.view){
-        req.session.view = ["abc"];
-    }
-    else{
-        req.session.view.push("a");
-    }
     res.status(200).render('customer/index', {
         TypeService: typeService,
         view: req.session.view,
@@ -77,7 +72,7 @@ exports.getServiceCustomer = catchAsync(async (req, res, next) => {
 });
 
 exports.getThongTin = (req, res, next) => {
-    
+
     res.status(200).render('customer/thongtin', {
         pageTitle: 'ThongTin',
         patch: '/thongtin'
@@ -105,12 +100,13 @@ exports.getLogin = catchAsync(async (req, res, next) => {
 });
 
 exports.postDatLich = catchAsync(async (req, res, next) => {
+    console.log(req.body);
     const lichdat = await LichDat.create({
         time: req.body.time,
         serviceID: req.body.id_service,
         cityID: req.body.id_city,
-        districtID: req.body.id_district,
-        agencyID: req.body.id_agency,
+        districtID: req.body.district,
+        agencyID: req.body.agency,
         cunstomerID: req.body.id,
         note: req.body.note,
         status: "Đang chờ"
@@ -147,30 +143,90 @@ exports.getDistrict = catchAsync(async (req, res, next) => {
     res.status(200).json({
         status: 'success',
         Districts: city.districts
-        
+
     });
 })
 
 exports.getAgency = catchAsync(async (req, res, next) => {
     const id = req.params.id;
-        const district = await DistrictModel.findById(id).populate('agencys');
+    const district = await DistrictModel.findById(id).populate('agencys');
     res.status(200).json({
         status: 'success',
         Agencys: district.agencys
     });
 })
 exports.getProfile = catchAsync(async (req, res, next) => {
-    //const service = await ServiceModel.find();
     const typeservice = await TypeService.find();
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
-    ///const city = await CityModel.find();
-    //console.log(city);
     res.status(200).render('customer/profile', {
-        //Service: service,
         TypeService: typeservice,
         KiemTralogin: kiemTralogin,
-        //City: city,
         pageTitle: 'Thông tin cá nhân',
         patch: '/profile'
     })
+});
+
+exports.postEditUser = catchAsync(async (req, res, next) => {
+    const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
+    const userCustomer = await CustomerModel.findByIdAndUpdate(kiemTralogin.id, {
+        hovaten: req.body.hovaten,
+        phone: req.body.phone,
+        email: req.body.email
+    },
+        {
+            new: true,
+            runValidators: true
+        }
+    );
+    res.redirect('/profile');
+});
+
+exports.getLichDatTheoQuan = catchAsync(async (req, res, next) => {
+    var today =new Date();
+    var date="";
+    if((today.getMonth() + 1) > 10 && today.getDate() > 10){
+        date = (today.getMonth() + 1)+ '/' + today.getDate()  + '/' + today.getFullYear();
+    }else{
+        if((today.getMonth() + 1) < 10){
+            date = date + "0"+(today.getMonth() + 1) +"/";
+        }else{
+            date = date + (today.getMonth() + 1) + "/";
+        }
+
+        if(today.getDate() < 10){
+            date = date + "0"+ today.getDate() +"/";
+        }else{
+            date = date + today.getDate() +"/";
+        }
+        date = date + today.getFullYear();
+
+    }
+
+    const lichdat = await LichDat.find().populate('districtID');
+    var result = [];
+    lichdat.forEach(function(element){
+        var a = element.time.substr(0, 10);
+        if(a == date && element.districtID.districtName == "Quận 7"){
+            result.push(element);
+        }
+    });
+    res.send(result);
+});
+
+exports.postUpdatePassword = catchAsync(async (req, res, next) => {
+    console.log(req.body);
+    const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
+    const userCustomer = await CustomerModel.findById(kiemTralogin.id).select('+password');
+    if (!userCustomer) {
+        console.log("Không tìm thấy user!");
+    } else {
+        userCustomer.password = req.body.matkhaumoi
+        userCustomer.passwordConfirm = req.body.xacnhanmatkhaumoi
+        await userCustomer.save(
+            {
+                validateBeforeSave: true,
+                runValidators: true
+            });
+    }
+    res.redirect('/profile');
 });
