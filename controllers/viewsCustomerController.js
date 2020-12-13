@@ -230,3 +230,4 @@ exports.postUpdatePassword = catchAsync(async (req, res, next) => {
     }
     res.redirect('/profile');
 });
+

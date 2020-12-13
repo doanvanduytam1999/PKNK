@@ -2,8 +2,8 @@ const express = require('express');
 const viewsCustomerController = require('../controllers/viewsCustomerController');
 const authController = require('../controllers/authController');
 const customer = require('../models/userCustomerModel');
-const { check, body } = require('express-validator');
-const { route } = require('./viewsAdminRoute');
+const { post } = require('./viewsAdminRoute');
+
 
 
 const router = express.Router();

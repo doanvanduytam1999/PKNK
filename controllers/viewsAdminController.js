@@ -210,7 +210,7 @@ exports.postAddService = catchAsync(async (req, res, next) => {
     res.redirect('/admin/dashboard');
 });
 //List admin
-exports.getListadmin = catchAsync(async(req, res, next) => {
+exports.getListadmin = catchAsync(async (req, res, next) => {
     const userAdmins = await UserAdminModel.find();
     res.status(200).render('admin/listadmin', {
         UserAdmins: userAdmins,
@@ -218,12 +218,12 @@ exports.getListadmin = catchAsync(async(req, res, next) => {
         patch: '/listadmin'
     });
 });
-exports.getEditAdmin = catchAsync(async(req, res, next) => {
+exports.getEditAdmin = catchAsync(async (req, res, next) => {
     console.log(req.params.id);
     const user = await UserAdminModel.findById(req.params.id);
     console.log(user);
     res.status(200).render('admin/editadmin', {
-        User : user,
+        User: user,
         pageTitle: 'Edit Admin',
         patch: '/editadmin'
     });
@@ -235,14 +235,50 @@ exports.getUpdatePassword = (req, res, next) => {
     });
 };
 
-exports.postAddUserAdmin = catchAsync(async (req, res, next) => {
+exports.postAddUserAdmin = catchAsync(async(req, res, next) => {
+    console.log(req.body);
     const userAdmin = await UserAdminModel.create({
-        username: "duytam",
-        email: "tam@gmail.com",
-        role: "admin",
-        password: "tam123456",
-        passwordConfirm: "tam123456",
+        username: req.body.username,
+        email:req.body.email,
+        role: req.body.role,
+        password: req.body.password,
+        passwordConfirm: req.body.passwordConfirm,
     })
-    res.send(userAdmin);
+    res.redirect('/admin/list-admin');
 });
 
+exports.postEditUSerAdmin = catchAsync(async (req, res, next) => {
+    console.log(req.body);
+    const id = req.params.id;
+    const user = await UserAdminModel.findByIdAndUpdate(id, {
+        username: req.body.username,
+        email: req.body.email,
+        role: req.body.role,
+        active: req.body.active,
+    }, {
+        new: true,
+        runValidators: true
+    })
+    res.redirect(`/admin/edit-admin/${id}`);
+});
+
+exports.postChangePassword = catchAsync(async(req, res, next)=>{
+    const id = req.params.id;
+    const userAdmin = await UserAdminModel.findById(id).select('+password');
+
+    if (!userAdmin) {
+      console.log("khong tim thay user");
+    }
+    userAdmin.password = req.body.password;
+    userAdmin.passwordConfirm = req.body.passwordConfirm
+    await userAdmin.save(
+      {
+        validateBeforeSave: true,
+        runValidators: true
+      });
+    res.redirect(`/admin/edit-admin/${id}`);
+});
+
+exports.getAddAdmin = async(req, res, next)=> {
+    res.status(200).render('admin/addadmin');
+}
