@@ -63,14 +63,7 @@ if(logOutBtn) {
 if(logOutAdmin){
     logOutAdmin.addEventListener('click', logoutAdmin);
 }
-/* if (getTypeService) {
-    getTypeService.addEventListener('change', async function(e){
-        e.preventDefault();
-        const id = getTypeService.value;
-        let services =  await getService(id);
-        console.log(services);
-    });
-}; */
+
 
 $(document).ready(function(){
     $('#loaiservice').change(function(){

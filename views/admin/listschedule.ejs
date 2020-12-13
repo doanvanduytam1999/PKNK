@@ -14,32 +14,36 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-6">
-                                <form class="form-inline" action="" method="GET">
+                                <form class="form-inline" action="/admin/list-schedule/searchPhone" method="POST" enctype="application/x-www-form-urlencoded">
                                     <div class="form-group mb-2 mr-2">
-                                        <label for="username" class="sr-only">Tìm Kiếm</label>
-                                        <input type="text" class="form-control" id="username" name="username" placeholder="Search name">
+                                        <label class="sr-only">Tìm Kiếm</label>
+                                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Search phone" value="<%=Phone %>">
                                     </div>
                                     <button type="submit" class="btn btn-info mb-2">Tìm Kiếm</button>
                                 </form>
                             </div>
                             <div class="col-lg-4">
-                                <form class="form-inline" action="/admin/list-admin" method="GET">
+                                <form class="form-inline" action="/admin/list-schedule/filter" method="POST" enctype="application/x-www-form-urlencoded">
                                     <div class="form-group mb-2 mr-2">
-                                        <select class="form-control" id="active" name="active">
-                                          <option selected>true</option>
-                                          <option>false</option>
+                                        <select class="form-control" id="date" name="date">
+                                            <% SevenDay.forEach(function(element){ 
+                                                if(element == Ngay){ %>
+                                                <option value="<%= element %>" selected><%= element %></option>
+                                                <% }else{ %>
+                                                <option value="<%= element %>"><%= element %></option>
+                                                <% }%>
+                                            <% })%>
                                         </select>
                                       </div>
                                     <button type="submit" class="btn btn-info mb-2">Lọc</button>
                                 </form>
                             </div>
                             <div class="col-lg-2">
-                                <a href="/admin/add-admin" class="btn btn-success mb-2" style="height:40px;width: 95px; font-size: 18px; color: #fff;"><i class="fas fa-user-plus"></i></a>
-                                <!-- <a target="_blank" href="/admin/export-excel-admin" class="btn btn-success mb-2"><i class="fas fa-chevron-left"></i></a> -->
+                                <a href="/admin/list-schedule" class="btn btn-success mb-2" style="height:40px;width: 95px; font-size: 18px; color: #fff;"><i class="fas fa-file"></i></a>
                             </div>
                         </div>
                         <hr>
-                        <h5 class="card-title">Danh Sách Tài Khoản Admin</h5>
+                        <h5 class="card-title">Danh Sách lịch hẹn</h5>
                             <table class="table table-hover table-sm table-responsive-lg">
                                 <thead>
                                 <tr>
@@ -52,22 +56,18 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                   
+                                    <% var i = 1;  Schedules.forEach(function(element){ %>
                                     <tr>
-                                        <th scope="row"> 1</th>
-                                        <td>Nhan</td>
-                                        <td>0849119919</td>
-                                        <td>Đang chờ</td>
-                                        <td>10h 12/12/2020</td>
+                                        <th scope="row"><%= i %></th>
+                                        <td><%= element.cunstomerID.hovaten %></td>
+                                        <td><%= element.cunstomerID.phone %></td>
+                                        <td><%= element.status %></td>
+                                        <td><%= element.time %></td>
                                         <td class="column-verticallineMiddle form-inline">
                                             <a href="/admin/detail-schedule" class="mr-1"><i class="fas fa-eye"></i></a>
-                                          
-                                            <form action="" method="POST">
-                                                <button type="submit" class="alert-danger"><i class="fas fa-trash"></i></button>
-                                            </form>
                                         </td>
                                     </tr>
-                                  
+                                    <% i++; }) %>
                                 </tbody>
                             </table>
                     </div>

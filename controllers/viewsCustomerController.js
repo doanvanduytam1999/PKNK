@@ -182,31 +182,31 @@ exports.postEditUser = catchAsync(async (req, res, next) => {
 });
 
 exports.getLichDatTheoQuan = catchAsync(async (req, res, next) => {
-    var today =new Date();
-    var date="";
-    if((today.getMonth() + 1) > 10 && today.getDate() > 10){
-        date = (today.getMonth() + 1)+ '/' + today.getDate()  + '/' + today.getFullYear();
-    }else{
-        if((today.getMonth() + 1) < 10){
-            date = date + "0"+(today.getMonth() + 1) +"/";
-        }else{
+    var today = new Date();
+    var date = "";
+    if ((today.getMonth() + 1) > 10 && today.getDate() > 10) {
+        date = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
+    } else {
+        if ((today.getMonth() + 1) < 10) {
+            date = date + "0" + (today.getMonth() + 1) + "/";
+        } else {
             date = date + (today.getMonth() + 1) + "/";
         }
 
-        if(today.getDate() < 10){
-            date = date + "0"+ today.getDate() +"/";
-        }else{
-            date = date + today.getDate() +"/";
+        if (today.getDate() < 10) {
+            date = date + "0" + today.getDate() + "/";
+        } else {
+            date = date + today.getDate() + "/";
         }
-        date = date + today.getFullYear();
 
+        date = date + today.getFullYear();
     }
 
     const lichdat = await LichDat.find().populate('districtID');
     var result = [];
-    lichdat.forEach(function(element){
+    lichdat.forEach(function (element) {
         var a = element.time.substr(0, 10);
-        if(a == date && element.districtID.districtName == "Quận 7"){
+        if (a == date && element.districtID.districtName == "Quận 7") {
             result.push(element);
         }
     });
