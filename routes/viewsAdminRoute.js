@@ -11,21 +11,21 @@ const authController = require('../controllers/authController');
 const router = express.Router();
 
 router.get('/', viewsAdminController.getLogin);
-router.get('/edit-Service/:id', viewsAdminController.getEditService);
-router.get('/dashboard', viewsAdminController.getDashboard);
-router.get('/add-Service', viewsAdminController.getAddService);
-router.get('/service', viewsAdminController.getService);
+router.get('/edit-Service/:id', authController.isLoggedInAdmin, viewsAdminController.getEditService);
+router.get('/dashboard', authController.isLoggedInAdmin,  viewsAdminController.getDashboard);
+router.get('/add-Service', authController.isLoggedInAdmin, viewsAdminController.getAddService);
+router.get('/service', authController.isLoggedInAdmin, viewsAdminController.getService);
 
 //List admin
-router.get('/list-admin/', viewsAdminController.getListadmin);
-router.get('/edit-admin/:id', viewsAdminController.getEditAdmin);
-router.get('/update-password', viewsAdminController.getUpdatePassword);
-router.get('/add-admin',authController.isLoggedIn, viewsAdminController.getAddAdmin);
+router.get('/list-admin/', authController.isLoggedInAdmin, viewsAdminController.getListadmin);
+router.get('/edit-admin/:id', authController.isLoggedInAdmin, viewsAdminController.getEditAdmin);
+router.get('/update-password', authController.isLoggedInAdmin, viewsAdminController.getUpdatePassword);
+router.get('/add-admin', authController.isLoggedInAdmin, viewsAdminController.getAddAdmin);
 
-router.post('/edit-Service/:id', viewsAdminController.postEditService);
-router.post('/deleteTypeService/:id', viewsAdminController.postDeleteTypeService);
-router.post('/add-Service', viewsAdminController.postAddService);
-router.post('/editAdmin/:id', authController.isLoggedIn, viewsAdminController.postEditUSerAdmin);
-router.post('/changePasswordUserAdmin/:id', authController.isLoggedIn, viewsAdminController.postChangePassword);
-router.post('/add-admin', authController.isLoggedIn, viewsAdminController.postAddUserAdmin);
+router.post('/edit-Service/:id', authController.isLoggedInAdmin, viewsAdminController.postEditService);
+router.post('/deleteTypeService/:id', authController.isLoggedInAdmin, viewsAdminController.postDeleteTypeService);
+router.post('/add-Service', authController.isLoggedInAdmin, viewsAdminController.postAddService);
+router.post('/editAdmin/:id', authController.isLoggedInAdmin, viewsAdminController.postEditUSerAdmin);
+router.post('/changePasswordUserAdmin/:id', authController.isLoggedInAdmin, viewsAdminController.postChangePassword);
+router.post('/add-admin', authController.isLoggedInAdmin, viewsAdminController.postAddUserAdmin);
 module.exports = router;

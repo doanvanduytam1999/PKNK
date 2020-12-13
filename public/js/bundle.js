@@ -99069,8 +99069,8 @@ var userAdminSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['admin', 'letan', 'yta', 'bacsi', 'quanlykho', 'thungan'],
-    default: 'staff'
+    enum: ['Admin', 'LeTan', 'BacSi'],
+    default: 'LeTan'
   },
   password: {
     type: String,
@@ -100861,7 +100861,7 @@ exports.showAlert = showAlert;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.logout = exports.login = void 0;
+exports.logoutAdmin = exports.logout = exports.login_admin = exports.login_customer = void 0;
 
 var _axios = _interopRequireDefault(require("axios"));
 
@@ -100873,7 +100873,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-var login = function login(username, password) {
+var login_customer = function login_customer(username, password) {
   var url = 'http://localhost:4000/api/v1/Customers/login';
   (0, _axios.default)({
     method: 'POST',
@@ -100894,7 +100894,30 @@ var login = function login(username, password) {
   });
 };
 
-exports.login = login;
+exports.login_customer = login_customer;
+
+var login_admin = function login_admin(usernameAdmin, passwordAdmin) {
+  var url = 'http://localhost:4000/api/v1/Admins/login';
+  (0, _axios.default)({
+    method: 'POST',
+    url: url,
+    data: {
+      usernameAdmin: usernameAdmin,
+      passwordAdmin: passwordAdmin
+    }
+  }).then(function (res) {
+    if (res.data.status === "success") {
+      (0, _alert.showAlert)('success', 'Đăng nhập thành công !!!');
+      window.setTimeout(function () {
+        location.assign('/admin/dashboard');
+      }, 1500);
+    }
+  }).catch(function (err) {
+    (0, _alert.showAlert)('error', 'Đăng nhập thất bại !!!');
+  });
+};
+
+exports.login_admin = login_admin;
 
 var logout = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
@@ -100939,6 +100962,50 @@ var logout = /*#__PURE__*/function () {
 }();
 
 exports.logout = logout;
+
+var logoutAdmin = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+    var res;
+    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.prev = 0;
+            _context2.next = 3;
+            return (0, _axios.default)({
+              method: 'GET',
+              url: 'http://localhost:4000/api/v1/Admins/logout'
+            });
+
+          case 3:
+            res = _context2.sent;
+
+            if (res.data.status === 'success') {
+              location.assign('/admin');
+            }
+
+            _context2.next = 10;
+            break;
+
+          case 7:
+            _context2.prev = 7;
+            _context2.t0 = _context2["catch"](0);
+            (0, _alert.showAlert)('error', 'Error loggin out! try again');
+
+          case 10:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[0, 7]]);
+  }));
+
+  return function logoutAdmin() {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+exports.logoutAdmin = logoutAdmin;
 },{"axios":"../../node_modules/axios/index.js","./alert":"alert.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
@@ -101225,7 +101292,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //DOM ELEMENT
 var loginForm = document.querySelector('.form-login');
 var logOutBtn = document.querySelector('.logout');
+var loginFormAdmin = document.querySelector('.from-login-admin');
+var logOutBtnAdmin = document.querySelector('.logout-admin');
 var getTypeService = document.querySelector('.loaiservice');
+var logOutAdmin = document.querySelector('.logoutAdmin');
 /*const adminDataForm = document.querySelector('.form-admin-data');
 const adminPasswordForm = document.querySelector('.form-admin-password');
 const addAdminForm = document.querySelector('.form-add-admin');
@@ -101242,7 +101312,19 @@ if (loginForm) {
     e.preventDefault();
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
-    (0, _login.login)(username, password);
+    (0, _login.login_customer)(username, password);
+  });
+}
+
+;
+
+if (loginFormAdmin) {
+  loginFormAdmin.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var username = document.getElementById('usernameadmin').value;
+    var password = document.getElementById('passwordadmin').value;
+    console.log(username, username);
+    (0, _login.login_admin)(username, password);
   });
 }
 
@@ -101253,6 +101335,10 @@ if (logOutBtn) {
 }
 
 ;
+
+if (logOutAdmin) {
+  logOutAdmin.addEventListener('click', _login.logoutAdmin);
+}
 /* if (getTypeService) {
     getTypeService.addEventListener('change', async function(e){
         e.preventDefault();
@@ -101261,6 +101347,7 @@ if (logOutBtn) {
         console.log(services);
     });
 }; */
+
 
 $(document).ready(function () {
   $('#loaiservice').change(function () {
@@ -101481,7 +101568,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58554" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52808" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

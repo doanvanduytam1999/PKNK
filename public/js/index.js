@@ -7,7 +7,7 @@ import catchAsync from '../../utils/catchAsync';
 import { getService } from './getService';
 
 
-import { login, logout } from './login';
+import { login_customer, login_admin, logout, logoutAdmin } from './login';
 
 //import { updateSettings } from './updateSettings';
 //import { addAdmin } from './addAdmin';
@@ -23,7 +23,10 @@ import { login, logout } from './login';
 //DOM ELEMENT
 const loginForm = document.querySelector('.form-login');
 const logOutBtn = document.querySelector('.logout');
+const loginFormAdmin = document.querySelector('.from-login-admin');
+const logOutBtnAdmin = document.querySelector('.logout-admin');
 const getTypeService = document.querySelector('.loaiservice');
+const logOutAdmin = document.querySelector('.logoutAdmin');
 /*const adminDataForm = document.querySelector('.form-admin-data');
 const adminPasswordForm = document.querySelector('.form-admin-password');
 const addAdminForm = document.querySelector('.form-add-admin');
@@ -40,14 +43,26 @@ if (loginForm) {
         e.preventDefault();
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
-        login(username, password);
+        login_customer(username, password);
     });
 };
 
+if (loginFormAdmin) {
+    loginFormAdmin.addEventListener('submit', e => {
+        e.preventDefault();
+        const username = document.getElementById('usernameadmin').value;
+        const password = document.getElementById('passwordadmin').value;
+        console.log(username, username);
+        login_admin(username, password);
+    });
+};
 
 if(logOutBtn) {
     logOutBtn.addEventListener('click', logout);
 };
+if(logOutAdmin){
+    logOutAdmin.addEventListener('click', logoutAdmin);
+}
 /* if (getTypeService) {
     getTypeService.addEventListener('change', async function(e){
         e.preventDefault();

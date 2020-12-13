@@ -58,6 +58,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', viewsCustomerRoute);
 app.use('/admin', viewsAdminRoute);
 app.use('/api/v1/Customers', customerRouter);
+app.use('/api/v1/Admins', userAdminRouter);
 //app.use('/api/v1/userAdmins', userAdminRouter);
 
 //Catch 404 Erros and forward them to error handler
