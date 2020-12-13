@@ -190,7 +190,7 @@ exports.isLoggedInAdmin = async (req, res, next) => {
     try {
       // 1) verify token
       const decoded = await promisify(jwt.verify)(
-        req.cookies.jwt,
+        req.cookies.jwtAdmin,
         process.env.JWT_SECRET
       );
 
