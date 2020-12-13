@@ -29,3 +29,8 @@ router.post('/editAdmin/:id', authController.isLoggedInAdmin, viewsAdminControll
 router.post('/changePasswordUserAdmin/:id', authController.isLoggedInAdmin, viewsAdminController.postChangePassword);
 router.post('/add-admin', authController.isLoggedInAdmin, viewsAdminController.postAddUserAdmin);
 module.exports = router;
+
+
+//Lits Schedule
+router.get('/list-schedule', authController.isLoggedInAdmin, viewsAdminController.getListSchedule)
+router.get('/detail-schedule', authController.isLoggedInAdmin, viewsAdminController.getDetailSchedule);

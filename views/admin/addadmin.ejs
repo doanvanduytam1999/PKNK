@@ -1,17 +1,17 @@
-
 <%- include('../include/header.ejs') %>
-<link rel="stylesheet" href="/css/styles.css">
 </head>  
 <body>
+  <%- include('../include/menu') %>
   <%- include('../include/navagation') %>
-    <main class="page-content">
-      <%- include('../include/menu') %>
+  <div class="main-container">
+
         <div class="container-fluid">
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-6 ">
                     <div class="card">
                         <div class="card-header">
-                          Add User Admin
+                          <p class="title text-center">Add User Admin</p>
+                          
                         </div>
                         <div class="card-body">
                             <form class="form-add-admin" action="/admin/add-admin" method="POST" enctype="application/x-www-form-urlencoded">
@@ -39,9 +39,11 @@
                                       <option value="LeTan">Lễ Tân</option>
                                       <option value="BacSi ">Bác sĩ</option>
                                   </select>
+                                 
                                   <div class="form-group-inline">
-                                      <button type="submit"class="btn btn-primary">Thêm Tài Khoản</button>
-                                      <a href="/admin/list-admin" class="btn btn-danger">Trở về</a>
+                                    <br>  
+                                      <button type="submit"class="btn btn-success">Thêm Tài Khoản</button>
+                                      <a href="/admin/list-admin"style="height:37px;width: 95px; font-size: 18px; color: #fff;" class="btn btn-info">Trở về</a>
                                   </div>
                               </form>
                         </div>
@@ -49,7 +51,7 @@
                 </div>
             </div>
         <hr>
-        <%- include('../include/footer.ejs') %>   
+  
         </div>
     </main>
   </div>
