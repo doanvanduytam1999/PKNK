@@ -7,6 +7,10 @@ const { findOne, getMaxListeners } = require('../models/userAdminModel');
 const CityModel = require('../models/cityModel');
 const DistrictModel = require('../models/districtModel');
 const AgencyModel = require('../models/agencyModel');
+const ScheduleModel = require('../models/lichdatmodel');
+const HandleDate = require('../utils/handleDate');
+const UserCustomerSchema = require('../models/userCustomerModel');
+const { isLoggedIn } = require('./authController');
 
 exports.postService = catchAsync(async (req, res, next) => {
     const service = await ServiceModel.create({
@@ -235,11 +239,11 @@ exports.getUpdatePassword = (req, res, next) => {
     });
 };
 
-exports.postAddUserAdmin = catchAsync(async(req, res, next) => {
+exports.postAddUserAdmin = catchAsync(async (req, res, next) => {
     console.log(req.body);
     const userAdmin = await UserAdminModel.create({
         username: req.body.username,
-        email:req.body.email,
+        email: req.body.email,
         role: req.body.role,
         password: req.body.password,
         passwordConfirm: req.body.passwordConfirm,
@@ -262,38 +266,76 @@ exports.postEditUSerAdmin = catchAsync(async (req, res, next) => {
     res.redirect(`/admin/edit-admin/${id}`);
 });
 
-exports.postChangePassword = catchAsync(async(req, res, next)=>{
+exports.postChangePassword = catchAsync(async (req, res, next) => {
     const id = req.params.id;
     const userAdmin = await UserAdminModel.findById(id).select('+password');
 
     if (!userAdmin) {
-      console.log("khong tim thay user");
+        console.log("khong tim thay user");
     }
     userAdmin.password = req.body.password;
     userAdmin.passwordConfirm = req.body.passwordConfirm
     await userAdmin.save(
-      {
-        validateBeforeSave: true,
-        runValidators: true
-      });
+        {
+            validateBeforeSave: true,
+            runValidators: true
+        });
     res.redirect(`/admin/edit-admin/${id}`);
 });
 
-exports.getAddAdmin = async(req, res, next)=> {
+exports.getAddAdmin = async (req, res, next) => {
     res.status(200).render('admin/addadmin');
 }
 //List Schedule
-exports.getListSchedule =  catchAsync(async(req,res, next)=>{
-    res.status(200).render('admin/listschedule',{
+exports.getListSchedule = catchAsync(async (req, res, next) => {
+    const today = HandleDate.DateToString(new Date());
+    const schedules = await ScheduleModel.find({time: {'$regex' : `^${today}`, '$options' : 'i'}}).populate("cunstomerID");
+    const sevenDay = HandleDate.sevenDay();
+    res.status(200).render('admin/listschedule', {
+        Phone:"",
+        Ngay: today,
+        SevenDay: sevenDay,
+        Schedules: schedules,
         pageTitle: 'Danh sách lịch hẹn',
         patch: '/listschedule'
     });
 });
 
-exports.getDetailSchedule=  catchAsync(async(req,res, next)=>{
-    res.status(200).render('admin/detailschedule',{
+exports.getDetailSchedule = catchAsync(async (req, res, next) => {
+    res.status(200).render('admin/detailschedule', {
         pageTitle: 'Chi tiết lịch hẹn',
         patch: '/detailschedule'
     });
 });
 
+exports.getScheduleDate = catchAsync(async(req, res, next)=>{
+    const ngay = req.body.date;
+    const sevenDay = HandleDate.sevenDay();
+    const schedules = await ScheduleModel.find({time: {'$regex' : `^${ngay}`, '$options' : 'i'}}).populate("cunstomerID");
+    res.status(200).render('admin/listschedule', {
+        Phone:"",
+        Ngay: ngay,
+        SevenDay: sevenDay,
+        Schedules: schedules,
+        pageTitle: 'Danh sách lịch hẹn',
+        patch: '/listschedule'
+    });
+});
+
+exports.getSearchPhone = catchAsync(async(req, res, next)=>{
+    const phone = req.body.phone;
+    const customer = await UserCustomerSchema.findOne({phone: phone});
+    var schedules = [];
+    if(customer){
+        schedules = await ScheduleModel.find({cunstomerID: customer.id}).populate("cunstomerID");
+    }
+    res.status(200).render('admin/listschedule', {
+        Phone: phone,
+        Ngay:"",
+        SevenDay: [],
+        Schedules: schedules,
+        pageTitle: 'Danh sách lịch hẹn',
+        patch: '/listschedule'
+    });
+
+});
