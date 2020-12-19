@@ -24,6 +24,9 @@
   .content{
     font-size: 30px;
   }
+  .container{
+    height: 700px;
+  }
 </style>
 </head>
 <body>
@@ -47,9 +50,7 @@
                       <th scope="col">Bảo hành</th>
                     </tr>
                   </thead>
-                 
                   <tbody class="tbody collection">
-                   
                     <% ServiceItem.forEach(function(element) {%>
                     <tr  class="collection-item" >
                       <th scope="row" >
@@ -64,14 +65,9 @@
                       <td>
                         <%= element.guarantee %>
                       </td>
-                      
-                      
                     </tr>
-                    
                     <% }); %>
-                    
                   </tbody>
-                  
                 </table>
               </div>
             </div>
@@ -79,21 +75,6 @@
         </div>
       </div>
     </div>
-
-
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
-
-
-
   <%- include('../include/footer') %>
   <%- include('../include/script') %>
   <%- include('../include/end') %>

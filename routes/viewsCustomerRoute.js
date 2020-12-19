@@ -17,7 +17,8 @@ router.get('/service', viewsCustomerController.getTypeService);
 router.get('/get-services/:index', viewsCustomerController.getServiceCustomer);
 router.get('/profile', authController.isLoggedIn,viewsCustomerController.getProfile)
 router.get('/DSLichDat', viewsCustomerController.getLichDatTheoQuan);
-
+router.get('/detailschedule_customer', authController.isLoggedIn,  viewsCustomerController.getViewListSchedule);
+router.get('/view-listschedule', authController.isLoggedIn,  viewsCustomerController.getViewSchedule);
 
 router.post('/datlich', authController.isLoggedIn, viewsCustomerController.postDatLich);
 router.post('/sign-up', viewsCustomerController.postAddCustomer);
