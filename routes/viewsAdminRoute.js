@@ -33,6 +33,6 @@ module.exports = router;
 
 //Lits Schedule
 router.get('/list-schedule', authController.isLoggedInAdmin, viewsAdminController.getListSchedule)
-router.get('/detail-schedule', authController.isLoggedInAdmin, viewsAdminController.getDetailSchedule);
+router.get('/detail-schedule/:id', authController.isLoggedInAdmin, viewsAdminController.getDetailSchedule);
 router.post('/list-schedule/searchPhone', authController.isLoggedInAdmin, viewsAdminController.getSearchPhone);
 router.post('/list-schedule/filter', authController.isLoggedInAdmin, viewsAdminController.getScheduleDate);

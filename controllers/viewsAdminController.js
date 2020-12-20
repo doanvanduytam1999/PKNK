@@ -302,7 +302,11 @@ exports.getListSchedule = catchAsync(async (req, res, next) => {
 });
 
 exports.getDetailSchedule = catchAsync(async (req, res, next) => {
+    const id = req.params.id;
+    const schedule = await ScheduleModel.findOne({_id: id}).populate("cunstomerID");
+    console.log(schedule);
     res.status(200).render('admin/detailschedule', {
+        Schedule: schedule,
         pageTitle: 'Chi tiết lịch hẹn',
         patch: '/detailschedule'
     });

@@ -10,31 +10,34 @@
                                     <div class="card-header">
                                         <h5 class="title text-center">Chi tiết lịch hẹn</h5>
                                     </div>
+                                    <form action="/admin/detail-schedule/<%= Schedule.id %>" method="POST" enctype="application/x-www-form-urlencoded">
                                     <div class="card-body">
                                         <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">Tên khách hàng: Nhan
+                                            <li class="list-group-item">Tên khách hàng: <%= Schedule.cunstomerID.hovaten %>
                                             </li>
-                                            <li class="list-group-item">Tên tài khoản: Nhan
+                                            <li class="list-group-item">Tên tài khoản:  <%= Schedule.cunstomerID.username %>
                                             </li>
-                                            <li class="list-group-item">Email: nhan@gmail.com
+                                            <li class="list-group-item">Email: <%= Schedule.cunstomerID.email %>
                                             </li>
-                                            <li class="list-group-item">Số điện thoại:0849119919   </td>
+                                            <li class="list-group-item">Số điện thoại: <%= Schedule.cunstomerID.phone %>
                                             </li>
-                                            <li class="list-group-item">Dịch vụ: 
-                                            </li>
-                                            <li class="list-group-item">Địa chỉ:
-                                            </li>
-                                            <li class="list-group-item">Chi nhánh:
-                                            </li>
-                                            <select style="width: 250px;" class="list-group-item" name="" id="">
-                                                <option class="list-group-item" value="">Đang chờ</option>
-                                                <option class="list-group-item" value="">Đã khám</option>
+                                            <li class="list-group-item">Trạng thái:</li>
+                                            <select style="width: 250px;" class="list-group-item" name="status" id="status">
+                                                <% if(Schedule.status == "Đang chờ"){ %>
+                                                <option class="list-group-item" selected value="Đang chờ">Đang chờ</option>
+                                                <option class="list-group-item" value="Đã khám">Đã khám</option>
+                                                <% }else{%>
+                                                    <option class="list-group-item"  value="Đang chờ">Đang chờ</option>
+                                                    <option class="list-group-item" selected value="Đã khám">Đã khám</option>
+                                                    <% } %>
+                                                
                                             </select>
                                             <li class="list-group-item text-center">
-                                                <button class="btn btn-success btn-lg">Change Password</button>
+                                                <button type="submit" class="btn btn-success btn-lg">Chỉnh sửa trạng thái</button>
                                             </li>
                                         </ul>
                                     </div>
+                                </form>
                                 </div>
                         </div>
                     </div>
