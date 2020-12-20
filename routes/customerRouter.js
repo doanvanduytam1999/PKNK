@@ -10,6 +10,7 @@ router.get('/logout', authController.logoutCustomer);
 router.get('/getService/:id', authController.isLoggedIn, CustomerController.getService);
 router.get('/getDistrict/:id', authController.isLoggedIn, CustomerController.getDistrict);
 router.get('/getAgency/:id', authController.isLoggedIn, CustomerController.getAgency);
+router.get('/getTypeService', authController.isLoggedIn, CustomerController.getTypeService2);
 
 // router.param('id', tourController.checkID);
 

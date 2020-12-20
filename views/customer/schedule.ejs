@@ -19,16 +19,24 @@
                <input hidden value="<%= KiemTralogin.id %>" name="id">
                 <div class="from-data">
                   <!--Lua chon dich vu -->
+                  <div class="dichvu">
+                   
+
+                   
                   <select class="loaiservice"  name="loaiservice" id="loaiservice">
                     <option  value="0">---Chọn dịch vụ---</option>
                     <% TypeService.forEach(function(element){ %>
                       <option class="loaiDV" value="<%= element.id  %>"><%= element.typeServiceName  %></option>
                     <% }); %>
                   </select>
-                  <select class="service" name="id_service" id="id_service">
+                  <select class="service" name="id_service" id="id_service" >
                     <option  value="0">---Chọn loại dịch vụ---</option>
                   </select>
+              </div>
+              <br>
+                <a class="multiservice btn btn-success">Thêm dịch vụ</a>
                  <br>
+
                  <!--Lua chon dia chi-->
                   <select class="district" id="id_city" name="id_city">
                     <option  value="0">---Chọn thành phố---</option>
@@ -43,6 +51,7 @@
                   <select class="district" id="id_agency" name="agency">
                     <option value="0">---Chọn địa chỉ---</option>
                   </select>
+                
                 </div>
                 <div class="from-data" >
                   <input type="text" name="time"  id="start" placeholder="Chọn lịch hẹn...">
@@ -63,6 +72,7 @@
   </div>
   
   <%- include('../include/footer') %>
+  <script type="text/javascript" src="/js/multiservice.js"></script>
   <%- include('../include/script_customer') %>
   <%- include('../include/end') %>
 

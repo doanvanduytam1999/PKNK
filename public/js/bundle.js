@@ -101296,6 +101296,7 @@ var loginFormAdmin = document.querySelector('.from-login-admin');
 var logOutBtnAdmin = document.querySelector('.logout-admin');
 var getTypeService = document.querySelector('.loaiservice');
 var logOutAdmin = document.querySelector('.logoutAdmin');
+var dichvu = document.querySelector('.dichvu');
 /*const adminDataForm = document.querySelector('.form-admin-data');
 const adminPasswordForm = document.querySelector('.form-admin-password');
 const addAdminForm = document.querySelector('.form-add-admin');
@@ -101339,19 +101340,11 @@ if (logOutBtn) {
 if (logOutAdmin) {
   logOutAdmin.addEventListener('click', _login.logoutAdmin);
 }
-/* if (getTypeService) {
-    getTypeService.addEventListener('change', async function(e){
-        e.preventDefault();
-        const id = getTypeService.value;
-        let services =  await getService(id);
-        console.log(services);
-    });
-}; */
-
 
 $(document).ready(function () {
   $('#loaiservice').change(function () {
     var id_loaiservice = $(this).val();
+    console.log(id_loaiservice);
     $.ajax({
       type: 'GET',
       url: "http://localhost:4000/api/v1/Customers/getService/" + id_loaiservice,
@@ -101408,6 +101401,85 @@ $(document).ready(function () {
     });
   });
 });
+$(document).ready(function () {
+  var i = 1;
+  $('.multiservice').click(function () {
+    //sửa cái class thành cai id cua chữ thêm
+    var tbl = document.createElement('table');
+    var tr = document.createElement('tr');
+    var td = document.createElement('th');
+    var td1 = document.createElement('td');
+    var td2 = document.createElement('td');
+    var selectdichvu = document.createElement('select');
+    var selectloaidichvu = document.createElement('select');
+    var dele = document.createElement('a');
+    dele.setAttribute('class', 'xoa');
+    dele.innerHTML = '<i class="fas fa-trash-alt"></i>';
+    dele.innerHTML = 'Xoá';
+    tbl.className = 'tblxoa'; //selectdichvu.className ='loaiservice';
+
+    selectdichvu.className = 'multiservice';
+    selectdichvu.setAttribute('class', 'loaiservice');
+    selectdichvu.name = 'loaiservice';
+    selectdichvu.id = 'id_loaiservice' + i;
+    selectloaidichvu.className = 'service';
+    selectloaidichvu.name = 'id_service';
+    selectloaidichvu.id = 'id_multiservice' + i;
+    td.appendChild(selectdichvu);
+    td1.appendChild(selectloaidichvu);
+    td2.appendChild(dele);
+    tr.appendChild(td);
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tbl.appendChild(tr);
+    dichvu.appendChild(tbl);
+    $.ajax({
+      type: 'GET',
+      url: "http://localhost:4000/api/v1/Customers/getTypeService",
+      success: function success(data) {
+        //$('#id_multiservice').find('option').remove().end();
+        $('#id_loaiservice' + i).append("<option value=\"0\">Ch\u1ECDn d\u1ECBch v\u1EE5...</option>");
+        data.TypeService.forEach(function (element) {
+          $('#id_loaiservice' + i).append("<option value=" + element._id + ">" + element.typeServiceName + "</option>");
+        });
+        $(document).ready(function () {
+          $('#id_loaiservice' + i).change(function () {
+            console.log("oke!");
+            var id_dv = $(this).val();
+            var index = this.id.substr(14, 1);
+            console.log(index);
+            $.ajax({
+              type: 'GET',
+              url: "http://localhost:4000/api/v1/Customers/getService/" + id_dv,
+              success: function success(data) {
+                console.log("oke2");
+                console.log(i);
+                $('#id_multiservice' + index).find('option').remove().end();
+                $('#id_multiservice' + index).append("<option value=\"0\">Ch\u1ECDn d\u1ECBch v\u1EE5...</option>");
+                data.Services.forEach(function (element) {
+                  $('#id_multiservice' + index).append("<option value=\"".concat(element._id, "\"> ").concat(element.name, "</option>"));
+                });
+              },
+              error: function error(e) {
+                console.log(e.message);
+              }
+            });
+          });
+        });
+        i++;
+      },
+      error: function error(e) {
+        console.log(e.message);
+      }
+    });
+    $(document).ready(function () {
+      $('.xoa').click(function (e) {
+        console.log('sdsfs');
+        e.target.parentElement.parentElement.remove();
+      });
+    });
+  });
+});
 /*
 if (adminDataForm) {
     adminDataForm.addEventListener('submit', e => {
@@ -101450,7 +101522,7 @@ if(addAdminForm) {
     });
 }
 
-//edit photo student 
+//edit photo student
 if(editPhotoStudentForm) {
     editPhotoStudentForm.addEventListener('submit', e => {
         e.preventDefault();
@@ -101568,7 +101640,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52808" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62266" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
