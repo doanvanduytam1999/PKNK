@@ -14,7 +14,9 @@
                 </div>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Dịch vụ: <%= Schedule.serviceID.name %>
+                        <li class="list-group-item">Dịch vụ: <% Schedule.serviceID.forEach(function(element){ %>
+                            <%= element.name %> ,
+                            <%})%>
                         </li>
                         <li class="list-group-item">Thời gian: <%= Schedule.time %>
                         </li>
