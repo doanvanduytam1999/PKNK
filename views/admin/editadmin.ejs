@@ -23,43 +23,7 @@
                     <li class="list-group-item">Role: <%= User.role %>
                         </td>
                     </li>
-                    <li class="list-group-item text-center">
-
-                      <button class="btn btn-success btn-lg" data-target="#updatePasswordAdminModal"
-                        data-toggle="modal">Change Password</button>
-                    </li>
                   </ul>
-                </div>
-                <div class="modal" id="updatePasswordAdminModal" tabindex="1">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h4 class="modal-title">Update Password Of</h4>
-                      </div>
-                      <div class="modal-body">
-                        <form class="form-update-password" action="/admin/changePasswordUserAdmin/<%= User.id %>" method="POST" enctype="application/x-www-form-urlencoded">
-                          <div class="form-group">
-                            <label for="password">Password</label>
-                            <input class="form-control" type="password" name="password" id="password"
-                              placeholder="Password">
-                          </div>
-                          <div class="form-group">
-                            <label for="passwordConfirm">PasswordConfirm</label>
-                            <input class="form-control" type="password" name="passwordConfirm" id="passwordConfirm"
-                              placeholder="Password Confirm">
-                          </div>
-                          <div class="form-group">
-                            <input class="form-control" type="hidden" name="id" id="id" value="">
-                          </div>
-                          <div class="modal-footer">
-                            <button class="btn btn-primary" type="submit">Save</button>
-                            <button class="btn btn-primary" data-dismiss="modal">Close</button>
-                          </div>
-                        </form>
-                      </div>
-
-                    </div>
-                  </div>
                 </div>
               </div>
               <div class="col-md-8">

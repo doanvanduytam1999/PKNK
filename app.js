@@ -16,6 +16,7 @@ const AppError = require('././utils/appError');
 const customerRouter = require('./routes/customerRouter');
 const userAdminRouter = require('./routes/userAdminRouter');
 const cookieParser = require('cookie-parser');
+const globalErrorHandler = require('./controllers/errorController');
 
 
 
@@ -24,13 +25,13 @@ const app = express();
 
 // Middlewares 
 
-    //Set security HTTP Headers
+//Set security HTTP Headers
 app.use(helmet());
 
-    // Development logging
+// Development logging
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
-  }
+}
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -39,9 +40,9 @@ app.use(mongoSanitize());
 app.use(cookieParser());
 app.use(
     session({
-      secret: 'my secret',
-      resave: false,
-      saveUninitialized: false,
+        secret: 'my secret',
+        resave: false,
+        saveUninitialized: false,
     })
 );
 app.use(flash());
@@ -70,7 +71,7 @@ app.use((req, res, next) => {
 
 //Error handler function
 app.use(() => {
-    const error = app.get('env') === 'development' ? err: {};
+    const error = app.get('env') === 'development' ? err : {};
     const status = error.status || 500;
 
     //res to client
@@ -79,15 +80,20 @@ app.use(() => {
             Message: error.Message
         }
     })
-}) 
+})
 
 //CSP
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.setHeader("Content-Security-Policy", "script-src 'none' https://apis.google.com");
     return next();
 });
 
+/* app.all('*', (req, res, next) => {
+    next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+}); */
+
 app.use(cors());
 app.options('*', cors());
+//app.use(globalErrorHandler);
 
 module.exports = app;

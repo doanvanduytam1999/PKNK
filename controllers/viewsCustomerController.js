@@ -23,7 +23,6 @@ exports.getSchedule = catchAsync(async (req, res, next) => {
     const typeservice = await TypeService.find();
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     const city = await CityModel.find();
-    console.log(city);
     res.status(200).render('customer/schedule', {
         Service: service,
         TypeService: typeservice,
@@ -34,7 +33,6 @@ exports.getSchedule = catchAsync(async (req, res, next) => {
     })
 });
 exports.getTypeService = catchAsync(async (req, res, next) => {
-    console.log(req.session.view);
     const typeService = await TypeService.find().populate('services');
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     res.status(200).render('customer/service', {
@@ -100,10 +98,10 @@ exports.getLogin = catchAsync(async (req, res, next) => {
 });
 
 exports.postDatLich = catchAsync(async (req, res, next) => {
-    console.log(req.body);
+    const dichvu = req.body.id_service;
     const lichdat = await LichDat.create({
         time: req.body.time,
-        serviceID: req.body.id_service,
+        serviceID: dichvu,
         cityID: req.body.id_city,
         districtID: req.body.district,
         agencyID: req.body.agency,
@@ -182,21 +180,21 @@ exports.postEditUser = catchAsync(async (req, res, next) => {
 });
 
 exports.getLichDatTheoQuan = catchAsync(async (req, res, next) => {
-    var today =new Date();
-    var date="";
-    if((today.getMonth() + 1) > 10 && today.getDate() > 10){
-        date = (today.getMonth() + 1)+ '/' + today.getDate()  + '/' + today.getFullYear();
-    }else{
-        if((today.getMonth() + 1) < 10){
-            date = date + "0"+(today.getMonth() + 1) +"/";
-        }else{
+    var today = new Date();
+    var date = "";
+    if ((today.getMonth() + 1) > 10 && today.getDate() > 10) {
+        date = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
+    } else {
+        if ((today.getMonth() + 1) < 10) {
+            date = date + "0" + (today.getMonth() + 1) + "/";
+        } else {
             date = date + (today.getMonth() + 1) + "/";
         }
 
-        if(today.getDate() < 10){
-            date = date + "0"+ today.getDate() +"/";
-        }else{
-            date = date + today.getDate() +"/";
+        if (today.getDate() < 10) {
+            date = date + "0" + today.getDate() + "/";
+        } else {
+            date = date + today.getDate() + "/";
         }
         date = date + today.getFullYear();
 
@@ -204,9 +202,9 @@ exports.getLichDatTheoQuan = catchAsync(async (req, res, next) => {
 
     const lichdat = await LichDat.find().populate('districtID');
     var result = [];
-    lichdat.forEach(function(element){
+    lichdat.forEach(function (element) {
         var a = element.time.substr(0, 10);
-        if(a == date && element.districtID.districtName == "Quận 7"){
+        if (a == date && element.districtID.districtName == "Quận 7") {
             result.push(element);
         }
     });
@@ -214,7 +212,6 @@ exports.getLichDatTheoQuan = catchAsync(async (req, res, next) => {
 });
 
 exports.postUpdatePassword = catchAsync(async (req, res, next) => {
-    console.log(req.body);
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     const userCustomer = await CustomerModel.findById(kiemTralogin.id).select('+password');
     if (!userCustomer) {
@@ -231,13 +228,14 @@ exports.postUpdatePassword = catchAsync(async (req, res, next) => {
     res.redirect('/profile');
 });
 
-exports.getViewSchedule= catchAsync(async (req, res, next) => {
+exports.getViewSchedule = catchAsync(async (req, res, next) => {
     const service = await ServiceModel.find();
     const typeservice = await TypeService.find();
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     const city = await CityModel.find();
-    console.log(city);
+    const customer = await CustomerModel.findOne(kiemTralogin._id).populate('lichdats');
     res.status(200).render('customer/viewschedule', {
+        ListSchedule: customer.lichdats,
         Service: service,
         TypeService: typeservice,
         KiemTralogin: kiemTralogin,
@@ -246,13 +244,15 @@ exports.getViewSchedule= catchAsync(async (req, res, next) => {
         patch: '/viewschedule'
     })
 });
-exports.getViewListSchedule= catchAsync(async (req, res, next) => {
+exports.getDetailSchedule = catchAsync(async (req, res, next) => {
     const service = await ServiceModel.find();
     const typeservice = await TypeService.find();
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     const city = await CityModel.find();
-    console.log(city);
+    const id = req.params.id;
+    const schedule = await LichDat.findOne({_id: id}).populate('agencyID').populate('serviceID');
     res.status(200).render('customer/detailschedule_customer', {
+        Schedule: schedule,
         Service: service,
         TypeService: typeservice,
         KiemTralogin: kiemTralogin,

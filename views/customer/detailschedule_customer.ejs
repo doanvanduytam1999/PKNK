@@ -14,26 +14,13 @@
                 </div>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Tên khách hàng: Nhan
+                        <li class="list-group-item">Dịch vụ: <%= Schedule.serviceID.name %>
                         </li>
-                        <li class="list-group-item">Tên tài khoản: Nhan
+                        <li class="list-group-item">Thời gian: <%= Schedule.time %>
                         </li>
-                        <li class="list-group-item">Email: nhan@gmail.com
+                        <li class="list-group-item">Địa chỉ: <%= Schedule.agencyID.address %>
                         </li>
-                        <li class="list-group-item">Số điện thoại:0849119919   </td>
-                        </li>
-                        <li class="list-group-item">Dịch vụ: 
-                        </li>
-                        <li class="list-group-item">Địa chỉ:
-                        </li>
-                        <li class="list-group-item">Chi nhánh:
-                        </li>
-                        <select style="width: 250px;" class="list-group-item" name="" id="">
-                            <option class="list-group-item" value="">Đang chờ</option>
-                            <option class="list-group-item" value="">Đã khám</option>
-                        </select>
-                        <li class="list-group-item text-center">
-                            <button class="btn btn-success btn-lg">Thay đổi trạng thái</button>
+                        <li class="list-group-item">Trạng thái: <%= Schedule.status %>
                         </li>
                     </ul>
                 </div>

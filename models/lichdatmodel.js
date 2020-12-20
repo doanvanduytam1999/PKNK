@@ -7,10 +7,10 @@ const lichDatSchema = new mongoose.Schema(
             type: String,
             required: [true, 'Please provide service time']
         },
-        serviceID: {
+        serviceID: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "Service"
-        },
+        }],
         cityID: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "City"

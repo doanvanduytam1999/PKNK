@@ -9,63 +9,29 @@
         <div class="row d-flex justify-content-center">
             <div class="col-md-12 col-sm-6">
                 <div class="card">
-                    <div class="card-header">
-                        Danh sách lịch hẹn
-                    </div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <form class="form-inline" action="/admin/list-schedule/searchPhone" method="POST" enctype="application/x-www-form-urlencoded">
-                                    <div class="form-group mb-2 mr-2">
-                                        <label class="sr-only">Tìm Kiếm</label>
-                                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Search phone" value="">
-                                    </div>
-                                    <button type="submit" class="btn btn-info mb-2">Tìm Kiếm</button>
-                                </form>
-                            </div>
-                            <div class="col-lg-4">
-                                <form class="form-inline" action="/admin/list-schedule/filter" method="POST" enctype="application/x-www-form-urlencoded">
-                                    <div class="form-group mb-2 mr-2">
-                                        <select class="form-control" id="date" name="date">
-                                           
-                                                <option value="" selected></option>
-                                              
-                                                <option value=""></option>
-                                                
-                                        </select>
-                                      </div>
-                                    <button type="submit" class="btn btn-info mb-2">Lọc</button>
-                                </form>
-                            </div>
-                            <div class="col-lg-2">
-                                <a href="/list-schedule" class="btn btn-success mb-2" style="height:40px;width: 95px; font-size: 18px; color: #fff;"><i class="fas fa-file"></i></a>
-                            </div>
-                        </div>
-                        <hr>
                         <h5 class="card-title">Danh Sách lịch hẹn</h5>
                             <table class="table table-hover table-sm table-responsive-lg">
                                 <thead>
                                 <tr>
                                     <th scope="col">STT</th>
-                                    <th scope="col">Tên khách hàng</th>
-                                    <th scope="col">Số điện thoại</th>
                                     <th scope="col">Trạng thái</th>
                                     <th scope="col">Thời gian</th>
                                     <th scope="col">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    
+                                    <%= i = 0 %>
+                                    <% ListSchedule.forEach(function(element){ %>
                                     <tr>
-                                        <th scope="row"></th>
-                                        <td>hovaten</td>
-                                        <td>phone </td>
-                                        <td>status</td>
-                                        <td>time </td>
+                                        <th scope="row"><%= i %></th>
+                                        <td><%= element.status %></td>
+                                        <td><%= element.time %></td>
                                         <td class="column-verticallineMiddle form-inline">
-                                            <a href="/detailschedule_customer" class="mr-1"><i class="fas fa-eye"></i></a>
+                                            <a href="/detailschedule_customer/<%= element.id %>" class="mr-1"><i class="fas fa-eye"></i></a>
                                         </td>
                                     </tr>
+                                    <% i++; }) %>
                                   
                                 </tbody>
                             </table>

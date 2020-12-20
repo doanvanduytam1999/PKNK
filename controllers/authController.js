@@ -13,6 +13,38 @@ const signToken = id => {
   });
 };
 
+
+exports.isLoggedInAdmin2 = async (cookieA) => {
+  if (cookieA) {
+    try {
+      // 1) verify token
+      const decoded = await promisify(jwt.verify)(
+        cookieA,
+        process.env.JWT_SECRET
+      );
+
+      // 2) Check if user still exists
+      const currentUser = await UserAdmin.findById(decoded.id);
+      if (!currentUser) {
+        return next();
+      }
+
+      // 3) Check if user changed password after the token was issued
+      if (currentUser.changedPasswordAfter(decoded.iat)) {
+        return next();
+      }
+
+      // THERE IS A LOGGED IN USER
+      return currentUser;
+
+    } catch (err) {
+      //return next();
+      return "No";
+    }
+  }
+  return "No";
+}
+
 exports.isLoggedIn2 = async (cookieA) => {
   if (cookieA) {
     try {

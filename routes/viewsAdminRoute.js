@@ -19,7 +19,7 @@ router.get('/service', authController.isLoggedInAdmin, viewsAdminController.getS
 //List admin
 router.get('/list-admin/', authController.isLoggedInAdmin, viewsAdminController.getListadmin);
 router.get('/edit-admin/:id', authController.isLoggedInAdmin, viewsAdminController.getEditAdmin);
-router.get('/update-password', authController.isLoggedInAdmin, viewsAdminController.getUpdatePassword);
+router.get('/update-password/:id', authController.isLoggedInAdmin, viewsAdminController.getUpdatePassword);
 router.get('/add-admin', authController.isLoggedInAdmin, viewsAdminController.getAddAdmin);
 
 router.post('/edit-Service/:id', authController.isLoggedInAdmin, viewsAdminController.postEditService);
@@ -28,6 +28,9 @@ router.post('/add-Service', authController.isLoggedInAdmin, viewsAdminController
 router.post('/editAdmin/:id', authController.isLoggedInAdmin, viewsAdminController.postEditUSerAdmin);
 router.post('/changePasswordUserAdmin/:id', authController.isLoggedInAdmin, viewsAdminController.postChangePassword);
 router.post('/add-admin', authController.isLoggedInAdmin, viewsAdminController.postAddUserAdmin);
+router.post('/update-active/:id', authController.isLoggedInAdmin, viewsAdminController.postUnActiveUser);
+router.post('/list-admin/filter', authController.isLoggedInAdmin, viewsAdminController.getListAdminFilter)
+router.post('/list-admin/searchname', authController.isLoggedInAdmin, viewsAdminController.getSearchUsername);
 module.exports = router;
 
 

@@ -10,56 +10,8 @@ const AgencyModel = require('../models/agencyModel');
 const ScheduleModel = require('../models/lichdatmodel');
 const HandleDate = require('../utils/handleDate');
 const UserCustomerSchema = require('../models/userCustomerModel');
-const { isLoggedIn } = require('./authController');
-
-exports.postService = catchAsync(async (req, res, next) => {
-    const service = await ServiceModel.create({
-        serviceName: "DỊCH VỤ GHÉP XƯƠNG",
-        serviceItems: [
-            {
-                name: "Nâng Xoang Hở",
-                unit: "",
-                price: "7,000,000 VNĐ",
-
-                guarantee: "3 năm"
-            },
-            {
-                name: "Nâng Xoang Kín",
-                unit: "",
-                price: "6,000,000 VNĐ",
-                guarantee: "2 năm"
-            },
-            {
-                name: "Ghép Mô Liên Kết (Xương + Màng)",
-                unit: "1 mô",
-                price: "10,000,000 VNĐ",
-                guarantee: "5 năm"
-            }
-        ]
-    })
-
-    res.send("oke!");
-})
-
-exports.postAddCity = catchAsync(async (req, res, next) => {
-    const district = await DistrictModel.create({
-        districtName: "Quận 1",
-        cityID: "5fc67e97c1dae73e50f12f70"
-    });
-    const diachi = await AgencyModel.create({
-        address: "108 Lê Văn Lương, phường C, quận 1, TP.HCM",
-        districtID: district.id
-    });
-    const diachi2 = await AgencyModel.create({
-        address: "99 Lâm Văn Bền, phường B, quận 1, TP.HCM",
-        districtID: district.id
-    });
-    const diachi3 = await AgencyModel.create({
-        address: "99 Nguyễn Trãi, phường A, quận 1, TP.HCM",
-        districtID: district.id
-    })
-    res.send("oke!");
-})
+const authController = require('../controllers/authController');
+const { postUpdatePassword } = require('./viewsCustomerController');
 
 exports.getLogin = (req, res, next) => {
     res.status(200).render('admin/login', {
@@ -71,6 +23,7 @@ exports.getLogin = (req, res, next) => {
 exports.getEditService = catchAsync(async (req, res, next) => {
     const id = req.params.id;
     const foundTypeService = await TypeService.findById(id).populate('services');
+    const kiemTralogin = await authController.isLoggedInAdmin2(req.cookies.jwtAdmin);
     res.status(200).render('admin/editService', {
         id: id,
         FoundService: foundTypeService,
@@ -87,11 +40,11 @@ exports.getService = catchAsync(async (req, res, next) => {
     })
 });
 
-
-
 exports.getDashboard = catchAsync(async (req, res, next) => {
+    const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwtAdmin);
     const service = await Service.find();
     res.status(200).render('admin/dashboard', {
+        useradmin: kiemTralogin,
         Service: service,
         pageTitle: 'Admin',
         patch: '/dashboard'
@@ -176,10 +129,17 @@ exports.postEditService = catchAsync(async (req, res, next) => {
 
 exports.postDeleteTypeService = catchAsync(async (req, res, next) => {
     const id = req.params.id;
-    const typeService = await TypeService.findByIdAndDelete(id);
-    if (!typeService) {
-        console.log("khong tim thay service!");
+    const service = await Service.find({ typeServiceID: id });
+    if (service.length == 0) {
+        const typeService = await TypeService.findByIdAndDelete(id);
+
+        if (!typeService) {
+            console.log("khong tim thay service!");
+        }
+    } else {
+        console.log("Không thể xóa loại dịch vụ này!");
     }
+
     res.redirect('/admin/dashboard');
 });
 
@@ -217,6 +177,7 @@ exports.postAddService = catchAsync(async (req, res, next) => {
 exports.getListadmin = catchAsync(async (req, res, next) => {
     const userAdmins = await UserAdminModel.find();
     res.status(200).render('admin/listadmin', {
+        Active: "Tất cả",
         UserAdmins: userAdmins,
         pageTitle: 'List Admin',
         patch: '/listadmin'
@@ -233,14 +194,15 @@ exports.getEditAdmin = catchAsync(async (req, res, next) => {
     });
 });
 exports.getUpdatePassword = (req, res, next) => {
+    const id = req.params.id;
     res.status(200).render('admin/updatepasswordadmin', {
+        id: id,
         pageTitle: 'Edit Password Admin',
         patch: '/updatepasswordadmin'
     });
 };
 
 exports.postAddUserAdmin = catchAsync(async (req, res, next) => {
-    console.log(req.body);
     const userAdmin = await UserAdminModel.create({
         username: req.body.username,
         email: req.body.email,
@@ -280,7 +242,19 @@ exports.postChangePassword = catchAsync(async (req, res, next) => {
             validateBeforeSave: true,
             runValidators: true
         });
-    res.redirect(`/admin/edit-admin/${id}`);
+    res.redirect('/admin/list-admin');
+});
+
+exports.postUnActiveUser = catchAsync(async (req, res, next) => {
+    const id = req.params.id;
+    const user = await UserAdminModel.findByIdAndUpdate(id, {
+        active: false
+    },
+        {
+            new: true,
+            runValidators: true
+        })
+    res.redirect('/admin/list-admin');
 });
 
 exports.getAddAdmin = async (req, res, next) => {
@@ -289,10 +263,10 @@ exports.getAddAdmin = async (req, res, next) => {
 //List Schedule
 exports.getListSchedule = catchAsync(async (req, res, next) => {
     const today = HandleDate.DateToString(new Date());
-    const schedules = await ScheduleModel.find({time: {'$regex' : `^${today}`, '$options' : 'i'}}).populate("cunstomerID");
+    const schedules = await ScheduleModel.find({ time: { '$regex': `^${today}`, '$options': 'i' } }).populate("cunstomerID");
     const sevenDay = HandleDate.sevenDay();
     res.status(200).render('admin/listschedule', {
-        Phone:"",
+        Phone: "",
         Ngay: today,
         SevenDay: sevenDay,
         Schedules: schedules,
@@ -303,7 +277,7 @@ exports.getListSchedule = catchAsync(async (req, res, next) => {
 
 exports.getDetailSchedule = catchAsync(async (req, res, next) => {
     const id = req.params.id;
-    const schedule = await ScheduleModel.findOne({_id: id}).populate("cunstomerID");
+    const schedule = await ScheduleModel.findOne({ _id: id }).populate("cunstomerID");
     console.log(schedule);
     res.status(200).render('admin/detailschedule', {
         Schedule: schedule,
@@ -312,12 +286,12 @@ exports.getDetailSchedule = catchAsync(async (req, res, next) => {
     });
 });
 
-exports.getScheduleDate = catchAsync(async(req, res, next)=>{
+exports.getScheduleDate = catchAsync(async (req, res, next) => {
     const ngay = req.body.date;
     const sevenDay = HandleDate.sevenDay();
-    const schedules = await ScheduleModel.find({time: {'$regex' : `^${ngay}`, '$options' : 'i'}}).populate("cunstomerID");
+    const schedules = await ScheduleModel.find({ time: { '$regex': `^${ngay}`, '$options': 'i' } }).populate("cunstomerID");
     res.status(200).render('admin/listschedule', {
-        Phone:"",
+        Phone: "",
         Ngay: ngay,
         SevenDay: sevenDay,
         Schedules: schedules,
@@ -326,20 +300,49 @@ exports.getScheduleDate = catchAsync(async(req, res, next)=>{
     });
 });
 
-exports.getSearchPhone = catchAsync(async(req, res, next)=>{
+exports.getSearchPhone = catchAsync(async (req, res, next) => {
     const phone = req.body.phone;
-    const customer = await UserCustomerSchema.findOne({phone: phone});
+    const customer = await UserCustomerSchema.findOne({ phone: phone });
     var schedules = [];
-    if(customer){
-        schedules = await ScheduleModel.find({cunstomerID: customer.id}).populate("cunstomerID");
+    if (customer) {
+        schedules = await ScheduleModel.find({ cunstomerID: customer.id }).populate("cunstomerID");
     }
     res.status(200).render('admin/listschedule', {
         Phone: phone,
-        Ngay:"",
+        Ngay: "",
         SevenDay: [],
         Schedules: schedules,
         pageTitle: 'Danh sách lịch hẹn',
         patch: '/listschedule'
     });
 
+});
+
+exports.getListAdminFilter = catchAsync(async (req, res, next) => {
+    const active = req.body.active;
+    if (active === 'true' || active === 'false') {
+        var userAdmins = await UserAdminModel.find({ active: active });
+    } else {
+        var userAdmins = await UserAdminModel.find();
+    }
+    res.status(200).render('admin/listadmin', {
+        Active: active,
+        UserAdmins: userAdmins,
+        pageTitle: 'List Admin',
+        patch: '/listadmin'
+    });
+});
+
+exports.getSearchUsername = catchAsync(async (req, res, next) => {
+    const username = req.body.username;
+    const useradmin = await UserAdminModel.find({ username: username });
+    if (!useradmin) {
+        return next(new AppError('No document found with that Username', 404));
+    }
+    res.status(200).render('admin/listadmin', {
+        Active: "Tất cả",
+        UserAdmins: useradmin,
+        pageTitle: 'List Admin',
+        patch: '/listadmin'
+    });
 });
