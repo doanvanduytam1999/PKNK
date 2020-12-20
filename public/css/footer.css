@@ -1,6 +1,8 @@
-.footer{
+footer{
     background-color: #000;
-    color: #fff;
+  color: #fff;
+  position: static;
+   width:100%;
     
 }
 .col{

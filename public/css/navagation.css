@@ -58,6 +58,7 @@ body{
 
 .wrapper1 .header .header-menu ul{
   display: flex;
+  
 }
 
 .wrapper1 .header .header-menu ul li a{
@@ -73,6 +74,9 @@ body{
   border-radius: 50%;
   transition: 0.3s;
   transition-property: background, color;
+}
+.wrapper1 .header .header-menu ul li a i{
+  padding-top: 8px;
 }
 
 .wrapper1 .header .header-menu ul li a:hover{
