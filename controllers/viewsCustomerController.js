@@ -152,7 +152,17 @@ exports.getAgency = catchAsync(async (req, res, next) => {
         status: 'success',
         Agencys: district.agencys
     });
-})
+});
+
+exports.getTypeService2 = catchAsync(async (req, res, next) => {
+    const typeservice = await TypeService.find();
+    res.status(200).json({
+        status: 'success',
+        TypeService: typeservice
+    });
+});
+
+
 exports.getProfile = catchAsync(async (req, res, next) => {
     const typeservice = await TypeService.find();
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);

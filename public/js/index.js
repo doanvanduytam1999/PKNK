@@ -19,7 +19,7 @@ import { login_customer, login_admin, logout, logoutAdmin } from './login';
     updateCodeNumber
  } from './student'; */
 
- 
+
 //DOM ELEMENT
 const loginForm = document.querySelector('.form-login');
 const logOutBtn = document.querySelector('.logout');
@@ -27,6 +27,7 @@ const loginFormAdmin = document.querySelector('.from-login-admin');
 const logOutBtnAdmin = document.querySelector('.logout-admin');
 const getTypeService = document.querySelector('.loaiservice');
 const logOutAdmin = document.querySelector('.logoutAdmin');
+const dichvu = document.querySelector('.dichvu');
 /*const adminDataForm = document.querySelector('.form-admin-data');
 const adminPasswordForm = document.querySelector('.form-admin-password');
 const addAdminForm = document.querySelector('.form-add-admin');
@@ -57,28 +58,29 @@ if (loginFormAdmin) {
     });
 };
 
-if(logOutBtn) {
+if (logOutBtn) {
     logOutBtn.addEventListener('click', logout);
 };
-if(logOutAdmin){
+if (logOutAdmin) {
     logOutAdmin.addEventListener('click', logoutAdmin);
 }
 
 
-$(document).ready(function(){
-    $('#loaiservice').change(function(){
+$(document).ready(function () {
+    $('#loaiservice').change(function () {
         var id_loaiservice = $(this).val();
+        console.log(id_loaiservice);
         $.ajax({
             type: 'GET',
-            url: "http://localhost:4000/api/v1/Customers/getService/"+id_loaiservice,
-            success: function(data){
+            url: "http://localhost:4000/api/v1/Customers/getService/" + id_loaiservice,
+            success: function (data) {
                 $('#id_service').find('option').remove().end();
                 $('#id_service').append(`<option value="0">Chọn dịch vụ...</option>`);
-                data.Services.forEach(function(element){
+                data.Services.forEach(function (element) {
                     $('#id_service').append(`<option value="${element._id}"> ${element.name}</option>`);
                 })
             },
-            error: function(e){
+            error: function (e) {
                 console.log(e.message);
             }
 
@@ -86,22 +88,22 @@ $(document).ready(function(){
     });
 });
 
-$(document).ready(function(){
-    $('#id_city').change(function(){
-        var id_city = $(this).val();       
-        var chinhanh= "---Chọn chi nhánh---"
+$(document).ready(function () {
+    $('#id_city').change(function () {
+        var id_city = $(this).val();
+        var chinhanh = "---Chọn chi nhánh---"
         $.ajax({
             type: 'GET',
-            url: 'http://localhost:4000/api/v1/Customers/getDistrict/'+id_city,
-            success: function(data){
+            url: 'http://localhost:4000/api/v1/Customers/getDistrict/' + id_city,
+            success: function (data) {
                 $('#id_district').find('option').remove().end();
-                $('#id_district').append("<option>"+chinhanh+"</option>");
-                data.Districts.forEach(function(element){
-                    
+                $('#id_district').append("<option>" + chinhanh + "</option>");
+                data.Districts.forEach(function (element) {
+
                     $('#id_district').append(`<option value="${element._id}"  >  ${element.districtName}  </option>`);
-                })               
+                })
             },
-            error: function(e){
+            error: function (e) {
                 console.log(e.message);
             }
 
@@ -109,29 +111,119 @@ $(document).ready(function(){
     });
 });
 
-$(document).ready(function(){
-    $('#id_district').change(function(){
+$(document).ready(function () {
+    $('#id_district').change(function () {
         var id_district = $(this).val();
-        var diachi ="---Chọn địa chỉ---"
+        var diachi = "---Chọn địa chỉ---"
         $.ajax({
             type: 'GET',
-            url: 'http://localhost:4000/api/v1/Customers/getAgency/'+id_district,   
-            success: function(data){
+            url: 'http://localhost:4000/api/v1/Customers/getAgency/' + id_district,
+            success: function (data) {
                 $('#id_agency').find('option').remove().end();
-                $('#id_agency').append("<option>"+diachi+"</option>");
-                
-                data.Agencys.forEach(function(element){
+                $('#id_agency').append("<option>" + diachi + "</option>");
+
+                data.Agencys.forEach(function (element) {
                     $('#id_agency').append("<option value=" + element._id + ">" + element.address + "</option>");
                     //$('#id_agency').append(`<option value="${element._id}"  >  ${element.address}  </option>`);
                 })
             },
-            error: function(e){
+            error: function (e) {
                 console.log(e.message);
             }
 
         })
     });
 });
+
+$(document).ready(function () {
+    var i = 1;
+    $('.multiservice').click(function () {//sửa cái class thành cai id cua chữ thêm
+        const tbl =  document.createElement('table');
+        const tr = document.createElement('tr');
+        const td = document.createElement('th');
+        const td1 = document.createElement('td');
+        const td2 = document.createElement('td');
+        const selectdichvu = document.createElement('select');
+        const selectloaidichvu = document.createElement('select');
+        const dele = document.createElement('a');
+        
+        
+        dele.setAttribute('class','xoa');
+       
+        dele.innerHTML='Xoá';
+        tbl.className='tblxoa';
+       
+        selectdichvu.className = 'multiservice';
+        selectdichvu.setAttribute('class', 'loaiservice');
+        selectdichvu.name = 'loaiservice';
+        selectdichvu.id = 'id_loaiservice' + i;
+        
+
+        selectloaidichvu.className = 'service';
+        selectloaidichvu.name = 'id_service';
+        selectloaidichvu.id = 'id_multiservice' + i;
+        td.appendChild(selectdichvu);
+        td1.appendChild(selectloaidichvu);
+        td2.appendChild(dele);
+        tr.appendChild(td);
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tbl.appendChild(tr);
+        dichvu.appendChild(tbl);
+
+        $.ajax({
+            type: 'GET',
+            url: "http://localhost:4000/api/v1/Customers/getTypeService",
+            success: function (data) {
+              
+                $('#id_loaiservice' + i).append(`<option value="0">Chọn dịch vụ...</option>`);
+
+
+                data.TypeService.forEach(function (element) {
+                    $('#id_loaiservice' + i).append("<option value=" + element._id + ">" + element.typeServiceName + "</option>");
+                });
+
+                $(document).ready(function () {
+                    $('#id_loaiservice' + i).change(function () {
+                      
+                        var id_dv = $(this).val();
+                        var index = this.id.substr(14, 1);
+                        console.log(index);
+                        $.ajax({
+                            type: 'GET',
+                            url: "http://localhost:4000/api/v1/Customers/getService/" + id_dv,
+                            success: function (data) {
+                               
+                                $('#id_multiservice' + index).find('option').remove().end();
+                                $('#id_multiservice' + index).append(`<option value="0">Chọn dịch vụ...</option>`);
+                                data.Services.forEach(function (element) {
+                                    $('#id_multiservice' + index).append(`<option value="${element._id}"> ${element.name}</option>`);
+                                })
+                            },
+                            error: function (e) {
+                                console.log(e.message);
+                            }
+                        })
+                    });
+                });
+                i++;
+            },
+            error: function (e) {
+                console.log(e.message);
+            }
+        });
+        $(document).ready(function () {
+            $('.xoa').click(function (e) {
+               
+                e.target.parentElement.parentElement.remove();
+            });
+
+        })
+    });
+});
+
+
+
 /*
 if (adminDataForm) {
     adminDataForm.addEventListener('submit', e => {
@@ -174,7 +266,7 @@ if(addAdminForm) {
     });
 }
 
-//edit photo student 
+//edit photo student
 if(editPhotoStudentForm) {
     editPhotoStudentForm.addEventListener('submit', e => {
         e.preventDefault();
