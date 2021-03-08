@@ -16,6 +16,7 @@
   },
   "author": "Doan Van Duy Tam",
   "license": "ISC",
+  "gitrepository":"https://github.com/doanvanduytam1999/PKNK",
   "dependencies": {
     "@babel/polyfill": "^7.11.5",
     "ajax": "0.0.4",
