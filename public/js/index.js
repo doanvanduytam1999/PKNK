@@ -125,7 +125,7 @@ $(document).ready(function () {
                 data.Agencys.forEach(function (element) {
                     $('#id_agency').append("<option value=" + element._id + ">" + element.address + "</option>");
                     //$('#id_agency').append(`<option value="${element._id}"  >  ${element.address}  </option>`);
-                })
+                })      
             },
             error: function (e) {
                 console.log(e.message);
