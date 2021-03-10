@@ -119,7 +119,7 @@ body{
 .row{
  margin-top: 150px;
 }
-.row .col .card{
+.row .col-2.card{
   border-radius: 20px;
   background: #A8A8A8;
   height: 400px;
@@ -127,16 +127,18 @@ body{
   justify-content: center;
   align-items: center;
   color:#fff;
+  margin-left: 20px;
+  
   
 }
-.row .col .card .avatar{
+.row .col-2 .card .avatar{
  margin-top: 20px;
   width: 200px;
   height: 200px;
   border: 1 px solid #000;
   border-radius: 50%;
 }
-.row .col .card .card-body h6{
+.row .col-2 .card .card-body h6{
   text-align: center;
   margin-top: 20px
 }
