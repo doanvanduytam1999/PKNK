@@ -1,22 +1,27 @@
 <%- include('../include/header_customer') %>
-
-<link rel="stylesheet" href="/css/index.css">
-
-</head>
-<body>
-    <div class="row">
-        <% Students.forEach(function(element) { %>
-        <div class="col-2">
-        <div class="card" style="width: 20rem">
-            <img class="avatar" src="<%= element.image %>" alt="" srcset="">
-            <div class="card-body">
-            <h5 class="card-title">Tên: <%= element.name %> </h5>
-            <h6 class="card-text">Lớp: <%= element.class %></h6>
-            <h6 class="card-text">MSSV: <%= element.MSSV %></h6>
-            </div>
+    <link rel="stylesheet" href="/css/index.css">
+    </head>
+    <body>
+        <div class="row">
+            <% Students.forEach(function(element) { %>
+                <div class="col-3">
+                    <div class="card" style="width: 20rem">
+                        <div class="img__fr">
+                            <div class="img__fr-item">
+                                <img class="avatar" src="<%= element.image %>" alt="" srcset="">
+                            </div>
+                        </div>
+                       
+                        <div class="card-body">
+                            <h6>Tên: <%= element.name %>
+                            </h6>
+                            <p class="card-text">Lớp: <%= element.class %>
+                            </p>
+                            <p class="card-text">MSSV: <%= element.MSSV %>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <% }); %>
         </div>
-        </div>
-        <% }); %>
-    </div>
-
-    <%- include('../include/script_customer') %>    
+ <%- include('../include/script_customer') %>
