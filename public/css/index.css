@@ -113,3 +113,30 @@ footer{
   
   
 }
+body{
+  background-image: url("/images/BR.jpg");
+}
+.row{
+ margin-top: 150px;
+}
+.row .col .card{
+  border-radius: 20px;
+  background: #A8A8A8;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color:#fff;
+  
+}
+.row .col .card .avatar{
+ margin-top: 20px;
+  width: 200px;
+  height: 200px;
+  border: 1 px solid #000;
+  border-radius: 50%;
+}
+.row .col .card .card-body h6{
+  text-align: center;
+  margin-top: 20px
+}

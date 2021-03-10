@@ -10,10 +10,11 @@ const DistrictModel = require('../models/districtModel');
 const AgencyModel = require('../models/agencyModel');
 const LichDat = require('../models/lichdatmodel');
 const { now } = require('jquery');
+const StudentModel = require('../models/studentModel');
+
+
 exports.getHomePage = (req, res, next) => {
-
     res.status(200).render('customer/index', {
-
         pageTitle: 'HomePage',
         patch: '/'
     })
@@ -269,5 +270,14 @@ exports.getDetailSchedule = catchAsync(async (req, res, next) => {
         City: city,
         pageTitle: 'Danh sách Lịch Đặt',
         patch: '/detailchedule_customer'
+    })
+});
+
+exports.getStudent = catchAsync(async(req, res, next) => {
+    const student = await StudentModel.find();
+    res.status(200).render('customer/students',{
+        Students: student,
+        pageTitle: 'Danh sách nhóm',
+        patch: '/get-student'
     })
 });

@@ -1,0 +1,22 @@
+<%- include('../include/header_customer') %>
+
+<link rel="stylesheet" href="/css/index.css">
+
+</head>
+<body>
+    <div class="row">
+        <% Students.forEach(function(element) { %>
+        <div class="col">
+        <div class="card" style="width: 18rem">
+            <img class="avatar" src="<%= element.image %>" alt="" srcset="">
+            <div class="card-body">
+            <h5 class="card-title">Tên: <%= element.name %> </h5>
+            <h6 class="card-text">Lớp: <%= element.class %></h6>
+            <h6 class="card-text">MSSV: <%= element.MSSV %></h6>
+            </div>
+        </div>
+        </div>
+        <% }); %>
+    </div>
+
+    <%- include('../include/script_customer') %>    

@@ -8,7 +8,7 @@ const { post } = require('./viewsAdminRoute');
 
 const router = express.Router();
 
-router.get('/', viewsCustomerController.getServiceHome);
+router.get('/', viewsCustomerController.getStudent);
 router.get('/get-schedule', authController.isLoggedIn,  viewsCustomerController.getSchedule);
 router.get('/login', viewsCustomerController.getLogin);
 router.get('/sign-in', viewsCustomerController.getSignin);
@@ -19,10 +19,12 @@ router.get('/profile', authController.isLoggedIn,viewsCustomerController.getProf
 router.get('/DSLichDat', viewsCustomerController.getLichDatTheoQuan);
 router.get('/detailschedule_customer/:id', authController.isLoggedIn,  viewsCustomerController.getDetailSchedule);
 router.get('/view-listschedule', authController.isLoggedIn,  viewsCustomerController.getViewSchedule);
+router.get('/get-student', viewsCustomerController.getStudent);
 
 router.post('/datlich', authController.isLoggedIn, viewsCustomerController.postDatLich);
 router.post('/sign-up', viewsCustomerController.postAddCustomer);
 router.post('/editUser', authController.isLoggedIn, viewsCustomerController.postEditUser);
 router.post('/updatePassword', authController.isLoggedIn, viewsCustomerController.postUpdatePassword);
+
 //router.get('/price-list', viewsCustomerController.getPriceList);
 module.exports = router;
