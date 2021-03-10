@@ -19,6 +19,10 @@ const StudentSchema = new mongoose.Schema(
         image:{
             type: String,
             required: [true, 'Please provide URL image']
+        },
+        facebook:{
+            type: String,
+            required: [true, 'Please provide URL facebook']
         }
     }, 
     
