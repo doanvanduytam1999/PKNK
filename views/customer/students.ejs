@@ -5,10 +5,12 @@
         <div class="row">
             <% Students.forEach(function(element) { %>
                 <div class="col-3">
+                    <a href="<%= element.facebook %>" target="_blank" >
+                  
                     <div class="card" style="width: 20rem">
                         <div class="img__fr">
                             <div class="img__fr-item">
-                               <a href="<%= element.facebook %>"> <img class="avatar" src="<%= element.image %>" alt="" srcset=""> </a> 
+                                <img class="avatar" src="<%= element.image %>" alt="" srcset="">
                             </div>
                         </div>
                        
@@ -21,6 +23,7 @@
                             </p>
                         </div>
                     </div>
+                    </a>
                 </div>
                 <% }); %>
         </div>

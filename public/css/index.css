@@ -195,4 +195,7 @@ body{
     transition: 0.3s;
   
 }
+.row .col-3  a{
+  text-decoration: none;
+}
 
