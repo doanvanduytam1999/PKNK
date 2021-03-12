@@ -8,7 +8,7 @@ const { post } = require('./viewsAdminRoute');
 
 const router = express.Router();
 
-router.get('/', viewsCustomerController.getStudent);
+router.get('/', viewsCustomerController.getServiceHome);
 router.get('/get-schedule', authController.isLoggedIn,  viewsCustomerController.getSchedule);
 router.get('/login', viewsCustomerController.getLogin);
 router.get('/sign-in', viewsCustomerController.getSignin);

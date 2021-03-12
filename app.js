@@ -8,7 +8,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const flash = require('connect-flash');
 var session = require('express-session');
 const xss = require('xss-clean');
-
+const passport = require('passport');
 
 const viewsCustomerRoute = require('./routes/viewsCustomerRoute');
 const viewsAdminRoute = require('./routes/viewsAdminRoute');
@@ -17,9 +17,16 @@ const customerRouter = require('./routes/customerRouter');
 const userAdminRouter = require('./routes/userAdminRouter');
 const cookieParser = require('cookie-parser');
 const globalErrorHandler = require('./controllers/errorController');
+require('./passport-setup');
 
+function Kt(req, res, next) {
 
-
+    if(req.user){
+        next();
+    }else{
+        res.send("Không có ai đăng nhập hết!");
+    }
+}
 
 const app = express();
 
@@ -37,12 +44,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(mongoSanitize());
 
+
 app.use(cookieParser());
 app.use(
     session({
         secret: 'my secret',
-        resave: false,
-        saveUninitialized: false,
+        resave: true,
+        saveUninitialized: true,
     })
 );
 app.use(flash());
@@ -55,11 +63,36 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(passport.initialize());
+app.use(passport.session());
 //Routes
-app.use('/', viewsCustomerRoute);
+app.get('/', (req, res)=> res.send("Đang không đăng nhập!"));
+app.get('/failed', (req, res)=> res.send("Đăng nhập thất bại!"));
+app.get('/good', Kt ,(req, res)=>{
+    console.log(req.user.displayName);
+    res.send(`Chào mừng ${req.user.displayName}!`)
+} );
+
+app.get('/google', passport.authenticate('google',{scope: ['profile', 'email']}));
+
+app.get('/google/callback', passport.authenticate('google',{failureRedirect: '/failed', successRedirect: '/good'})
+);
+
+app.get('/logout',(req, res)=>{
+    req.session.destroy(function(err) {
+        if(err) {
+          return next(err);
+        } else {
+          return res.redirect('/');
+        }
+      });
+    }
+);
+
+/* app.use('/', viewsCustomerRoute);
 app.use('/admin', viewsAdminRoute);
 app.use('/api/v1/Customers', customerRouter);
-app.use('/api/v1/Admins', userAdminRouter);
+app.use('/api/v1/Admins', userAdminRouter); */
 //app.use('/api/v1/userAdmins', userAdminRouter);
 
 //Catch 404 Erros and forward them to error handler
@@ -95,5 +128,12 @@ app.use(function (req, res, next) {
 app.use(cors());
 app.options('*', cors());
 //app.use(globalErrorHandler);
+
+
+
+
+
+
+
 
 module.exports = app;
