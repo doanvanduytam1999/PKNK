@@ -9,6 +9,8 @@ const flash = require('connect-flash');
 var session = require('express-session');
 const xss = require('xss-clean');
 const passport = require('passport');
+const mongoose = require('mongoose');
+
 
 const viewsCustomerRoute = require('./routes/viewsCustomerRoute');
 const viewsAdminRoute = require('./routes/viewsAdminRoute');
@@ -16,8 +18,11 @@ const AppError = require('././utils/appError');
 const customerRouter = require('./routes/customerRouter');
 const userAdminRouter = require('./routes/userAdminRouter');
 const cookieParser = require('cookie-parser');
+
 const globalErrorHandler = require('./controllers/errorController');
 require('./passport-setup');
+require('./passport-fb');
+
 
 function Kt(req, res, next) {
 
@@ -88,6 +93,17 @@ app.get('/logout',(req, res)=>{
       });
     }
 );
+
+app.get('/auth/facebook',
+  passport.authenticate('facebook'));
+
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
+
 
 /* app.use('/', viewsCustomerRoute);
 app.use('/admin', viewsAdminRoute);
