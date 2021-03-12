@@ -120,3 +120,49 @@ button[type=submit]:hover{
 
 
 
+/* $white: #fff;
+$google-blue: #4285f4;
+$button-active-blue: #1669F2; */
+.formone {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  justify-content: space-between;
+  width: 100%
+}
+
+.header {
+  padding: 0 0 20px 30px;
+  font-weight: bold
+}
+
+.btn.fb {
+  width: 180px;
+  border: none;
+  border-radius: 5px;
+  background: #01579B;
+  
+}
+
+.btn.gplus {
+  width: 180px;
+  border: none;
+  border-radius: 5px;
+  background: #F44336
+}
+
+.xyz {
+  position: relative
+}
+
+.xyz img {
+  position: absolute;
+  left: 0;
+  top: 0px;
+  padding: 10px 20px;
+  height: 40px
+}
+
+
+
+
