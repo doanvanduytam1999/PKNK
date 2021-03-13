@@ -9,7 +9,7 @@ const flash = require('connect-flash');
 var session = require('express-session');
 const xss = require('xss-clean');
 const passport = require('passport');
-const mongoose = require('mongoose');
+
 
 
 const viewsCustomerRoute = require('./routes/viewsCustomerRoute');
@@ -71,44 +71,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 //Routes
-app.get('/', (req, res)=> res.send("Đang không đăng nhập!"));
-app.get('/failed', (req, res)=> res.send("Đăng nhập thất bại!"));
-app.get('/good', Kt ,(req, res)=>{
-    console.log(req.user.displayName);
-    res.send(`Chào mừng ${req.user.displayName}!`)
-} );
-
-app.get('/google', passport.authenticate('google',{scope: ['profile', 'email']}));
-
-app.get('/google/callback', passport.authenticate('google',{failureRedirect: '/failed', successRedirect: '/good'})
-);
-
-app.get('/logout',(req, res)=>{
-    req.session.destroy(function(err) {
-        if(err) {
-          return next(err);
-        } else {
-          return res.redirect('/');
-        }
-      });
-    }
-);
-
-app.get('/auth/facebook',
-  passport.authenticate('facebook'));
-
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/');
-  });
 
 
-/* app.use('/', viewsCustomerRoute);
+
+//fb
+
+
+
+
+app.use('/', viewsCustomerRoute);
 app.use('/admin', viewsAdminRoute);
 app.use('/api/v1/Customers', customerRouter);
-app.use('/api/v1/Admins', userAdminRouter); */
+app.use('/api/v1/Admins', userAdminRouter);
 //app.use('/api/v1/userAdmins', userAdminRouter);
 
 //Catch 404 Erros and forward them to error handler

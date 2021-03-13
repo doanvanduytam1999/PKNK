@@ -44,9 +44,22 @@ exports.getTypeService = catchAsync(async (req, res, next) => {
     })
 });
 exports.getServiceHome = catchAsync(async (req, res, next) => {
-    const typeService = await TypeService.find();
-    const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
+    const typeService = await TypeService.find()
+    let name;
+    let kiemTralogin;
+    if(req.user){
+        if(req.user.displayName){
+            name = req.user.displayName;
+        }else{
+            name = req.user.name;
+        }
+        kiemTralogin = "yes";
+    }else{
+        kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
+        name = kiemTralogin.username;
+    }
     res.status(200).render('customer/index', {
+        Name: name,
         TypeService: typeService,
         view: req.session.view,
         KiemTralogin: kiemTralogin,

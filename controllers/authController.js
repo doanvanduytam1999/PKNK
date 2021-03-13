@@ -130,6 +130,7 @@ const createSendTokenAdmin = (userAdmin, statusCode, res) => {
 //logout  customer
 
 exports.logoutCustomer = (req, res) => {
+  req.session.destroy();
   res.cookie('jwt', 'loggedout', {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true
