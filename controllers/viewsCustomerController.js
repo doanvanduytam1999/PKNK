@@ -19,7 +19,7 @@ exports.getHomePage = (req, res, next) => {
         patch: '/'
     })
 };
-exports.getSchedule = catchAsync(async (req, res, next) => {
+exports.getSchedule = catchAsync(async(req, res, next) => {
     const service = await ServiceModel.find();
     const typeservice = await TypeService.find();
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
@@ -33,7 +33,7 @@ exports.getSchedule = catchAsync(async (req, res, next) => {
         patch: '/schedule'
     })
 });
-exports.getTypeService = catchAsync(async (req, res, next) => {
+exports.getTypeService = catchAsync(async(req, res, next) => {
     const typeService = await TypeService.find().populate('services');
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     res.status(200).render('customer/service', {
@@ -43,23 +43,10 @@ exports.getTypeService = catchAsync(async (req, res, next) => {
         patch: '/service'
     })
 });
-exports.getServiceHome = catchAsync(async (req, res, next) => {
-    const typeService = await TypeService.find()
-    let name;
-    let kiemTralogin;
-    if(req.user){
-        if(req.user.displayName){
-            name = req.user.displayName;
-        }else{
-            name = req.user.name;
-        }
-        kiemTralogin = "yes";
-    }else{
-        kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
-        name = kiemTralogin.username;
-    }
+exports.getServiceHome = catchAsync(async(req, res, next) => {
+    const typeService = await TypeService.find();
+    const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     res.status(200).render('customer/index', {
-        Name: name,
         TypeService: typeService,
         view: req.session.view,
         KiemTralogin: kiemTralogin,
@@ -67,7 +54,7 @@ exports.getServiceHome = catchAsync(async (req, res, next) => {
         patch: '/'
     })
 });
-exports.getServiceCustomer = catchAsync(async (req, res, next) => {
+exports.getServiceCustomer = catchAsync(async(req, res, next) => {
     const option = req.params.index;
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     const typeservice = await TypeService.find();
@@ -90,7 +77,7 @@ exports.getThongTin = (req, res, next) => {
         patch: '/thongtin'
     })
 };
-exports.getSignin = catchAsync(async (req, res, next) => {
+exports.getSignin = catchAsync(async(req, res, next) => {
     const typeService = await TypeService.find();
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     res.status(200).render('customer/sign-in_customer', {
@@ -100,7 +87,7 @@ exports.getSignin = catchAsync(async (req, res, next) => {
         patch: '/sign-in'
     })
 });
-exports.getLogin = catchAsync(async (req, res, next) => {
+exports.getLogin = catchAsync(async(req, res, next) => {
     const typeService = await TypeService.find();
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     res.status(200).render('customer/login_customer', {
@@ -111,7 +98,7 @@ exports.getLogin = catchAsync(async (req, res, next) => {
     })
 });
 
-exports.postDatLich = catchAsync(async (req, res, next) => {
+exports.postDatLich = catchAsync(async(req, res, next) => {
     const dichvu = req.body.id_service;
     const lichdat = await LichDat.create({
         time: req.body.time,
@@ -126,7 +113,7 @@ exports.postDatLich = catchAsync(async (req, res, next) => {
     res.redirect('/get-schedule');
 });
 
-exports.postAddCustomer = catchAsync(async (req, res, next) => {
+exports.postAddCustomer = catchAsync(async(req, res, next) => {
     const customer = await CustomerModel.create({
         hovaten: req.body.hovaten,
         username: req.body.username,
@@ -140,7 +127,7 @@ exports.postAddCustomer = catchAsync(async (req, res, next) => {
     res.status(200).redirect('/login');
 });
 
-exports.getService = catchAsync(async (req, res, next) => {
+exports.getService = catchAsync(async(req, res, next) => {
     const id = req.params.id;
     const typeService = await TypeService.findById(id).populate('services');
     res.status(200).json({
@@ -149,7 +136,7 @@ exports.getService = catchAsync(async (req, res, next) => {
     });
 })
 
-exports.getDistrict = catchAsync(async (req, res, next) => {
+exports.getDistrict = catchAsync(async(req, res, next) => {
     const id = req.params.id;
     const city = await CityModel.findById(id).populate('districts');
     res.status(200).json({
@@ -159,7 +146,7 @@ exports.getDistrict = catchAsync(async (req, res, next) => {
     });
 })
 
-exports.getAgency = catchAsync(async (req, res, next) => {
+exports.getAgency = catchAsync(async(req, res, next) => {
     const id = req.params.id;
     const district = await DistrictModel.findById(id).populate('agencys');
     res.status(200).json({
@@ -168,7 +155,7 @@ exports.getAgency = catchAsync(async (req, res, next) => {
     });
 });
 
-exports.getTypeService2 = catchAsync(async (req, res, next) => {
+exports.getTypeService2 = catchAsync(async(req, res, next) => {
     const typeservice = await TypeService.find();
     res.status(200).json({
         status: 'success',
@@ -177,7 +164,7 @@ exports.getTypeService2 = catchAsync(async (req, res, next) => {
 });
 
 
-exports.getProfile = catchAsync(async (req, res, next) => {
+exports.getProfile = catchAsync(async(req, res, next) => {
     const typeservice = await TypeService.find();
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     res.status(200).render('customer/profile', {
@@ -188,22 +175,20 @@ exports.getProfile = catchAsync(async (req, res, next) => {
     })
 });
 
-exports.postEditUser = catchAsync(async (req, res, next) => {
+exports.postEditUser = catchAsync(async(req, res, next) => {
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     const userCustomer = await CustomerModel.findByIdAndUpdate(kiemTralogin.id, {
         hovaten: req.body.hovaten,
         phone: req.body.phone,
         email: req.body.email
-    },
-        {
-            new: true,
-            runValidators: true
-        }
-    );
+    }, {
+        new: true,
+        runValidators: true
+    });
     res.redirect('/profile');
 });
 
-exports.getLichDatTheoQuan = catchAsync(async (req, res, next) => {
+exports.getLichDatTheoQuan = catchAsync(async(req, res, next) => {
     var today = new Date();
     var date = "";
     if ((today.getMonth() + 1) > 10 && today.getDate() > 10) {
@@ -226,7 +211,7 @@ exports.getLichDatTheoQuan = catchAsync(async (req, res, next) => {
 
     const lichdat = await LichDat.find().populate('districtID');
     var result = [];
-    lichdat.forEach(function (element) {
+    lichdat.forEach(function(element) {
         var a = element.time.substr(0, 10);
         if (a == date && element.districtID.districtName == "Quận 7") {
             result.push(element);
@@ -235,7 +220,7 @@ exports.getLichDatTheoQuan = catchAsync(async (req, res, next) => {
     res.send(result);
 });
 
-exports.postUpdatePassword = catchAsync(async (req, res, next) => {
+exports.postUpdatePassword = catchAsync(async(req, res, next) => {
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     const userCustomer = await CustomerModel.findById(kiemTralogin.id).select('+password');
     if (!userCustomer) {
@@ -243,16 +228,15 @@ exports.postUpdatePassword = catchAsync(async (req, res, next) => {
     } else {
         userCustomer.password = req.body.matkhaumoi
         userCustomer.passwordConfirm = req.body.xacnhanmatkhaumoi
-        await userCustomer.save(
-            {
-                validateBeforeSave: true,
-                runValidators: true
-            });
+        await userCustomer.save({
+            validateBeforeSave: true,
+            runValidators: true
+        });
     }
     res.redirect('/profile');
 });
 
-exports.getViewSchedule = catchAsync(async (req, res, next) => {
+exports.getViewSchedule = catchAsync(async(req, res, next) => {
     const service = await ServiceModel.find();
     const typeservice = await TypeService.find();
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
@@ -268,13 +252,13 @@ exports.getViewSchedule = catchAsync(async (req, res, next) => {
         patch: '/viewschedule'
     })
 });
-exports.getDetailSchedule = catchAsync(async (req, res, next) => {
+exports.getDetailSchedule = catchAsync(async(req, res, next) => {
     const service = await ServiceModel.find();
     const typeservice = await TypeService.find();
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
     const city = await CityModel.find();
     const id = req.params.id;
-    const schedule = await LichDat.findOne({_id: id}).populate('agencyID').populate('serviceID');
+    const schedule = await LichDat.findOne({ _id: id }).populate('agencyID').populate('serviceID');
     res.status(200).render('customer/detailschedule_customer', {
         Schedule: schedule,
         Service: service,
@@ -288,7 +272,7 @@ exports.getDetailSchedule = catchAsync(async (req, res, next) => {
 
 exports.getStudent = catchAsync(async(req, res, next) => {
     const student = await StudentModel.find();
-    res.status(200).render('customer/students',{
+    res.status(200).render('customer/students', {
         Students: student,
         pageTitle: 'Danh sách nhóm',
         patch: '/get-student'

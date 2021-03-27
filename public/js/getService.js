@@ -2,22 +2,22 @@ import axios from 'axios';
 
 export const getService = (id) => {
 
-    const url = 'http://localhost:4000/api/v1/Customers/getService';
+    const url = 'https://pknk.herokuapp.com/api/v1/Customers/getService';
     axios({
-        method: 'POST',
-        url,
-        data: {
-            id: id
-        },
+            method: 'POST',
+            url,
+            data: {
+                id: id
+            },
 
-    })
-    .then(res => {
-        console.log(res.data.data.Services);
-        
-        if (res.data.status === "success") {
-            return res.data.data.Services;
-        }
-    })
+        })
+        .then(res => {
+            console.log(res.data.data.Services);
+
+            if (res.data.status === "success") {
+                return res.data.data.Services;
+            }
+        })
 
 }
 

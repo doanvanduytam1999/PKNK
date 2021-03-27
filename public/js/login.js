@@ -1,16 +1,16 @@
 import axios from 'axios';
 import { showAlert } from './alert';
 
-export const login_customer =  (username, password) => {
-    const url = 'http://localhost:4000/api/v1/Customers/login';   
-    axios({ 
+export const login_customer = (username, password) => {
+    const url = 'https://pknk.herokuapp.com/api/v1/Customers/login';
+    axios({
             method: 'POST',
             url,
             data: {
-                username : username,
+                username: username,
                 password: password
             },
-            
+
         })
         .then(res => {
             if (res.data.status === "success") {
@@ -21,20 +21,20 @@ export const login_customer =  (username, password) => {
             }
         })
         .catch(err => {
-            showAlert('error','Đăng nhập thất bại !!!');
+            showAlert('error', 'Đăng nhập thất bại !!!');
         })
 }
 
-export const login_admin =  (usernameAdmin, passwordAdmin) => {
-    const url = 'http://localhost:4000/api/v1/Admins/login';   
-    axios({ 
+export const login_admin = (usernameAdmin, passwordAdmin) => {
+    const url = 'https://pknk.herokuapp.com/api/v1/Admins/login';
+    axios({
             method: 'POST',
             url,
             data: {
-                usernameAdmin : usernameAdmin,
+                usernameAdmin: usernameAdmin,
                 passwordAdmin: passwordAdmin
             },
-            
+
         })
         .then(res => {
             if (res.data.status === "success") {
@@ -45,7 +45,7 @@ export const login_admin =  (usernameAdmin, passwordAdmin) => {
             }
         })
         .catch(err => {
-            showAlert('error','Đăng nhập thất bại !!!');
+            showAlert('error', 'Đăng nhập thất bại !!!');
         })
 }
 
@@ -53,12 +53,12 @@ export const logout = async() => {
     try {
         const res = await axios({
             method: 'GET',
-            url: 'http://localhost:4000/api/v1/Customers/logout',
+            url: 'https://pknk.herokuapp.com/api/v1/Customers/logout',
         });
-        if(res.data.status === 'success') {
+        if (res.data.status === 'success') {
             location.assign('/');
         }
-    }catch(err) {
+    } catch (err) {
         showAlert('error', 'Error loggin out! try again')
     }
 }
@@ -67,12 +67,12 @@ export const logoutAdmin = async() => {
     try {
         const res = await axios({
             method: 'GET',
-            url: 'http://localhost:4000/api/v1/Admins/logout',
+            url: 'https://pknk.herokuapp.com/api/v1/Admins/logout',
         });
-        if(res.data.status === 'success') {
+        if (res.data.status === 'success') {
             location.assign('/admin');
         }
-    }catch(err) {
+    } catch (err) {
         showAlert('error', 'Error loggin out! try again')
     }
 }
