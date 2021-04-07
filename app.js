@@ -71,14 +71,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 //Routes
-
-
-
-//fb
-
-
-
-
 app.use('/', viewsCustomerRoute);
 app.use('/admin', viewsAdminRoute);
 app.use('/api/v1/Customers', customerRouter);

@@ -24,13 +24,13 @@
 
                    
                   <select class="loaiservice"  name="loaiservice" id="loaiservice">
-                    <option  value="0">---Chọn loại dịch vụ---</option>
+                    <option  value="0">---Chọn dịch vụ---</option>
                     <% TypeService.forEach(function(element){ %>
                       <option class="loaiDV" value="<%= element.id  %>"><%= element.typeServiceName  %></option>
                     <% }); %>
                   </select>
                   <select class="service" name="id_service" id="id_service" >
-                    <option  value="0">---Chọn   dịch vụ---</option>
+                    <option  value="0">---Chọn loại dịch vụ---</option>
                   </select>
               </div>
               <br>

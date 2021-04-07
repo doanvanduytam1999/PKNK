@@ -102884,7 +102884,7 @@ var _axios = _interopRequireDefault(require("axios"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var getService = function getService(id) {
-  var url = 'https://pknk.herokuapp.com/api/v1/Customers/getService';
+  var url = 'http://localhost:4000/api/v1/Customers/getService';
   (0, _axios.default)({
     method: 'POST',
     url: url,
@@ -102958,7 +102958,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 var login_customer = function login_customer(username, password) {
-  var url = 'https://pknk.herokuapp.com/api/v1/Customers/login';
+  var url = 'http://localhost:4000/api/v1/Customers/login';
   (0, _axios.default)({
     method: 'POST',
     url: url,
@@ -102981,7 +102981,7 @@ var login_customer = function login_customer(username, password) {
 exports.login_customer = login_customer;
 
 var login_admin = function login_admin(usernameAdmin, passwordAdmin) {
-  var url = 'https://pknk.herokuapp.com/api/v1/Admins/login';
+  var url = 'http://localhost:4000/api/v1/Admins/login';
   (0, _axios.default)({
     method: 'POST',
     url: url,
@@ -103014,7 +103014,7 @@ var logout = /*#__PURE__*/function () {
             _context.next = 3;
             return (0, _axios.default)({
               method: 'GET',
-              url: 'https://pknk.herokuapp.com/api/v1/Customers/logout'
+              url: 'http://localhost:4000/api/v1/Customers/logout'
             });
 
           case 3:
@@ -103058,7 +103058,7 @@ var logoutAdmin = /*#__PURE__*/function () {
             _context2.next = 3;
             return (0, _axios.default)({
               method: 'GET',
-              url: 'https://pknk.herokuapp.com/api/v1/Admins/logout'
+              url: 'http://localhost:4000/api/v1/Admins/logout'
             });
 
           case 3:
@@ -103431,7 +103431,7 @@ $(document).ready(function () {
     console.log(id_loaiservice);
     $.ajax({
       type: 'GET',
-      url: "https://pknk.herokuapp.com/api/v1/Customers/getService/" + id_loaiservice,
+      url: "http://localhost:4000/api/v1/Customers/getService/" + id_loaiservice,
       success: function success(data) {
         $('#id_service').find('option').remove().end();
         $('#id_service').append("<option value=\"0\">Ch\u1ECDn d\u1ECBch v\u1EE5...</option>");
@@ -103451,7 +103451,7 @@ $(document).ready(function () {
     var chinhanh = "---Chọn chi nhánh---";
     $.ajax({
       type: 'GET',
-      url: 'https://pknk.herokuapp.com/api/v1/Customers/getDistrict/' + id_city,
+      url: 'http://localhost:4000/api/v1/Customers/getDistrict/' + id_city,
       success: function success(data) {
         $('#id_district').find('option').remove().end();
         $('#id_district').append("<option>" + chinhanh + "</option>");
@@ -103471,7 +103471,7 @@ $(document).ready(function () {
     var diachi = "---Chọn địa chỉ---";
     $.ajax({
       type: 'GET',
-      url: 'https://pknk.herokuapp.com/api/v1/Customers/getAgency/' + id_district,
+      url: 'http://localhost:4000/api/v1/Customers/getAgency/' + id_district,
       success: function success(data) {
         $('#id_agency').find('option').remove().end();
         $('#id_agency').append("<option>" + diachi + "</option>");
@@ -103517,7 +103517,7 @@ $(document).ready(function () {
     dichvu.appendChild(tbl);
     $.ajax({
       type: 'GET',
-      url: "https://pknk.herokuapp.com/api/v1/Customers/getTypeService",
+      url: "http://localhost:4000/api/v1/Customers/getTypeService",
       success: function success(data) {
         $('#id_loaiservice' + i).append("<option value=\"0\">Ch\u1ECDn d\u1ECBch v\u1EE5...</option>");
         data.TypeService.forEach(function (element) {
@@ -103530,7 +103530,7 @@ $(document).ready(function () {
             console.log(index);
             $.ajax({
               type: 'GET',
-              url: "https://pknk.herokuapp.com/api/v1/Customers/getService/" + id_dv,
+              url: "http://localhost:4000/api/v1/Customers/getService/" + id_dv,
               success: function success(data) {
                 $('#id_multiservice' + index).find('option').remove().end();
                 $('#id_multiservice' + index).append("<option value=\"0\">Ch\u1ECDn d\u1ECBch v\u1EE5...</option>");
@@ -103717,7 +103717,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57609" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65252" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

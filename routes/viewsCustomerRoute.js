@@ -21,7 +21,6 @@ router.get('/profile', authController.isLoggedIn,viewsCustomerController.getProf
 router.get('/DSLichDat', viewsCustomerController.getLichDatTheoQuan);
 router.get('/detailschedule_customer/:id', authController.isLoggedIn,  viewsCustomerController.getDetailSchedule);
 router.get('/view-listschedule', authController.isLoggedIn,  viewsCustomerController.getViewSchedule);
-router.get('/get-student', viewsCustomerController.getStudent);
 
 //demo API
 router.get('/google', passport.authenticate('google',{scope: ['profile', 'email']}))
