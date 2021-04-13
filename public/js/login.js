@@ -2,7 +2,7 @@ import axios from 'axios';
 import { showAlert } from './alert';
 
 export const login_customer = (username, password) => {
-    const url = 'http://localhost:4000/api/v1/Customers/login';
+    const url = 'https://pknk.herokuapp.com//api/v1/Customers/login';
     axios({
             method: 'POST',
             url,
@@ -26,7 +26,7 @@ export const login_customer = (username, password) => {
 }
 
 export const login_admin = (usernameAdmin, passwordAdmin) => {
-    const url = 'http://localhost:4000/api/v1/Admins/login';
+    const url = 'https://pknk.herokuapp.com//api/v1/Admins/login';
     axios({
             method: 'POST',
             url,
@@ -53,7 +53,7 @@ export const logout = async() => {
     try {
         const res = await axios({
             method: 'GET',
-            url: 'http://localhost:4000/api/v1/Customers/logout',
+            url: 'https://pknk.herokuapp.com//api/v1/Customers/logout',
         });
         if (res.data.status === 'success') {
             location.assign('/');
@@ -67,7 +67,7 @@ export const logoutAdmin = async() => {
     try {
         const res = await axios({
             method: 'GET',
-            url: 'http://localhost:4000/api/v1/Admins/logout',
+            url: 'https://pknk.herokuapp.com//api/v1/Admins/logout',
         });
         if (res.data.status === 'success') {
             location.assign('/admin');

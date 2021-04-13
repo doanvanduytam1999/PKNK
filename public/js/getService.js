@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const getService = (id) => {
 
-    const url = 'http://localhost:4000/api/v1/Customers/getService';
+    const url = 'https://pknk.herokuapp.com//api/v1/Customers/getService';
     axios({
             method: 'POST',
             url,
@@ -25,7 +25,7 @@ export const getService = (id) => {
     try {
         const res = await axios({
             method: 'GET',
-            url: 'http://localhost:4000/api/v1/Customers/logout',
+            url: 'https://pknk.herokuapp.com//api/v1/Customers/logout',
         });
         if(res.data.status === 'success') {
             location.assign('/');
