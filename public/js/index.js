@@ -72,7 +72,7 @@ $(document).ready(function() {
         console.log(id_loaiservice);
         $.ajax({
             type: 'GET',
-            url: "https://pknk.herokuapp.com//api/v1/Customers/getService/" + id_loaiservice,
+            url: "https://pknk.herokuapp.com/api/v1/Customers/getService/" + id_loaiservice,
             success: function(data) {
                 $('#id_service').find('option').remove().end();
                 $('#id_service').append(`<option value="0">Chọn dịch vụ...</option>`);
@@ -94,7 +94,7 @@ $(document).ready(function() {
         var chinhanh = "---Chọn chi nhánh---"
         $.ajax({
             type: 'GET',
-            url: 'https://pknk.herokuapp.com//api/v1/Customers/getDistrict/' + id_city,
+            url: 'https://pknk.herokuapp.com/api/v1/Customers/getDistrict/' + id_city,
             success: function(data) {
                 $('#id_district').find('option').remove().end();
                 $('#id_district').append("<option>" + chinhanh + "</option>");
@@ -117,7 +117,7 @@ $(document).ready(function() {
         var diachi = "---Chọn địa chỉ---"
         $.ajax({
             type: 'GET',
-            url: 'https://pknk.herokuapp.com//api/v1/Customers/getAgency/' + id_district,
+            url: 'https://pknk.herokuapp.com/api/v1/Customers/getAgency/' + id_district,
             success: function(data) {
                 $('#id_agency').find('option').remove().end();
                 $('#id_agency').append("<option>" + diachi + "</option>");
@@ -173,7 +173,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'GET',
-            url: "https://pknk.herokuapp.com//api/v1/Customers/getTypeService",
+            url: "https://pknk.herokuapp.com/api/v1/Customers/getTypeService",
             success: function(data) {
 
                 $('#id_loaiservice' + i).append(`<option value="0">Chọn dịch vụ...</option>`);
@@ -191,7 +191,7 @@ $(document).ready(function() {
                         console.log(index);
                         $.ajax({
                             type: 'GET',
-                            url: "https://pknk.herokuapp.com//api/v1/Customers/getService/" + id_dv,
+                            url: "https://pknk.herokuapp.com/api/v1/Customers/getService/" + id_dv,
                             success: function(data) {
 
                                 $('#id_multiservice' + index).find('option').remove().end();
