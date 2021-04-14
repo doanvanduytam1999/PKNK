@@ -80,6 +80,7 @@ exports.getThongTin = (req, res, next) => {
 exports.getSignin = catchAsync(async(req, res, next) => {
     const typeService = await TypeService.find();
     const kiemTralogin = await authController.isLoggedIn2(req.cookies.jwt);
+    
     res.status(200).render('customer/sign-in_customer', {
         TypeService: typeService,
         KiemTralogin: kiemTralogin,
